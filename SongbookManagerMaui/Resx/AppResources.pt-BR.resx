@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessingSharedList" xml:space="preserve">
+    <value>Acessando uma lista compartilhada</value>
+  </data>
+  <data name="AddMusicChordsLyricsTutorial" xml:space="preserve">
+    <value>A letra pode ficar errada se o tom da música for alterado.</value>
+  </data>
+  <data name="AddMusicChordsTutorial" xml:space="preserve">
+    <value>No campo de acordes insira apenas as cifras sem a letra.</value>
+  </data>
+  <data name="AddMusicKeysTutorial" xml:space="preserve">
+    <value>Ao mudar o tom da música as cifras serão ajustadas automaticamente.</value>
+  </data>
+  <data name="AddMusicProfileTutorial" xml:space="preserve">
+    <value>Na página do perfil você poderá definir se é um cantor ou não.</value>
+  </data>
+  <data name="AddMusicSingersKeysTutorial" xml:space="preserve">
+    <value>No campo de tons serão exibidos os cantores que tem acesso à música e você poderá definir o tom de cada cantor.</value>
+  </data>
+  <data name="AddMusicVersionTutorial" xml:space="preserve">
+    <value>A versão da música deve ser um link do YouTube, Spotify ou Deezer.</value>
+  </data>
+  <data name="AddPeople" xml:space="preserve">
+    <value>Adicione pessoas</value>
+  </data>
+  <data name="AddRepertoirePageTutorial" xml:space="preserve">
+    <value>Preencha as informações do repertório e selecione as músicas que farão parte desse repertório.</value>
+  </data>
+  <data name="Afternoon" xml:space="preserve">
+    <value>Tarde</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="AreYouShure" xml:space="preserve">
+    <value>Tem certeza?</value>
+  </data>
+  <data name="AreYouShureRepertoireRemoved" xml:space="preserve">
+    <value>Esse repertório será removido</value>
+  </data>
+  <data name="AreYouShureSongRemoved" xml:space="preserve">
+    <value>Essa música será removida da sua lista.</value>
+  </data>
+  <data name="AreYouSureYouWantToLogout" xml:space="preserve">
+    <value>Tem certeza que deseja sair?</value>
+  </data>
+  <data name="Artist" xml:space="preserve">
+    <value>Artista</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Alterar senha</value>
+  </data>
+  <data name="Chords" xml:space="preserve">
+    <value>Acordes</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirme a senha</value>
+  </data>
+  <data name="CouldNotChangePassword" xml:space="preserve">
+    <value>Não foi possível alterar a senha</value>
+  </data>
+  <data name="CouldNotLoadSingers" xml:space="preserve">
+    <value>Não foi possível carregar os cantores</value>
+  </data>
+  <data name="CouldNotLoadSong" xml:space="preserve">
+    <value>Não foi possível carregar a música</value>
+  </data>
+  <data name="CouldNotLoadSongData" xml:space="preserve">
+    <value>Não foi possível carregar os dados de músicas</value>
+  </data>
+  <data name="CouldNotRemoveRepertoire" xml:space="preserve">
+    <value>Não foi possível remover o repertório</value>
+  </data>
+  <data name="CouldNotRemoveSong" xml:space="preserve">
+    <value>Não foi possível remover a música</value>
+  </data>
+  <data name="CouldNotSaveRepertoire" xml:space="preserve">
+    <value>Não foi possível salvar o repertório</value>
+  </data>
+  <data name="CouldNotSaveSong" xml:space="preserve">
+    <value>Não foi possível salvar a música</value>
+  </data>
+  <data name="CouldNotSendRepertoire" xml:space="preserve">
+    <value>Não foi possível enviar o repertório</value>
+  </data>
+  <data name="CouldNotSignIn" xml:space="preserve">
+    <value>Não foi possível fazer login</value>
+  </data>
+  <data name="CouldNotUpdateRepertoireList" xml:space="preserve">
+    <value>Não foi possível atualizar a lista de repertórios</value>
+  </data>
+  <data name="CouldNotUpdateSharedUserList" xml:space="preserve">
+    <value>Não foi possível atualizar a lista de usuário compartilhados</value>
+  </data>
+  <data name="CouldNotUpdateSongList" xml:space="preserve">
+    <value>Não foi possível atualizar a lista de músicas</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Personalisado</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Dados</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Excluir</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Detalhes</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="EmailWithNewPasswordSent" xml:space="preserve">
+    <value>E-mail enviado com sua nova senha</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data final</value>
+  </data>
+  <data name="EnterNameForTheSong" xml:space="preserve">
+    <value>Informe um nome para a música</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Erro</value>
+  </data>
+  <data name="ErrorResettingPassword" xml:space="preserve">
+    <value>Erro ao redefinir a senha</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="FeedbackForSongbook" xml:space="preserve">
+    <value>Feedback para Song Folder Lite</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Esqueceu a senha?</value>
+  </data>
+  <data name="GiveAName" xml:space="preserve">
+    <value>Informe um nome</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Inválido</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>E-mail inválido</value>
+  </data>
+  <data name="InvalidEmailPassword" xml:space="preserve">
+    <value>E-mail ou senha inválidos</value>
+  </data>
+  <data name="IsSinger" xml:space="preserve">
+    <value>É cantor?</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Tom</value>
+  </data>
+  <data name="Keys" xml:space="preserve">
+    <value>Tons</value>
+  </data>
+  <data name="Last6Months" xml:space="preserve">
+    <value>Últimos 6 meses</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Último mês</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Último ano</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Lyric" xml:space="preserve">
+    <value>Letra</value>
+  </data>
+  <data name="MinimumCharacterMessage" xml:space="preserve">
+    <value>A senha precisa ter no mínimo 6 caracteres</value>
+  </data>
+  <data name="Morning" xml:space="preserve">
+    <value>manhã</value>
+  </data>
+  <data name="MostPlayedSongs" xml:space="preserve">
+    <value>Músicas mais tocadas</value>
+  </data>
+  <data name="MusicList" xml:space="preserve">
+    <value>Lista de músicas</value>
+  </data>
+  <data name="Musics" xml:space="preserve">
+    <value>Músicas</value>
+  </data>
+  <data name="MusicsAddMusicTutorial" xml:space="preserve">
+    <value>Para adicionar uma nova música clique no botão de adicionar no canto inferior direito.</value>
+  </data>
+  <data name="MusicsListSharedTutorial" xml:space="preserve">
+    <value>Se você estiver acessando uma lista compartilhada essa música será adicionada na lista de quem está compartilhando a lista.</value>
+  </data>
+  <data name="MusicsPageTutorial" xml:space="preserve">
+    <value>Nessa página é exibida sua lista de músicas registradas ou de acesso compartilhado.</value>
+  </data>
+  <data name="MusicsPreviewMusicTutorial" xml:space="preserve">
+    <value>Para visualizar ou editar uma música basta selecionar a música.</value>
+  </data>
+  <data name="MusicsSearchTutorial" xml:space="preserve">
+    <value>A barra de busca procura pelo nome da música e exibe as músicas correspondentes.</value>
+  </data>
+  <data name="MusicsShareListTutorial" xml:space="preserve">
+    <value>Para compartilhar sua lista de músicas com outras pessoas clique no botão de 'Share' no menu de cima.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova senha</value>
+  </data>
+  <data name="NewPasswordEmailBody" xml:space="preserve">
+    <value>Olá,&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;Sua nova senha é: XXXXXX&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;Utilize esta senha para logar no aplicativo. Você poderá altera-la dentro da aplicação.&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;Obrigado,&amp;lt;br /&amp;gt;&amp;lt;br /&amp;gt;Equipe Songbook</value>
+  </data>
+  <data name="NewPasswordEmailSubject" xml:space="preserve">
+    <value>Nova senha de acesso para Song Folder Lite</value>
+  </data>
+  <data name="NewUser" xml:space="preserve">
+    <value>Novo usuário?</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>Noite</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Anotações</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Senha alterada</value>
+  </data>
+  <data name="PasswordsNotMatch" xml:space="preserve">
+    <value>As senhas não correspondem</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Tocar</value>
+  </data>
+  <data name="PlayRepertoire" xml:space="preserve">
+    <value>Tocar repertório</value>
+  </data>
+  <data name="PreviewMusicEditTutorial" xml:space="preserve">
+    <value>Utilize o botão de edição no topo da tela para editar as informações da música.</value>
+  </data>
+  <data name="PreviewMusicKeyChangeTutorial" xml:space="preserve">
+    <value>Ao mudar o tom da música os acordes serão ajustados de acordo com o tom. Essa alteração não será salva, será apenas para visualização.</value>
+  </data>
+  <data name="PreviewMusicPlayTutorial" xml:space="preserve">
+    <value>Se a música tiver uma versão definida vai aparecer um botão 'Tocar' na tela e ao clicar nesse botão você será direcionado para a plataforma de reprodução da música.</value>
+  </data>
+  <data name="PreviewMusicRemoveTutorial" xml:space="preserve">
+    <value>Utilize o botão de remoção para remover a música da lista de músicas.</value>
+  </data>
+  <data name="PreviewMusicSharedListTutorial" xml:space="preserve">
+    <value>Se você estiver acessando uma lista compartilhada a modificação vai ocorrer na lista de quem te deu acesso.</value>
+  </data>
+  <data name="PreviewMusicSingersKeysTutorial" xml:space="preserve">
+    <value>Na tela de tons serão exibidos apenas os cantores que tem um tom registrado para essa música.</value>
+  </data>
+  <data name="PreviewRepertoireEditRemoveTutorial" xml:space="preserve">
+    <value>No menu secundário é possível editar o remover o repertório.</value>
+  </data>
+  <data name="PreviewRepertoirePageTutorial" xml:space="preserve">
+    <value>Nessa tela são exibidos os detalhes do repertótio como cantor, horários e as músicas com o tom do cantor, caso estejam definidos na música.</value>
+  </data>
+  <data name="PreviewRepertoirePlayTutorial" xml:space="preserve">
+    <value>No menu do topo é possível entrar no modo de reprodução do repertório clicando no botão da esquerda.</value>
+  </data>
+  <data name="PreviewRepertoireReorderTutorial" xml:space="preserve">
+    <value>Também é possível reordar as músicas da lista. Para reordenar, seleciona a música que deseja mudar de posição e depois selecione a posição que deseja que ela fique.</value>
+  </data>
+  <data name="PreviewRepertoireSendTutorial" xml:space="preserve">
+    <value>Clicando no botão a direita é possível enviar esse repertório em formato de texto.</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Política de privacidade</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="RateUs" xml:space="preserve">
+    <value>Nos avalie</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="Repertoires" xml:space="preserve">
+    <value>Repertórios</value>
+  </data>
+  <data name="RepertoiresAddRepertoireTutorial" xml:space="preserve">
+    <value>Para adicionar um novo repertório clique no botão de adicionar no canto inferior direito.</value>
+  </data>
+  <data name="RepertoiresPageTutorial" xml:space="preserve">
+    <value>Nessa página é exibida sua lista de repertórios registrados ou de acesso compartilhado.</value>
+  </data>
+  <data name="RepertoiresPreviewRepertoireTutorial" xml:space="preserve">
+    <value>Para visualizar ou editar um repertório basta selecionar o repertório.</value>
+  </data>
+  <data name="RepertoiresSearchTutorial" xml:space="preserve">
+    <value>A barra de busca procura pela data do repertório ou pelo cantor e exibe os repertórios correspondentes.</value>
+  </data>
+  <data name="ResetPasswordDescription" xml:space="preserve">
+    <value>Uma nova senha de acesso será enviada para o e-mail registrado na conta. Após logar com essa senha você poderá escolher uma nova no seu perfil dentro da aplicação.</value>
+  </data>
+  <data name="ResetPasswordTitle" xml:space="preserve">
+    <value>Redefinir senha</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar...</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="SendRepertoire" xml:space="preserve">
+    <value>Enviar repertório</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Compartilhar</value>
+  </data>
+  <data name="SharePageNotShareTutorial" xml:space="preserve">
+    <value>Se você estiver acessando uma lista compartilhada você não poderá compartilha-la com outras pessoas.</value>
+  </data>
+  <data name="SharePagePersonalListTutorial" xml:space="preserve">
+    <value>Caso você tenha músicas em sua lista pessoal, ao acessar uma lista compartilhada as suas música serão mantidas, porém você não verá elas na página de músicas a não ser que você saia do compartilhamento.</value>
+  </data>
+  <data name="SharePageSharedListTutorial" xml:space="preserve">
+    <value>Se você estiver acessando uma lista compartilhada você só verá a lista de música compartilhada e toda modificação que você realizar será feita nessa lista compartilhada.</value>
+  </data>
+  <data name="SharePageTutorial" xml:space="preserve">
+    <value>Nessa página é possível compartilhar sua lista de músicas com outras pessoas ou gerenciar esse compartilhamento, removendo pessoas ou saindo de um compartilhamento.</value>
+  </data>
+  <data name="SharePermissionTutorial" xml:space="preserve">
+    <value>Quando você compartilhar sua lista com outras pessoas elas terão permissão para visualizar e editar essa lista.</value>
+  </data>
+  <data name="ShareYourSongs" xml:space="preserve">
+    <value>Compartilhe suas músicas</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Inscreva-se</value>
+  </data>
+  <data name="Singer" xml:space="preserve">
+    <value>Cantor</value>
+  </data>
+  <data name="SongsFor" xml:space="preserve">
+    <value>Músicas para</value>
+  </data>
+  <data name="SortByAlphabet" xml:space="preserve">
+    <value>Ordenar por alfabeto</value>
+  </data>
+  <data name="SortByMostRecent" xml:space="preserve">
+    <value>Ordenar por mais recente</value>
+  </data>
+  <data name="SortByOldest" xml:space="preserve">
+    <value>Ordenar por mais antigo</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data de início</value>
+  </data>
+  <data name="StopSharing" xml:space="preserve">
+    <value>Parar Compartilhamento</value>
+  </data>
+  <data name="Sucess" xml:space="preserve">
+    <value>Sucesso</value>
+  </data>
+  <data name="ThereAreNoRegisteredSharedAccessSingers" xml:space="preserve">
+    <value>Não existem cantores registrados ou com acesso compartilhado.</value>
+  </data>
+  <data name="ThereAreNoSingersWithSavedKeysForThisSong" xml:space="preserve">
+    <value>Não existem cantores com tons salvos para esta músicas.</value>
+  </data>
+  <data name="ThisUserWillBeRemovedFromYourShareList" xml:space="preserve">
+    <value>Esse usuário será removido da sua lista de compartilhamentos</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Horário</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>Tutorial</value>
+  </data>
+  <data name="UnablePerformSearch" xml:space="preserve">
+    <value>Não foi possível realizar a busca</value>
+  </data>
+  <data name="UnableRegisterUser" xml:space="preserve">
+    <value>Não foi possível registrar o usuário</value>
+  </data>
+  <data name="UnableRemoveShare" xml:space="preserve">
+    <value>Não foi possível remover compartilhamento</value>
+  </data>
+  <data name="UnableShareSongList" xml:space="preserve">
+    <value>Não foi possível compartilhar a lista de músicas</value>
+  </data>
+  <data name="UnableToLoadKeys" xml:space="preserve">
+    <value>Não foi possível carregar os tons</value>
+  </data>
+  <data name="UnableToUnshare" xml:space="preserve">
+    <value>Não foi possível sair do compartilhamento</value>
+  </data>
+  <data name="UnregisteredUser" xml:space="preserve">
+    <value>Usuário não registrado</value>
+  </data>
+  <data name="UserAlreadyAccessingSharedSongList" xml:space="preserve">
+    <value>O usuário já está acessando uma lista de músicas compartilhada</value>
+  </data>
+  <data name="UserAlreadyRegistered" xml:space="preserve">
+    <value>O usuário já está registrado</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>Usuário não encontrado</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versão</value>
+  </data>
+  <data name="WantToSendRepertoire" xml:space="preserve">
+    <value>Deseja enviar o repertório?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="YouWillNoLongerHaveAccessToThisSongList" xml:space="preserve">
+    <value>Você não terá mais acesso a esta lista de músicas.</value>
+  </data>
+</root>

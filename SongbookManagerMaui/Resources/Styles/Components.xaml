@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary
+    x:Class="SongbookManagerMaui.Resources.Styles.Components"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style x:Key="BaseContentPage" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="#edeff1" />
+        <Setter Property="Shell.BackgroundColor" Value="#5B6677" />
+        <Setter Property="Shell.ForegroundColor" Value="#FFFFFF" />
+        <Setter Property="Shell.TitleColor" Value="#FFFFFF" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="TabbedPage">
+        <Setter Property="BarBackgroundColor" Value="#A0ACBD" />
+        <Setter Property="BarTextColor" Value="White" />
+    </Style>
+
+    <Style x:Key="BaseLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="TextColor" Value="#131516" />
+    </Style>
+
+    <Style
+        x:Key="TitleLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="Title" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <Style
+        x:Key="PrimaryLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="Large" />
+    </Style>
+
+    <Style
+        x:Key="SecondaryLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="Opacity" Value="0.6" />
+    </Style>
+
+    <Style
+        x:Key="MediumLabel"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="Medium" />
+    </Style>
+
+    <Style TargetType="Entry">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="PlaceholderColor" Value="LightGray" />
+    </Style>
+
+    <Style TargetType="Editor">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="PlaceholderColor" Value="LightGray" />
+    </Style>
+
+    <Style TargetType="Picker">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="TitleColor" Value="LightGray" />
+    </Style>
+
+    <Style TargetType="DatePicker">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="TextColor" Value="#131516" />
+    </Style>
+
+    <Style TargetType="TimePicker">
+        <Setter Property="FontFamily" Value="Verdana" />
+        <Setter Property="TextColor" Value="#131516" />
+    </Style>
+
+    <Style x:Key="BaseButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#5B6677" />
+        <Setter Property="TextColor" Value="#FFFFFF" />
+    </Style>
+
+    <Style
+        x:Key="MainButton"
+        BasedOn="{StaticResource BaseButton}"
+        TargetType="Button">
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style
+        x:Key="TransparentButton"
+        BasedOn="{StaticResource BaseButton}"
+        TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="FontSize" Value="Body" />
+        <Setter Property="TextTransform" Value="None" />
+    </Style>
+
+    <Style
+        x:Key="FloatingButton"
+        BasedOn="{StaticResource BaseButton}"
+        TargetType="Button">
+        <Setter Property="CornerRadius" Value="100" />
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="TextTransform" Value="None" />
+        <Setter Property="WidthRequest" Value="55" />
+        <Setter Property="HeightRequest" Value="55" />
+        <Setter Property="Padding" Value="0,0,0,3" />
+        <Setter Property="Text" Value="+" />
+    </Style>
+
+    <Style x:Key="IconListButton" TargetType="ImageButton">
+        <Setter Property="WidthRequest" Value="25" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+    </Style>
+</ResourceDictionary>

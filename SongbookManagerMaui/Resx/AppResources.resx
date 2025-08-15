@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AccessingSharedList" xml:space="preserve">
+    <value>Accessing a shared list</value>
+  </data>
+  <data name="AddMusicChordsLyricsTutorial" xml:space="preserve">
+    <value>Lyrics can be wrong if the key of the song is changed.</value>
+  </data>
+  <data name="AddMusicChordsTutorial" xml:space="preserve">
+    <value>In the chord field enter only the figures without the lyrics.</value>
+  </data>
+  <data name="AddMusicKeysTutorial" xml:space="preserve">
+    <value>When changing the key of the music the chords will be adjusted automatically.</value>
+  </data>
+  <data name="AddMusicProfileTutorial" xml:space="preserve">
+    <value>On the profile page you will be able to define if you are a singer or not.</value>
+  </data>
+  <data name="AddMusicSingersKeysTutorial" xml:space="preserve">
+    <value>In the tone field, the singers who have access to the song will be displayed and you will be able to define the tone of each singer.</value>
+  </data>
+  <data name="AddMusicVersionTutorial" xml:space="preserve">
+    <value>The song version must be a YouTube, Spotify or Deezer link.</value>
+  </data>
+  <data name="AddPeople" xml:space="preserve">
+    <value>Add people</value>
+  </data>
+  <data name="AddRepertoirePageTutorial" xml:space="preserve">
+    <value>Fill in the repertoire information and select the songs that will be part of this repertoire.</value>
+  </data>
+  <data name="Afternoon" xml:space="preserve">
+    <value>Afternoon</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="AreYouShure" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="AreYouShureRepertoireRemoved" xml:space="preserve">
+    <value>This repertoire will be removed</value>
+  </data>
+  <data name="AreYouShureSongRemoved" xml:space="preserve">
+    <value>This song will be removed from your playlist</value>
+  </data>
+  <data name="AreYouSureYouWantToLogout" xml:space="preserve">
+    <value>Are you sure you want to logout?</value>
+  </data>
+  <data name="Artist" xml:space="preserve">
+    <value>Artist</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="Chords" xml:space="preserve">
+    <value>Chords</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="CouldNotChangePassword" xml:space="preserve">
+    <value>Could not change password</value>
+  </data>
+  <data name="CouldNotLoadSingers" xml:space="preserve">
+    <value>Could not load singers</value>
+  </data>
+  <data name="CouldNotLoadSong" xml:space="preserve">
+    <value>Could not load song</value>
+  </data>
+  <data name="CouldNotLoadSongData" xml:space="preserve">
+    <value>Could not load song data</value>
+  </data>
+  <data name="CouldNotRemoveRepertoire" xml:space="preserve">
+    <value>Could not remove repertoire</value>
+  </data>
+  <data name="CouldNotRemoveSong" xml:space="preserve">
+    <value>Could not remove song</value>
+  </data>
+  <data name="CouldNotSaveRepertoire" xml:space="preserve">
+    <value>Could not save repertoire</value>
+  </data>
+  <data name="CouldNotSaveSong" xml:space="preserve">
+    <value>Could not save song</value>
+  </data>
+  <data name="CouldNotSendRepertoire" xml:space="preserve">
+    <value>Could not send repertoire</value>
+  </data>
+  <data name="CouldNotSignIn" xml:space="preserve">
+    <value>Could not sign in</value>
+  </data>
+  <data name="CouldNotUpdateRepertoireList" xml:space="preserve">
+    <value>Could not update repertoire list</value>
+  </data>
+  <data name="CouldNotUpdateSharedUserList" xml:space="preserve">
+    <value>Could not update shared user list</value>
+  </data>
+  <data name="CouldNotUpdateSongList" xml:space="preserve">
+    <value>Could not update song list</value>
+  </data>
+  <data name="Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailWithNewPasswordSent" xml:space="preserve">
+    <value>Email with your new password sent</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="EnterNameForTheSong" xml:space="preserve">
+    <value>Enter a name for the song</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ErrorResettingPassword" xml:space="preserve">
+    <value>Error resetting password</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="FeedbackForSongbook" xml:space="preserve">
+    <value>Feedback for Song Folder Lite</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="GiveAName" xml:space="preserve">
+    <value>Give a name</value>
+  </data>
+  <data name="Invalid" xml:space="preserve">
+    <value>Invalid</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email</value>
+  </data>
+  <data name="InvalidEmailPassword" xml:space="preserve">
+    <value>Invalid email or password</value>
+  </data>
+  <data name="IsSinger" xml:space="preserve">
+    <value>Is singer?</value>
+  </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Keys" xml:space="preserve">
+    <value>Keys</value>
+  </data>
+  <data name="Last6Months" xml:space="preserve">
+    <value>Last 6 months</value>
+  </data>
+  <data name="LastMonth" xml:space="preserve">
+    <value>Last month</value>
+  </data>
+  <data name="LastYear" xml:space="preserve">
+    <value>Last year</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Lyric" xml:space="preserve">
+    <value>Lyric</value>
+  </data>
+  <data name="MinimumCharacterMessage" xml:space="preserve">
+    <value>Password must be at least 6 characters long</value>
+  </data>
+  <data name="Morning" xml:space="preserve">
+    <value>morning</value>
+  </data>
+  <data name="MostPlayedSongs" xml:space="preserve">
+    <value>Most played songs</value>
+  </data>
+  <data name="MusicList" xml:space="preserve">
+    <value>Song list</value>
+  </data>
+  <data name="Musics" xml:space="preserve">
+    <value>Songs</value>
+  </data>
+  <data name="MusicsAddMusicTutorial" xml:space="preserve">
+    <value>To add a new song click on the add button in the lower right corner.</value>
+  </data>
+  <data name="MusicsListSharedTutorial" xml:space="preserve">
+    <value>If you are accessing a shared playlist this song will be added to the list of whoever is sharing the playlist.</value>
+  </data>
+  <data name="MusicsPageTutorial" xml:space="preserve">
+    <value>On this page, your list of registered or shared access songs is displayed.</value>
+  </data>
+  <data name="MusicsPreviewMusicTutorial" xml:space="preserve">
+    <value>To view or edit a song just select the song.</value>
+  </data>
+  <data name="MusicsSearchTutorial" xml:space="preserve">
+    <value>The search bar searches by song name and displays matching songs.</value>
+  </data>
+  <data name="MusicsShareListTutorial" xml:space="preserve">
+    <value>To share your playlist with others click on the 'Share' button in the top menu.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="NewPasswordEmailBody" xml:space="preserve">
+    <value>Hello,&lt;br /&gt;&lt;br /&gt;Your new password is: XXXXXX&lt;br /&gt;&lt;br /&gt;Use this password to log into the application. You can change it within the application.&lt;br /&gt;&lt;br /&gt;Thanks,&lt;br /&gt;&lt;br /&gt;Songbook team</value>
+  </data>
+  <data name="NewPasswordEmailSubject" xml:space="preserve">
+    <value>New password for Song Folder Lite</value>
+  </data>
+  <data name="NewUser" xml:space="preserve">
+    <value>Need an account?</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>night</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordChanged" xml:space="preserve">
+    <value>Password changed</value>
+  </data>
+  <data name="PasswordsNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="PlayRepertoire" xml:space="preserve">
+    <value>Play repertoire</value>
+  </data>
+  <data name="PreviewMusicEditTutorial" xml:space="preserve">
+    <value>Use the edit button at the top of the screen to edit the song information.</value>
+  </data>
+  <data name="PreviewMusicKeyChangeTutorial" xml:space="preserve">
+    <value>By changing the key of the song the chords will be adjusted according to the key. This change will not be saved, it will be for viewing only.</value>
+  </data>
+  <data name="PreviewMusicPlayTutorial" xml:space="preserve">
+    <value>If the song has a defined version, a 'Play' button will appear on the screen and by clicking this button you will be directed to the music playback platform.</value>
+  </data>
+  <data name="PreviewMusicRemoveTutorial" xml:space="preserve">
+    <value>Use the remove button to remove the song from the playlist.</value>
+  </data>
+  <data name="PreviewMusicSharedListTutorial" xml:space="preserve">
+    <value>If you are accessing a shared list, the modification will occur in the list of those who gave you access.</value>
+  </data>
+  <data name="PreviewMusicSingersKeysTutorial" xml:space="preserve">
+    <value>On the Keys screen, only singers who have a registered key for that song will be displayed.</value>
+  </data>
+  <data name="PreviewRepertoireEditRemoveTutorial" xml:space="preserve">
+    <value>In the secondary menu it is possible to edit or remove the repertoire.</value>
+  </data>
+  <data name="PreviewRepertoirePageTutorial" xml:space="preserve">
+    <value>This screen displays the details of the repertoire such as singer, schedules and songs with the singer's key, if defined in the song.</value>
+  </data>
+  <data name="PreviewRepertoirePlayTutorial" xml:space="preserve">
+    <value>In the top menu it is possible to enter the repertoire playback mode by clicking on the left button.</value>
+  </data>
+  <data name="PreviewRepertoireReorderTutorial" xml:space="preserve">
+    <value>It is also possible to reorder the songs in the list. To reorder, select the song you want to change position and then select the position you want it to be in.</value>
+  </data>
+  <data name="PreviewRepertoireSendTutorial" xml:space="preserve">
+    <value>By clicking on the button on the right it is possible to send this repertoire in text format.</value>
+  </data>
+  <data name="PrivacyPolicy" xml:space="preserve">
+    <value>Privacy policy</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="RateUs" xml:space="preserve">
+    <value>Rate us</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Repertoires" xml:space="preserve">
+    <value>Repertoires</value>
+  </data>
+  <data name="RepertoiresAddRepertoireTutorial" xml:space="preserve">
+    <value>To add a new repertoire click on the add button in the lower right corner.</value>
+  </data>
+  <data name="RepertoiresPageTutorial" xml:space="preserve">
+    <value>This page displays your list of registered or shared access repertoires.</value>
+  </data>
+  <data name="RepertoiresPreviewRepertoireTutorial" xml:space="preserve">
+    <value>To view or edit a repertoire just select the repertoire.</value>
+  </data>
+  <data name="RepertoiresSearchTutorial" xml:space="preserve">
+    <value>The search bar searches by repertoire date or singer and displays the corresponding repertoires.</value>
+  </data>
+  <data name="ResetPasswordDescription" xml:space="preserve">
+    <value>A new password will be sent to the email registered to the account. After logging in with this password you can choose a new one in your profile within the application.</value>
+  </data>
+  <data name="ResetPasswordTitle" xml:space="preserve">
+    <value>Reset password</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search...</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendRepertoire" xml:space="preserve">
+    <value>Send repertoire</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="SharePageNotShareTutorial" xml:space="preserve">
+    <value>If you are accessing a shared list you will not be able to share it with other people.</value>
+  </data>
+  <data name="SharePagePersonalListTutorial" xml:space="preserve">
+    <value>If you have songs in your list, accessing a shared list will keep your songs, but you won't see them on the music page unless you unshare.</value>
+  </data>
+  <data name="SharePageSharedListTutorial" xml:space="preserve">
+    <value>If you are accessing a shared playlist you will only see the shared playlist and any changes you make will be made to that shared list.</value>
+  </data>
+  <data name="SharePageTutorial" xml:space="preserve">
+    <value>From this page you can share your list with others or manage this sharing by removing people or leaving a share.</value>
+  </data>
+  <data name="SharePermissionTutorial" xml:space="preserve">
+    <value>When you share your list with others, they will have permission to view and edit that list.</value>
+  </data>
+  <data name="ShareYourSongs" xml:space="preserve">
+    <value>Share your songs</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="Singer" xml:space="preserve">
+    <value>Singer</value>
+  </data>
+  <data name="SongsFor" xml:space="preserve">
+    <value>Songs for</value>
+  </data>
+  <data name="SortByAlphabet" xml:space="preserve">
+    <value>Sort by alphabet</value>
+  </data>
+  <data name="SortByMostRecent" xml:space="preserve">
+    <value>Sort by newest</value>
+  </data>
+  <data name="SortByOldest" xml:space="preserve">
+    <value>Sort by oldest</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
+  <data name="StopSharing" xml:space="preserve">
+    <value>Stop Sharing</value>
+  </data>
+  <data name="Sucess" xml:space="preserve">
+    <value>Sucess</value>
+  </data>
+  <data name="ThereAreNoRegisteredSharedAccessSingers" xml:space="preserve">
+    <value>There are no registered or shared access singers.</value>
+  </data>
+  <data name="ThereAreNoSingersWithSavedKeysForThisSong" xml:space="preserve">
+    <value>There are no singers with saved keys for this song.</value>
+  </data>
+  <data name="ThisUserWillBeRemovedFromYourShareList" xml:space="preserve">
+    <value>This user will be removed from your share list</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Tutorial" xml:space="preserve">
+    <value>Tutorial</value>
+  </data>
+  <data name="UnablePerformSearch" xml:space="preserve">
+    <value>Unable to perform search</value>
+  </data>
+  <data name="UnableRegisterUser" xml:space="preserve">
+    <value>Unable to register user</value>
+  </data>
+  <data name="UnableRemoveShare" xml:space="preserve">
+    <value>Unable to remove share</value>
+  </data>
+  <data name="UnableShareSongList" xml:space="preserve">
+    <value>Unable to share song list</value>
+  </data>
+  <data name="UnableToLoadKeys" xml:space="preserve">
+    <value>Unable to load keys</value>
+  </data>
+  <data name="UnableToUnshare" xml:space="preserve">
+    <value>Unable to unshare</value>
+  </data>
+  <data name="UnregisteredUser" xml:space="preserve">
+    <value>Unregistered user</value>
+  </data>
+  <data name="UserAlreadyAccessingSharedSongList" xml:space="preserve">
+    <value>User is already accessing a shared song list</value>
+  </data>
+  <data name="UserAlreadyRegistered" xml:space="preserve">
+    <value>User is already registered</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="WantToSendRepertoire" xml:space="preserve">
+    <value>Do you want to send the repertoire?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="YouWillNoLongerHaveAccessToThisSongList" xml:space="preserve">
+    <value>You will no longer have access to this song list</value>
+  </data>
+</root>
