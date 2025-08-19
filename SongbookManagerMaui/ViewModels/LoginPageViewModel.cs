@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SongbookManagerMaui.Resx;
 using SongbookManagerMaui.Services;
 using SongbookManagerMaui.Views;
@@ -56,18 +57,18 @@ namespace SongbookManagerMaui.ViewModels
         #endregion
 
         #region Commands
-        public Command LoginCommand { get; set; }
-        public Command SignUpCommand { get; set; }
-        public Command ForgotPasswordCommand { get; set; }
+        public AsyncRelayCommand LoginCommand { get; set; }
+        public AsyncRelayCommand SignUpCommand { get; set; }
+        public AsyncRelayCommand ForgotPasswordCommand { get; set; }
         #endregion
 
         public LoginPageViewModel(IUserService userService)
         {
             _userService = userService;
 
-            LoginCommand = new Command(async () => await LoginActionAsync());
-            SignUpCommand = new Command(async () => await SignUpAction());
-            ForgotPasswordCommand = new Command(async () => await ForgotPasswordAction());
+            LoginCommand = new AsyncRelayCommand(LoginActionAsync);
+            SignUpCommand = new AsyncRelayCommand(SignUpAction);
+            ForgotPasswordCommand = new AsyncRelayCommand(ForgotPasswordAction);
         }
 
         #region Actions

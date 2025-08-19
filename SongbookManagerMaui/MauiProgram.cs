@@ -23,9 +23,13 @@ namespace SongbookManagerMaui
 #endif
             // ViewModels
             builder.Services.AddTransient<LoginPageViewModel>();
+            builder.Services.AddTransient<RegisterPageViewModel>();
+            builder.Services.AddTransient<ForgotPasswordPageViewModel>();
 
             // Views
             builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<RegisterPage>();
+            builder.Services.AddTransient<ForgotPasswordPage>();
 
             // Services
             builder.Services.AddSingleton<IUserService, UserService>();

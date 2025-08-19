@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SongbookManagerMaui.Views.RegisterPage"
-             Title="RegisterPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Title="{x:Static resource:AppResources.NewUser}"
+    Style="{StaticResource BaseContentPage}">
+
+    <VerticalStackLayout Padding="10" VerticalOptions="Start">
+        <Label
+            HorizontalOptions="Center"
+            Style="{StaticResource TitleLabel}"
+            Text="{x:Static resource:AppResources.SignUp}" />
+
+        <Entry Placeholder="{x:Static resource:AppResources.Name}" Text="{Binding Name}" />
+        <Label Text="{Binding NameErrorMessage}" TextColor="Red" />
+
+        <Entry
+            Keyboard="Email"
+            Placeholder="{x:Static resource:AppResources.Email}"
+            Text="{Binding Email}" />
+        <Label Text="{Binding EmailErrorMessage}" TextColor="Red" />
+
+        <Entry
+            IsPassword="True"
+            Placeholder="{x:Static resource:AppResources.Password}"
+            Text="{Binding Password}" />
+
+        <Entry
+            Margin="0,0,0,0"
+            IsPassword="True"
+            Placeholder="{x:Static resource:AppResources.ConfirmPassword}"
+            Text="{Binding ConfirmPassword}" />
+        <Label Text="{Binding PasswordErrorMessage}" TextColor="Red" />
+
+        <Button
+            Command="{Binding RegisterCommand}"
+            Style="{StaticResource MainButton}"
+            Text="{x:Static resource:AppResources.Register}" />
     </VerticalStackLayout>
 </ContentPage>
