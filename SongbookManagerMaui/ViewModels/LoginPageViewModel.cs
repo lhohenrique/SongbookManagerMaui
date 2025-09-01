@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SongbookManagerMaui.ViewModels
 {
-    public class LoginPageViewModel : ObservableObject
+    public partial class LoginPageViewModel : ObservableObject
     {
         #region Fields
         private IUserService _userService;

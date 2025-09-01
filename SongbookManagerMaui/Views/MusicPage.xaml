@@ -1,12 +1,131 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SongbookManagerMaui.Views.MusicPage"
-             Title="MusicPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.MusicPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Resources>
+        <Color x:Key="DarkButtonBackground">#921813</Color>
+        <Style x:Key="FABPrimary" TargetType="Button">
+            <Setter Property="CornerRadius" Value="100" />
+            <Setter Property="BackgroundColor" Value="{StaticResource DarkButtonBackground}" />
+            <Setter Property="HeightRequest" Value="55" />
+            <Setter Property="WidthRequest" Value="55" />
+            <Setter Property="HorizontalOptions" />
+            <Setter Property="VerticalOptions" />
+            <Setter Property="Padding" Value="15" />
+            <Setter Property="Margin" Value="0,0,0,15" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding ShareCommand}"
+            IconImageSource="share.png"
+            Order="Primary"
+            Text="{x:Static resource:AppResources.Share}" />
+        <ToolbarItem
+            Command="{Binding AlphabeticalOrderCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.SortByAlphabet}" />
+        <ToolbarItem
+            Command="{Binding MostRecentOrderCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.SortByMostRecent}" />
+        <ToolbarItem
+            Command="{Binding OldestOrderCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.SortByOldest}" />
+        <ToolbarItem
+            Command="{Binding TutorialCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Tutorial}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <FlexLayout>
+            <ContentView>
+                <StackLayout Spacing="2">
+                    <SearchBar
+                        x:Name="MusicSearchBar"
+                        Placeholder="{x:Static resource:AppResources.Search}"
+                        Text="{Binding SearchText}"
+                        TextChanged="MusicSearchBar_TextChanged" />
+
+                    <StackLayout>
+                        <!--<controls:MTAdView x:Name="MusicPageAds" IsVisible="true" AdsId="ca-app-pub-4649626975914217/2317560399">
+                            <controls:MTAdView.HeightRequest>
+                                <x:OnIdiom>
+                                    <x:OnIdiom.Phone>50</x:OnIdiom.Phone>
+                                    <x:OnIdiom.Tablet>90</x:OnIdiom.Tablet>
+                                    <x:OnIdiom.Desktop>90</x:OnIdiom.Desktop>
+                                </x:OnIdiom>
+                            </controls:MTAdView.HeightRequest>
+                        </controls:MTAdView>-->
+                    </StackLayout>
+
+                    <RefreshView
+                        Padding="0,0,0,2"
+                        Command="{Binding UpdateMusicListCommand}"
+                        IsRefreshing="{Binding IsUpdating, Mode=OneWay}">
+                        <ListView
+                            x:Name="MusicPageMusicListListView"
+                            HasUnevenRows="True"
+                            Header="{Binding}"
+                            ItemsSource="{Binding MusicList, Mode=OneWay}"
+                            SelectedItem="{Binding SelectedMusic}"
+                            SeparatorVisibility="Default">
+                            <ListView.HeaderTemplate>
+                                <DataTemplate>
+                                    <ContentView BackgroundColor="White">
+                                        <Label
+                                            Padding="5"
+                                            Style="{StaticResource SecondaryLabel}"
+                                            Text="{Binding TotalMusics, StringFormat='Total: {0}'}" />
+                                    </ContentView>
+                                </DataTemplate>
+                            </ListView.HeaderTemplate>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout
+                                            Padding="10,5"
+                                            BackgroundColor="White"
+                                            Orientation="Vertical">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                                <ImageButton
+                                                    Margin="0,0,10,0"
+                                                    Command="{Binding Source={x:Reference MusicsPage}, Path=BindingContext.EditMusicCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    HorizontalOptions="EndAndExpand"
+                                                    IsVisible="false"
+                                                    Source="edit.png"
+                                                    Style="{StaticResource IconListButton}" />
+                                                <ImageButton
+                                                    Command="{Binding Source={x:Reference MusicsPage}, Path=BindingContext.RemoveMusicCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    HorizontalOptions="End"
+                                                    IsVisible="false"
+                                                    Source="delete.png"
+                                                    Style="{StaticResource IconListButton}" />
+                                            </StackLayout>
+                                            <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshView>
+                </StackLayout>
+            </ContentView>
+
+            <Button
+                x:Name="AddMusicButton"
+                Command="{Binding NewMusicCommand}"
+                Style="{StaticResource FloatingButton}" />
+        </FlexLayout>
+    </ContentPage.Content>
 </ContentPage>
