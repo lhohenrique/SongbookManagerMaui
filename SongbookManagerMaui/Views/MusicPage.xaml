@@ -22,7 +22,7 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
-            Command="{Binding ShareCommand}"
+            Command="{Binding ShareAsyncCommand}"
             IconImageSource="share.png"
             Order="Primary"
             Text="{x:Static resource:AppResources.Share}" />

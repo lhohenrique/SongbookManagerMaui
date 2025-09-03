@@ -4,9 +4,11 @@ using SongbookManagerMaui.Helpers;
 using SongbookManagerMaui.Models;
 using SongbookManagerMaui.Resx;
 using SongbookManagerMaui.Services;
+using SongbookManagerMaui.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +34,9 @@ namespace SongbookManagerMaui.ViewModels
 
         [ObservableProperty]
         private string searchText;
+
+        [ObservableProperty]
+        private Music selectedMusic;
         #endregion
 
         public MusicPageViewModel(IMusicService musicService)
@@ -41,7 +46,37 @@ namespace SongbookManagerMaui.ViewModels
             MusicList = new ObservableCollection<Music>();
         }
 
-        #region Actions
+        #region Methods
+        protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.PropertyName == nameof(SelectedMusic))
+            {
+                await SelectedMusicAsync();
+            }
+        }
+
+        [RelayCommand]
+        private async Task SelectedMusicAsync()
+        {
+            if(SelectedMusic != null)
+            {
+                await Shell.Current.GoToAsync($"{nameof(PreviewMusicPage)}");
+            }
+        }
+
+        [RelayCommand]
+        private async Task NewMusicAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AddEditMusicPage)}");
+        }
+
+        [RelayCommand]
+        private async Task EditMusicAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(AddEditMusicPage)}");
+        }
+
         private async Task UpdateMusicList()
         {
             try
@@ -97,6 +132,12 @@ namespace SongbookManagerMaui.ViewModels
             {
                 await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.UnablePerformSearch, AppResources.Ok);
             }
+        }
+
+        [RelayCommand]
+        private async void ShareAsync()
+        {
+            await Shell.Current.GoToAsync($"{nameof(SharePage)}");
         }
 
         [RelayCommand]
