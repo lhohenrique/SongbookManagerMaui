@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using SongbookManagerMaui.Helpers;
 using SongbookManagerMaui.Models;
 using SongbookManagerMaui.Resx;
@@ -28,6 +29,9 @@ namespace SongbookManagerMaui.ViewModels
 
         [ObservableProperty]
         private int totalMusics;
+
+        [ObservableProperty]
+        private string searchText;
         #endregion
 
         public MusicPageViewModel(IMusicService musicService)
@@ -69,6 +73,71 @@ namespace SongbookManagerMaui.ViewModels
             {
                 IsUpdating = false;
             }
+        }
+
+        [RelayCommand]
+        private async Task Search()
+        {
+            try
+            {
+                if (!pageLoaded)
+                {
+                    return;
+                }
+
+                //List<Music> musicListUpdated = await App.Database.SearchMusic(SearchText);
+                var userEmail = LoggedUserHelper.GetEmail();
+                List<Music> musicListUpdated = await _musicService.SearchMusic(SearchText, userEmail);
+
+                MusicList.Clear();
+
+                musicListUpdated.ForEach(i => MusicList.Add(i));
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.UnablePerformSearch, AppResources.Ok);
+            }
+        }
+
+        [RelayCommand]
+        private void AlphabeticalOrder()
+        {
+            var orderedList = MusicList.OrderBy(m => m.Name).ToList();
+
+            MusicList.Clear();
+            orderedList.ForEach(i => MusicList.Add(i));
+        }
+
+        [RelayCommand]
+        private void MostRecentOrder()
+        {
+            var orderedList = MusicList.OrderByDescending(m => m.CreationDate).ToList();
+
+            MusicList.Clear();
+            orderedList.ForEach(i => MusicList.Add(i));
+        }
+
+        [RelayCommand]
+        private void OldestOrder()
+        {
+            var orderedList = MusicList.OrderBy(m => m.CreationDate).ToList();
+
+            MusicList.Clear();
+            orderedList.ForEach(i => MusicList.Add(i));
+        }
+
+        [RelayCommand]
+        private async Task Tutorial()
+        {
+            string message = string.Empty;
+            message += "- " + AppResources.MusicsPageTutorial;
+            message += "\n\n- " + AppResources.MusicsAddMusicTutorial;
+            message += "\n*" + AppResources.MusicsListSharedTutorial;
+            message += "\n\n- " + AppResources.MusicsPreviewMusicTutorial;
+            message += "\n\n- " + AppResources.MusicsSearchTutorial;
+            message += "\n\n- " + AppResources.MusicsShareListTutorial;
+
+            await App.Current.MainPage.DisplayAlert(AppResources.Tutorial, message, AppResources.Ok);
         }
         #endregion
 
