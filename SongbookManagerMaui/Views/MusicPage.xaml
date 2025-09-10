@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    BackgroundImageSource="background3.jpg"
     Style="{StaticResource BaseContentPage}">
 
     <ContentPage.Resources>
@@ -76,12 +77,13 @@
                             Header="{Binding}"
                             ItemsSource="{Binding MusicList, Mode=OneWay}"
                             SelectedItem="{Binding SelectedMusic}"
-                            SeparatorVisibility="Default">
+                            SeparatorVisibility="None">
                             <ListView.HeaderTemplate>
                                 <DataTemplate>
-                                    <ContentView BackgroundColor="White">
+                                    <ContentView>
                                         <Label
                                             Padding="5"
+                                            HorizontalOptions="CenterAndExpand"
                                             Style="{StaticResource SecondaryLabel}"
                                             Text="{Binding TotalMusics, StringFormat='Total: {0}'}" />
                                     </ContentView>
@@ -90,30 +92,10 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <StackLayout
-                                            Padding="10,5"
-                                            BackgroundColor="White"
-                                            Orientation="Vertical">
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
-                                                <ImageButton
-                                                    Margin="0,0,10,0"
-                                                    Command="{Binding Source={x:Reference MusicsPage}, Path=BindingContext.EditMusicCommand}"
-                                                    CommandParameter="{Binding}"
-                                                    HorizontalOptions="EndAndExpand"
-                                                    IsVisible="false"
-                                                    Source="edit.png"
-                                                    Style="{StaticResource IconListButton}" />
-                                                <ImageButton
-                                                    Command="{Binding Source={x:Reference MusicsPage}, Path=BindingContext.RemoveMusicCommand}"
-                                                    CommandParameter="{Binding}"
-                                                    HorizontalOptions="End"
-                                                    IsVisible="false"
-                                                    Source="delete.png"
-                                                    Style="{StaticResource IconListButton}" />
-                                            </StackLayout>
+                                        <VerticalStackLayout Padding="10,7">
+                                            <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
                                             <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
-                                        </StackLayout>
+                                        </VerticalStackLayout>
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

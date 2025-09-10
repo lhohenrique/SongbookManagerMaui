@@ -61,6 +61,7 @@ namespace SongbookManagerMaui.ViewModels
         {
             if(SelectedMusic != null)
             {
+                _musicService.SetMusic(SelectedMusic);
                 await Shell.Current.GoToAsync($"{nameof(PreviewMusicPage)}");
             }
         }

@@ -11,7 +11,20 @@ namespace SongbookManagerMaui.Services
 {
     public class MusicService : IMusicService
     {
+        #region Fields
         FirebaseClient client;
+        #endregion
+
+        #region Properties
+        private Music music;
+
+        public Music Music
+        {
+            get { return music; }
+            set { music = value; }
+        }
+
+        #endregion
 
         public MusicService()
         {
@@ -131,6 +144,14 @@ namespace SongbookManagerMaui.Services
         public async Task DeleteAll()
         {
             await client.Child("Musics").DeleteAsync();
+        }
+
+        public void SetMusic(Music selectedMusic)
+        {
+            if(selectedMusic is not null)
+            {
+                Music = selectedMusic;
+            }
         }
     }
 }

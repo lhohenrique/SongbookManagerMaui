@@ -9,6 +9,10 @@ namespace SongbookManagerMaui.Services
 {
     public interface IMusicService
     {
+        #region Properties
+        Music Music { get; set; }
+        #endregion
+
         Task<List<Music>> GetMusics();
 
         Task<List<Music>> GetMusicsByUser(string userEmail);
@@ -26,5 +30,7 @@ namespace SongbookManagerMaui.Services
         Task<List<Music>> SearchMusic(string searchText, string userEmail);
 
         Task DeleteAll();
+
+        void SetMusic(Music selectedMusic);
     }
 }

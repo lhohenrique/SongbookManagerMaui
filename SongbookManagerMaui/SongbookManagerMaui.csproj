@@ -65,10 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Converters\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Resx\AppResources.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
