@@ -1,12 +1,226 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SongbookManagerMaui.Views.AddEditMusicPage"
-             Title="AddEditMusicPage">
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.AddEditMusicPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SongbookManagerMaui.Converters"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Resources>
+        <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
+        <ControlTemplate x:Key="RadioMenuTemplate">
+            <Grid RowDefinitions="30,4">
+                <Label
+                    x:Name="TextLabel"
+                    HorizontalTextAlignment="Center"
+                    Text="{TemplateBinding Content}" />
+                <BoxView
+                    x:Name="Indicator"
+                    Grid.Row="1"
+                    Color="Transparent" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource White}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black" />
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding SaveMusicCommand}"
+            IconImageSource="save.png"
+            Order="Primary"
+            Text="{x:Static resource:AppResources.Save}" />
+        <ToolbarItem
+            Command="{Binding TutorialCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Tutorial}" />
+    </ContentPage.ToolbarItems>
+
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Grid Padding="10,10" RadioButtonGroup.GroupName="MenuCategories">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <RadioButton
+                Content="{x:Static resource:AppResources.Details}"
+                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                IsChecked="{Binding IsDetailsChecked}" />
+            <RadioButton
+                Grid.Column="1"
+                Content="{x:Static resource:AppResources.Chords}"
+                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                IsChecked="{Binding IsChordsChecked}" />
+            <RadioButton
+                Grid.Column="2"
+                Content="{x:Static resource:AppResources.Keys}"
+                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                IsChecked="{Binding IsKeysChecked}" />
+            <RadioButton
+                Grid.Column="3"
+                Content="{x:Static resource:AppResources.Notes}"
+                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                IsChecked="{Binding IsNotesChecked}" />
+            <!--<BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <RadioButton Content="{Binding .}">
+                        <RadioButton.ControlTemplate>
+                            <ControlTemplate>
+                                <Grid RowDefinitions="30,4">
+                                    <Label x:Name="TextLabel" Text="{TemplateBinding Content}" />
+                                    <BoxView
+                                        x:Name="Indicator"
+                                        Grid.Row="1"
+                                        Color="Transparent" />
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroupList>
+                                            <VisualStateGroup x:Name="CheckedStates">
+                                                <VisualState x:Name="Checked">
+                                                    <VisualState.Setters>
+                                                        <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                                        <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource Primary}" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                                <VisualState x:Name="Unchecked">
+                                                    <VisualState.Setters>
+                                                        <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black" />
+                                                        <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent" />
+                                                    </VisualState.Setters>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateGroupList>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Grid>
+                            </ControlTemplate>
+                        </RadioButton.ControlTemplate>
+                    </RadioButton>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+            <BindableLayout.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Hot Dishes</x:String>
+                    <x:String>Cold Dishes</x:String>
+                    <x:String>Soups</x:String>
+                    <x:String>Appetizers</x:String>
+                    <x:String>Desserts</x:String>
+                </x:Array>
+            </BindableLayout.ItemsSource>-->
+        </Grid>
+
+        <ScrollView x:Name="DetailsScrollView" IsVisible="{Binding IsDetailsChecked, Mode=TwoWay}">
+            <StackLayout Padding="10,0">
+                <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Name}" />
+                <Entry Text="{Binding Name}" />
+
+                <Label
+                    Margin="0,10,0,0"
+                    Style="{StaticResource SecondaryLabel}"
+                    Text="{x:Static resource:AppResources.Artist}" />
+                <Entry Text="{Binding Author}" />
+
+                <Label
+                    Margin="0,10,0,0"
+                    Style="{StaticResource SecondaryLabel}"
+                    Text="{x:Static resource:AppResources.Version}" />
+                <Entry Text="{Binding Version}" />
+
+                <Label
+                    Margin="0,10,0,0"
+                    Style="{StaticResource SecondaryLabel}"
+                    Text="{x:Static resource:AppResources.Lyric}" />
+                <Editor AutoSize="TextChanges" Text="{Binding Lyrics}" />
+            </StackLayout>
+        </ScrollView>
+
+        <ScrollView x:Name="ChordsScrollView" IsVisible="{Binding IsChordsChecked, Mode=TwoWay}">
+            <StackLayout Spacing="10">
+                <StackLayout Padding="10,0" Orientation="Horizontal">
+                    <Label
+                        Padding="0,9,0,0"
+                        Style="{StaticResource SecondaryLabel}"
+                        Text="{x:Static resource:AppResources.Key}" />
+                    <Picker
+                        Title="{x:Static resource:AppResources.Key}"
+                        Margin="5,0,0,0"
+                        HorizontalTextAlignment="Center"
+                        ItemsSource="{Binding KeyList}"
+                        SelectedItem="{Binding SelectedKey}" />
+                </StackLayout>
+
+                <StackLayout Padding="10">
+                    <Editor
+                        AutoSize="TextChanges"
+                        Placeholder="{x:Static resource:AppResources.Chords}"
+                        Text="{Binding Chords}" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout x:Name="KeysLayout" IsVisible="{Binding IsKeysChecked, Mode=TwoWay}">
+            <Label
+                Margin="0,10,0,0"
+                Padding="10"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                IsVisible="{Binding HasSingers, Converter={StaticResource reverseBoolConverter}}"
+                Style="{StaticResource SecondaryLabel}"
+                Text="{x:Static resource:AppResources.ThereAreNoRegisteredSharedAccessSingers}" />
+
+            <ListView
+                x:Name="UserListListView"
+                HasUnevenRows="True"
+                ItemsSource="{Binding UserList, Mode=OneWay}"
+                SelectionMode="None"
+                SeparatorVisibility="Default">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                Padding="10"
+                                BackgroundColor="White"
+                                Orientation="Horizontal"
+                                VerticalOptions="FillAndExpand">
+                                <Label
+                                    Style="{StaticResource MediumLabel}"
+                                    Text="{Binding UserName}"
+                                    VerticalOptions="Center" />
+                                <Picker
+                                    Title="{x:Static resource:AppResources.Key}"
+                                    HorizontalOptions="EndAndExpand"
+                                    HorizontalTextAlignment="Center"
+                                    ItemsSource="{Binding Source={x:Reference AddEditMusicContentPage}, Path=BindingContext.KeyList}"
+                                    SelectedItem="{Binding Key}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+
+        <ScrollView
+            x:Name="NotesScrollView"
+            Padding="10"
+            IsVisible="{Binding IsNotesChecked, Mode=TwoWay}">
+            <Editor AutoSize="TextChanges" Text="{Binding Notes}" />
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

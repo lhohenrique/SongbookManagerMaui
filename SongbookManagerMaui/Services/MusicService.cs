@@ -43,6 +43,7 @@ namespace SongbookManagerMaui.Services
                     Chords = item.Object.Chords,
                     Owner = item.Object.Owner,
                     Version = item.Object.Version,
+                    Notes = item.Object.Notes,
                     CreationDate = item.Object.CreationDate
                 }).ToList();
 
@@ -60,6 +61,7 @@ namespace SongbookManagerMaui.Services
                 Chords = item.Object.Chords,
                 Owner = item.Object.Owner,
                 Version = item.Object.Version,
+                Notes = item.Object.Notes,
                 CreationDate = item.Object.CreationDate
             }).Where(m => m.Owner.Equals(userEmail)).ToList();
 
@@ -77,6 +79,7 @@ namespace SongbookManagerMaui.Services
                 Chords = item.Object.Chords,
                 Owner = item.Object.Owner,
                 Version = item.Object.Version,
+                Notes = item.Object.Notes,
                 CreationDate = item.Object.CreationDate
             }).Where(m => m.Owner.Equals(userEmail)).OrderByDescending(m => m.CreationDate).ToList();
 
@@ -94,6 +97,7 @@ namespace SongbookManagerMaui.Services
                 Chords = item.Object.Chords,
                 Owner = item.Object.Owner,
                 Version = item.Object.Version,
+                Notes = item.Object.Notes,
                 CreationDate = item.Object.CreationDate
             }).Where(m => m.Owner.Equals(owner) && m.Name.Equals(name) && m.Author.Equals(author)).FirstOrDefault();
 
@@ -135,6 +139,7 @@ namespace SongbookManagerMaui.Services
                 Chords = item.Object.Chords,
                 Owner = item.Object.Owner,
                 Version = item.Object.Version,
+                Notes = item.Object.Notes,
                 CreationDate = item.Object.CreationDate
             }).Where(m => m.Owner.Equals(userEmail) && m.Name.ToUpper().Contains(searchText.ToUpper())).OrderByDescending(m => m.CreationDate).ToList();
 

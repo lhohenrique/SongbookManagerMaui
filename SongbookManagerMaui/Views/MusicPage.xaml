@@ -46,8 +46,8 @@
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <FlexLayout>
-            <ContentView>
+        <AbsoluteLayout>
+            <ContentView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Spacing="2">
                     <SearchBar
                         x:Name="MusicSearchBar"
@@ -106,8 +106,10 @@
 
             <Button
                 x:Name="AddMusicButton"
+                AbsoluteLayout.LayoutBounds="0.95, 0.95, 55, 55"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
                 Command="{Binding NewMusicCommand}"
                 Style="{StaticResource FloatingButton}" />
-        </FlexLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -2,7 +2,7 @@ using SongbookManagerMaui.ViewModels;
 
 namespace SongbookManagerMaui.Views;
 
-public partial class PreviewMusicPage : TabbedPage
+public partial class PreviewMusicPage : ContentPage
 {
 	public PreviewMusicPage(PreviewMusicPageViewModel viewModel)
 	{
