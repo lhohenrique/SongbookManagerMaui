@@ -17,28 +17,23 @@
     </ShellItem>
 
     <TabBar>
-        <Tab>
-            <ShellContent
-                Title="Musics"
-                ContentTemplate="{DataTemplate views:MusicPage}"
-                Icon="musics.png"
-                Route="MusicPage" />
+        <Tab
+            Title="Musics"
+            Icon="musics.png"
+            Route="MusicPage">
+            <ShellContent ContentTemplate="{DataTemplate views:MusicPage}" />
         </Tab>
-        <!--<Tab Title="{x:Static resource:AppResources.Repertoires}" Route="RepertoirePage" Icon="repertoire.png">
-            <ShellContent>
-                <Views:RepertoirePage Title="{x:Static resource:AppResources.Repertoires}"/>
-            </ShellContent>
+        <Tab
+            Title="{x:Static resource:AppResources.Repertoires}"
+            Icon="repertoire.png"
+            Route="RepertoirePage">
+            <ShellContent ContentTemplate="{DataTemplate views:RepertoirePage}" />
         </Tab>
-        <Tab Title="{x:Static resource:AppResources.Profile}" Route="ProfilePage" Icon="profile.png">
-            <ShellContent>
-                <Views:ProfilePage Title="{x:Static resource:AppResources.Profile}"/>
-            </ShellContent>
-        </Tab>-->
+        <Tab
+            Title="{x:Static resource:AppResources.Profile}"
+            Icon="profile.png"
+            Route="ProfilePage">
+            <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}" />
+        </Tab>
     </TabBar>
-
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />-->
-
 </Shell>

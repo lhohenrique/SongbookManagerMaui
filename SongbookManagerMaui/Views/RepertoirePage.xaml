@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.RepertoirePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    BackgroundImageSource="background3.jpg"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding MostRecentOrderCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.SortByMostRecent}" />
+        <ToolbarItem
+            Command="{Binding OldestOrderCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.SortByOldest}" />
+        <ToolbarItem
+            Command="{Binding DataCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Data}" />
+        <ToolbarItem
+            Command="{Binding TutorialCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Tutorial}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <ContentView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Spacing="2">
+                    <SearchBar
+                        x:Name="RepertoireSearchBar"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="{x:Static resource:AppResources.Search}"
+                        Text="{Binding SearchText}"
+                        TextChanged="RepertoireSearchBar_TextChanged" />
+
+                    <StackLayout>
+                        <!--<controls:MTAdView x:Name="RepertoirePageAds" IsVisible="true" AdsId="ca-app-pub-4649626975914217/2317560399">
+                            <controls:MTAdView.HeightRequest>
+                                <x:OnIdiom>
+                                    <x:OnIdiom.Phone>50</x:OnIdiom.Phone>
+                                    <x:OnIdiom.Tablet>90</x:OnIdiom.Tablet>
+                                    <x:OnIdiom.Desktop>90</x:OnIdiom.Desktop>
+                                </x:OnIdiom>
+                            </controls:MTAdView.HeightRequest>
+                        </controls:MTAdView>-->
+                    </StackLayout>
+
+                    <RefreshView
+                        Padding="0,0,0,2"
+                        Command="{Binding UpdateRepertoireListCommand}"
+                        IsRefreshing="{Binding IsUpdating, Mode=OneWay}">
+                        <ListView
+                            x:Name="RepertoireListView"
+                            HasUnevenRows="True"
+                            ItemsSource="{Binding RepertoireList, Mode=OneWay}"
+                            SelectedItem="{Binding SelectedRepertoire}"
+                            SeparatorVisibility="Default">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout
+                                            Padding="10,5"
+                                            BackgroundColor="White"
+                                            Orientation="Vertical">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding DateFormated}" />
+                                                <Label
+                                                    HorizontalOptions="EndAndExpand"
+                                                    Style="{StaticResource SecondaryLabel}"
+                                                    Text="{Binding TimeFormated}" />
+                                            </StackLayout>
+                                            <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SingerName}" />
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </RefreshView>
+                </StackLayout>
+            </ContentView>
+
+            <Button
+                x:Name="AddRepertoireButton"
+                AbsoluteLayout.LayoutBounds="0.95, 0.95, 55, 55"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                Command="{Binding NewRepertoireCommand}"
+                Style="{StaticResource FloatingButton}" />
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
