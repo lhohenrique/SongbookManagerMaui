@@ -1,10 +1,10 @@
-﻿using Android.Hardware;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SongbookManagerMaui.Helpers;
 using SongbookManagerMaui.Models;
 using SongbookManagerMaui.Resx;
 using SongbookManagerMaui.Services;
+using SongbookManagerMaui.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,7 +25,6 @@ namespace SongbookManagerMaui.ViewModels
         #region Properties
         [ObservableProperty]
         private Repertoire selectedRepertoire;
-        //SelectedRepertoireAction();
 
         [ObservableProperty]
         private string date;
@@ -49,6 +48,15 @@ namespace SongbookManagerMaui.ViewModels
         }
 
         #region Methods
+        protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.PropertyName == nameof(SelectedRepertoire))
+            {
+                await SelectedRepertoireAsync();
+            }
+        }
+
         [RelayCommand]
         private async Task Search()
         {
@@ -77,15 +85,16 @@ namespace SongbookManagerMaui.ViewModels
         {
             if (SelectedRepertoire != null)
             {
-                //_repertoireService.SetMusic(SelectedMusic);
-                await Shell.Current.GoToAsync($"{nameof(PreviewMusicPage)}");
+                _repertoireService.SetRepertoire(SelectedRepertoire);
+                await Shell.Current.GoToAsync($"{nameof(PreviewRepertoirePage)}");
             }
         }
 
         [RelayCommand]
-        private void NewRepertoire()
+        private async Task NewRepertoire()
         {
-            //Navigation.PushAsync(new AddEditRepertoirePage(null));
+            _repertoireService.SetRepertoire(null);
+            await Shell.Current.GoToAsync($"{nameof(AddEditRepertoirePage)}");
         }
 
         [RelayCommand]

@@ -69,6 +69,7 @@ namespace SongbookManagerMaui.ViewModels
         [RelayCommand]
         private async Task NewMusicAsync()
         {
+            _musicService.SetMusic(null);
             await Shell.Current.GoToAsync($"{nameof(AddEditMusicPage)}");
         }
 

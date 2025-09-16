@@ -30,6 +30,8 @@ namespace SongbookManagerMaui
             builder.Services.AddTransient<AddEditMusicPageViewModel>();
             builder.Services.AddSingleton<RepertoirePageViewModel>();
             builder.Services.AddSingleton<ProfilePageViewModel>();
+            builder.Services.AddTransient<PreviewRepertoirePageViewModel>();
+            builder.Services.AddTransient<AddEditRepertoirePageViewModel>();
 
             // Views
             builder.Services.AddTransient<LoginPage>();
@@ -41,6 +43,8 @@ namespace SongbookManagerMaui
             builder.Services.AddTransient<PreviewMusicPage>();
             builder.Services.AddSingleton<RepertoirePage>();
             builder.Services.AddSingleton<ProfilePage>();
+            builder.Services.AddTransient<PreviewRepertoirePage>();
+            builder.Services.AddTransient<AddEditRepertoirePage>();
 
             // Services
             builder.Services.AddSingleton<IUserService, UserService>();

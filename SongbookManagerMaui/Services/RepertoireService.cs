@@ -11,7 +11,18 @@ namespace SongbookManagerMaui.Services
 {
     public class RepertoireService : IRepertoireService
     {
+        #region Fields
         FirebaseClient client;
+        #endregion
+
+        #region Properties
+        private Repertoire repertoire;
+        public Repertoire Repertoire
+        {
+            get { return repertoire; }
+            set { repertoire = value; }
+        }
+        #endregion
 
         public RepertoireService()
         {
@@ -146,6 +157,11 @@ namespace SongbookManagerMaui.Services
         public async Task DeleteAll()
         {
             await client.Child("Repertoires").DeleteAsync();
+        }
+
+        public void SetRepertoire(Repertoire selectedRepertoire)
+        {
+            Repertoire = selectedRepertoire;
         }
     }
 }

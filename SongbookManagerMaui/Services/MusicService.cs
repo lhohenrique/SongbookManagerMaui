@@ -153,10 +153,7 @@ namespace SongbookManagerMaui.Services
 
         public void SetMusic(Music selectedMusic)
         {
-            if(selectedMusic is not null)
-            {
-                Music = selectedMusic;
-            }
+            Music = selectedMusic;
         }
     }
 }

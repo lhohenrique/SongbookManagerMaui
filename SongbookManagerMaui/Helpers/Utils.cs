@@ -1,4 +1,5 @@
-﻿using SongbookManagerMaui.Resx;
+﻿using SongbookManagerMaui.Models;
+using SongbookManagerMaui.Resx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,57 +34,57 @@ namespace SongbookManagerMaui.Helpers
             { "B", 12 }
         };
 
-        //public static async Task SendRepertoire(Repertoire repertoire)
-        //{
-        //    try
-        //    {
-        //        string date = repertoire.Date.ToString("dddd dd/MMM");
+        public static async Task SendRepertoire(Repertoire repertoire)
+        {
+            try
+            {
+                string date = repertoire.Date.ToString("dddd dd/MMM");
 
-        //        string period = string.Empty;
-        //        if (repertoire.Time.Hours < 12)
-        //        {
-        //            period = GlobalVariables.MorningPeriod;
-        //        }
-        //        else if (repertoire.Time.Hours >= 12 && repertoire.Time.Hours < 18)
-        //        {
-        //            period = GlobalVariables.AfternoonPeriod;
-        //        }
-        //        else
-        //        {
-        //            period = GlobalVariables.NightPeriod;
-        //        }
+                string period = string.Empty;
+                if (repertoire.Time.Hours < 12)
+                {
+                    period = GlobalVariables.MorningPeriod;
+                }
+                else if (repertoire.Time.Hours >= 12 && repertoire.Time.Hours < 18)
+                {
+                    period = GlobalVariables.AfternoonPeriod;
+                }
+                else
+                {
+                    period = GlobalVariables.NightPeriod;
+                }
 
-        //        string musicList = string.Empty;
+                string musicList = string.Empty;
 
-        //        foreach (MusicRep music in repertoire.Musics)
-        //        {
-        //            musicList += "\n- " + music.Name;
-        //            if (!string.IsNullOrEmpty(music.Author))
-        //            {
-        //                musicList += " - " + music.Author;
-        //            }
-        //            if (!string.IsNullOrEmpty(music.SingerKey))
-        //            {
-        //                string key = music.SingerKey.Replace("#", "%23");
-        //                musicList += " (" + key + ")";
-        //            }
-        //        }
+                foreach (MusicRep music in repertoire.Musics)
+                {
+                    musicList += "\n- " + music.Name;
+                    if (!string.IsNullOrEmpty(music.Author))
+                    {
+                        musicList += " - " + music.Author;
+                    }
+                    if (!string.IsNullOrEmpty(music.SingerKey))
+                    {
+                        string key = music.SingerKey.Replace("#", "%23");
+                        musicList += " (" + key + ")";
+                    }
+                }
 
-        //        string message = "*" + GlobalVariables.SendRepMessageIntro + " " + date + ", " + period + "*" + "\n" + musicList;
+                string message = "*" + GlobalVariables.SendRepMessageIntro + " " + date + ", " + period + "*" + "\n" + musicList;
 
-        //        //string url = "https://api.whatsapp.com/send?phone=" + phoneNumberWithCountryCode + "&text=" + message;
-        //        //Launcher.OpenAsync(new Uri(url));
+                //string url = "https://api.whatsapp.com/send?phone=" + phoneNumberWithCountryCode + "&text=" + message;
+                //Launcher.OpenAsync(new Uri(url));
 
-        //        var uriString = "whatsapp://send?text=" + message;
-        //        //uriString += "&text=" + message;
+                var uriString = "whatsapp://send?text=" + message;
+                //uriString += "&text=" + message;
 
-        //        await Launcher.OpenAsync(new Uri(uriString));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotSendRepertoire, AppResources.Ok);
-        //    }
-        //}
+                await Launcher.OpenAsync(new Uri(uriString));
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotSendRepertoire, AppResources.Ok);
+            }
+        }
 
         public static string GetChordsAccordingKey(string originalKey, string originalChords, string newKey)
         {

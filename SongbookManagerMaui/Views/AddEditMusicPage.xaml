@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:SongbookManagerMaui.Converters"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    x:Name="AddEditMusicContentPage"
     Style="{StaticResource BaseContentPage}">
 
     <ContentPage.Resources>

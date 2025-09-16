@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.PreviewRepertoirePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SongbookManagerMaui.Converters"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Shell.TabBarIsVisible="False"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Resources>
+        <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding PlayRepertoireommand}"
+            IconImageSource="preview_Repertoire.png"
+            Order="Primary"
+            Text="{x:Static resource:AppResources.PlayRepertoire}" />
+        <ToolbarItem
+            Command="{Binding SendRepertoireCommand}"
+            IconImageSource="sent.png"
+            Order="Primary"
+            Text="{x:Static resource:AppResources.PlayRepertoire}" />
+        <ToolbarItem
+            Command="{Binding EditRepertoireCommand}"
+            IconImageSource="edit.png"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Edit}" />
+        <ToolbarItem
+            Command="{Binding RemoveRepertoireCommand}"
+            IconImageSource="delete.png"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Delete}" />
+        <ToolbarItem
+            Command="{Binding TutorialCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Tutorial}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10" Spacing="10">
+                <StackLayout Orientation="Horizontal">
+                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Date}" />
+                    <Label
+                        HorizontalOptions="EndAndExpand"
+                        Style="{StaticResource SecondaryLabel}"
+                        Text="{Binding Time}" />
+                </StackLayout>
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding Name}" />
+
+                <Label
+                    Margin="0,10,0,0"
+                    Style="{StaticResource TitleLabel}"
+                    Text="{x:Static resource:AppResources.Musics}" />
+
+                <ListView
+                    x:Name="RepertoireMusicsListView"
+                    HasUnevenRows="True"
+                    ItemTapped="RepertoireMusicsListView_ItemTapped"
+                    ItemsSource="{Binding Musics, Mode=OneWay}"
+                    SelectionMode="None"
+                    SeparatorVisibility="Default">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0,5" Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                        <Label
+                                            HorizontalOptions="EndAndExpand"
+                                            IsVisible="{Binding IsReordering, Converter={StaticResource reverseBoolConverter}}"
+                                            Style="{StaticResource SecondaryLabel}"
+                                            Text="{Binding SingerKey}" />
+                                        <Image
+                                            HorizontalOptions="EndAndExpand"
+                                            IsVisible="{Binding IsReordering}"
+                                            Source="reorder.png"
+                                            WidthRequest="30" />
+                                    </StackLayout>
+                                    <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

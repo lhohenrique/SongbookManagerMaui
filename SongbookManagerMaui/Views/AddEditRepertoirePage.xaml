@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.AddEditRepertoirePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Title="AddEditRepertoirePage"
+    Shell.TabBarIsVisible="False"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding SaveRepertoireCommand}"
+            IconImageSource="save.png"
+            Order="Primary"
+            Text="{x:Static resource:AppResources.Save}" />
+        <ToolbarItem
+            Command="{Binding TutorialCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Tutorial}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Singer}" />
+                    <Picker
+                        Title="{x:Static resource:AppResources.Singer}"
+                        Grid.Row="1"
+                        ItemsSource="{Binding Singers}"
+                        SelectedItem="{Binding SelectedSinger}" />
+
+                    <Label
+                        Grid.Column="1"
+                        Style="{StaticResource SecondaryLabel}"
+                        Text="{x:Static resource:AppResources.Date}" />
+                    <DatePicker
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Date="{Binding Date}"
+                        Format="dd MMM" />
+
+                    <Label
+                        Grid.Column="2"
+                        Style="{StaticResource SecondaryLabel}"
+                        Text="{x:Static resource:AppResources.Time}" />
+                    <TimePicker
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Time="{Binding Time}" />
+
+                    <Label
+                        Grid.Row="2"
+                        Margin="0,0,0,0"
+                        Style="{StaticResource SecondaryLabel}"
+                        Text="{x:Static resource:AppResources.Musics}" />
+
+                    <SearchBar
+                        x:Name="MusicSearchBar"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="3"
+                        HorizontalOptions="FillAndExpand"
+                        Placeholder="{x:Static resource:AppResources.Search}"
+                        PlaceholderColor="LightGray"
+                        Text="{Binding SearchText}"
+                        TextChanged="MusicSearchBar_TextChanged" />
+                </Grid>
+
+                <ListView
+                    x:Name="MusicListListView"
+                    HasUnevenRows="True"
+                    ItemTapped="MusicListListView_ItemTapped"
+                    ItemsSource="{Binding MusicList, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedMusic, Mode=TwoWay}"
+                    SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout
+                                    Padding="0,5"
+                                    BackgroundColor="Transparent"
+                                    Orientation="Vertical"
+                                    Spacing="0">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                        <Image
+                                            HorizontalOptions="EndAndExpand"
+                                            IsVisible="{Binding IsSelected}"
+                                            Source="selected.png"
+                                            WidthRequest="30" />
+                                    </StackLayout>
+                                    <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

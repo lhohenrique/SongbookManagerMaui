@@ -9,6 +9,10 @@ namespace SongbookManagerMaui.Services
 {
     public interface IRepertoireService
     {
+        #region Properties
+        Repertoire Repertoire { get; set; }
+        #endregion
+
         Task<List<Repertoire>> GetRepertoires();
 
         Task<List<Repertoire>> GetRepertoiresByUser(string owner);
@@ -28,5 +32,7 @@ namespace SongbookManagerMaui.Services
         Task DeleteRepertoire(Repertoire repertoire);
 
         Task DeleteAll();
+
+        void SetRepertoire(Repertoire selectedRepertoire);
     }
 }
