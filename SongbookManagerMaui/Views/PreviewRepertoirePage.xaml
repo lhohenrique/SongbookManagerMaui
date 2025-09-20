@@ -14,15 +14,17 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
-            Command="{Binding PlayRepertoireommand}"
+            Command="{Binding PlayRepertoireCommand}"
             IconImageSource="preview_Repertoire.png"
+            IsEnabled="{Binding IsPlayRepertoireEnabled, Mode=OneWay}"
             Order="Primary"
             Text="{x:Static resource:AppResources.PlayRepertoire}" />
         <ToolbarItem
             Command="{Binding SendRepertoireCommand}"
             IconImageSource="sent.png"
+            IsEnabled="{Binding IsPlayRepertoireEnabled, Mode=OneWay}"
             Order="Primary"
-            Text="{x:Static resource:AppResources.PlayRepertoire}" />
+            Text="{x:Static resource:AppResources.SendRepertoire}" />
         <ToolbarItem
             Command="{Binding EditRepertoireCommand}"
             IconImageSource="edit.png"

@@ -22,6 +22,8 @@ namespace SongbookManagerMaui
                 typeof(PreviewRepertoirePage));
             Routing.RegisterRoute(nameof(AddEditRepertoirePage),
                 typeof(AddEditRepertoirePage));
+            Routing.RegisterRoute(nameof(PlayRepertoirePage),
+                typeof(PlayRepertoirePage));
         }
     }
 }

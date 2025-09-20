@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.PlayRepertoirePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Shell.TabBarIsVisible="False"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="RadioMenuTemplate">
+            <Grid RowDefinitions="30,4">
+                <Label
+                    x:Name="TextLabel"
+                    HorizontalTextAlignment="Center"
+                    Text="{TemplateBinding Content}" />
+                <BoxView
+                    x:Name="Indicator"
+                    Grid.Row="1"
+                    Color="Transparent" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource White}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black" />
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding PreviousMusicCommand}"
+            IconImageSource="previous.png"
+            Order="Primary" />
+        <ToolbarItem
+            Command="{Binding NextMusicCommand}"
+            IconImageSource="next.png"
+            Order="Primary" />
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout>
+        <Grid Padding="10,10" RadioButtonGroup.GroupName="MenuCategories">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <RadioButton
+                Content="{x:Static resource:AppResources.Lyric}"
+                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                IsChecked="{Binding IsLyricsChecked}" />
+            <RadioButton
+                Grid.Column="1"
+                Content="{x:Static resource:AppResources.Chords}"
+                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                IsChecked="{Binding IsChordsChecked}" />
+        </Grid>
+
+        <ScrollView x:Name="LyricsScrollView" IsVisible="{Binding IsLyricsChecked, Mode=TwoWay}">
+            <StackLayout Padding="10" Spacing="10">
+                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+
+                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding Lyrics}" />
+            </StackLayout>
+        </ScrollView>
+
+        <ScrollView x:Name="ChordsScrollView" IsVisible="{Binding IsChordsChecked, Mode=TwoWay}">
+            <StackLayout Padding="10" Spacing="10">
+                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+
+                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <Label
+                        Padding="0,9,0,0"
+                        Style="{StaticResource MediumLabel}"
+                        Text="{x:Static resource:AppResources.Key}" />
+                    <Picker
+                        Title="{x:Static resource:AppResources.Key}"
+                        Margin="5,0,0,0"
+                        HorizontalTextAlignment="Center"
+                        ItemsSource="{Binding KeyList}"
+                        SelectedItem="{Binding SelectedKey}" />
+                </StackLayout>
+
+                <Label Style="{StaticResource MediumLabel}" Text="{Binding Chords}" />
+            </StackLayout>
+        </ScrollView>
+    </VerticalStackLayout>
+</ContentPage>

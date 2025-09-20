@@ -28,6 +28,9 @@ namespace SongbookManagerMaui.ViewModels
 
         #region Properties
         [ObservableProperty]
+        private bool isPlayRepertoireEnabled = true;
+
+        [ObservableProperty]
         private Repertoire repertoire;
 
         [ObservableProperty]
@@ -53,11 +56,12 @@ namespace SongbookManagerMaui.ViewModels
 
         #region Methods
         [RelayCommand]
-        public void PlayRepertoire()
+        public async Task PlayRepertoire()
         {
             if (Repertoire != null)
             {
-                //Navigation.PushAsync(new PlayRepertoirePage(repertoire));
+                _repertoireService.SetRepertoire(Repertoire);
+                await Shell.Current.GoToAsync($"{nameof(PlayRepertoirePage)}");
             }
         }
 
@@ -140,6 +144,15 @@ namespace SongbookManagerMaui.ViewModels
 
                             Musics.Add(music);
                         }
+
+                        if (!Musics.Any())
+                        {
+                            IsPlayRepertoireEnabled = false;
+                        }
+                    }
+                    else
+                    {
+                        IsPlayRepertoireEnabled = false;
                     }
                 }
             }
