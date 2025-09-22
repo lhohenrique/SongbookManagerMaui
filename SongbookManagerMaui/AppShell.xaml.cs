@@ -26,6 +26,12 @@ namespace SongbookManagerMaui
                 typeof(PlayRepertoirePage));
             Routing.RegisterRoute(nameof(SharePage),
                 typeof(SharePage));
+            Routing.RegisterRoute(nameof(PrivacyPolicyPage),
+                typeof(PrivacyPolicyPage));
+            Routing.RegisterRoute(nameof(AdminPage),
+                typeof(AdminPage));
+            Routing.RegisterRoute(nameof(ChangePasswordPage),
+                typeof(ChangePasswordPage));
         }
     }
 }

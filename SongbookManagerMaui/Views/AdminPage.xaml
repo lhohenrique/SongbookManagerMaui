@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.AdminPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.TabBarIsVisible="False"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Resources>
+        <ControlTemplate x:Key="RadioMenuTemplate">
+            <Grid RowDefinitions="30,4">
+                <Label
+                    x:Name="TextLabel"
+                    HorizontalTextAlignment="Center"
+                    Text="{TemplateBinding Content}" />
+                <BoxView
+                    x:Name="Indicator"
+                    Grid.Row="1"
+                    Color="Transparent" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource White}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black" />
+                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </ControlTemplate>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+                <Grid Padding="10,10" RadioButtonGroup.GroupName="MenuCategories">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <RadioButton
+                        Content="Usuários"
+                        ControlTemplate="{StaticResource RadioMenuTemplate}"
+                        IsChecked="{Binding IsUsersChecked}" />
+                    <RadioButton
+                        Grid.Column="1"
+                        Content="Músicas"
+                        ControlTemplate="{StaticResource RadioMenuTemplate}"
+                        IsChecked="{Binding IsMusicsChecked}" />
+                </Grid>
+
+                <VerticalStackLayout Padding="10" IsVisible="{Binding IsUsersChecked, Mode=TwoWay}">
+                    <HorizontalStackLayout>
+                        <Label Text="Total:" />
+                        <Label Text="{Binding TotalUsers}" />
+                    </HorizontalStackLayout>
+
+                    <ListView
+                        x:Name="UsersListView"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding UserList, Mode=OneWay}"
+                        SeparatorVisibility="Default">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Clicked="UserMenuItem_Clicked" Text="Remover" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout
+                                        Padding="10,5"
+                                        BackgroundColor="White"
+                                        Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label
+                                                HorizontalOptions="FillAndExpand"
+                                                Style="{StaticResource PrimaryLabel}"
+                                                Text="{Binding Name}" />
+                                            <Label
+                                                IsVisible="{Binding IsSinger}"
+                                                Style="{StaticResource SecondaryLabel}"
+                                                Text="Cantor" />
+                                        </StackLayout>
+                                        <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Email}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Padding="10" IsVisible="{Binding IsMusicsChecked, Mode=TwoWay}">
+                    <HorizontalStackLayout>
+                        <Label Text="Total:" />
+                        <Label Text="{Binding TotalMusics}" />
+                    </HorizontalStackLayout>
+
+                    <ListView
+                        x:Name="MusicsListView"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding MusicList, Mode=OneWay}"
+                        SeparatorVisibility="Default">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Clicked="MusicMenuItem_Clicked" Text="Remover" />
+                                    </ViewCell.ContextActions>
+                                    <StackLayout
+                                        Padding="10,5"
+                                        BackgroundColor="White"
+                                        Orientation="Vertical">
+                                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                        <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                                        <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Owner}" />
+                                        <Label Style="{StaticResource SecondaryLabel}" Text="{Binding CreationDate}" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
