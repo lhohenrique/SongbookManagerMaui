@@ -3,11 +3,92 @@
     x:Class="SongbookManagerMaui.Views.SharePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="SharePagexaml">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    xmlns:converters="clr-namespace:SongbookManagerMaui.Converters"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Title="{x:Static resource:AppResources.Share}"
+    Shell.TabBarIsVisible="False"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Resources>
+        <converters:ReverseBoolConverter x:Key="reverseBoolConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Command="{Binding TutorialCommand}"
+            Order="Secondary"
+            Text="{x:Static resource:AppResources.Tutorial}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                Padding="10"
+                IsVisible="{Binding IsSharedList}"
+                Orientation="Vertical"
+                Spacing="10">
+                <Label Style="{StaticResource TitleLabel}" Text="{x:Static resource:AppResources.AccessingSharedList}" />
+                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding SharedName}" />
+                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SharedEmail}" />
+                <Button
+                    Margin="0,10,0,0"
+                    Command="{Binding UnshareCommand}"
+                    Style="{StaticResource MainButton}"
+                    Text="{x:Static resource:AppResources.StopSharing}" />
+            </StackLayout>
+
+            <StackLayout
+                Padding="10"
+                IsVisible="{Binding IsSharedList, Converter={StaticResource reverseBoolConverter}}"
+                Spacing="10">
+                <Label Style="{StaticResource TitleLabel}" Text="{x:Static resource:AppResources.ShareYourSongs}" />
+
+                <Entry
+                    Grid.Row="1"
+                    Keyboard="Email"
+                    Placeholder="{x:Static resource:AppResources.AddPeople}"
+                    Text="{Binding Email}" />
+
+                <Button
+                    Command="{Binding ShareCommand}"
+                    IsEnabled="{Binding IsShareEnabled}"
+                    Style="{StaticResource MainButton}"
+                    Text="{x:Static resource:AppResources.Share}" />
+            </StackLayout>
+
+            <RefreshView
+                Command="{Binding UpdateUserListCommand}"
+                IsRefreshing="{Binding IsUpdating, Mode=OneWay}"
+                IsVisible="{Binding IsSharedList, Converter={StaticResource reverseBoolConverter}}">
+                <ListView
+                    x:Name="SharedUserListView"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding UserList, Mode=OneWay}"
+                    SeparatorVisibility="Default">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout
+                                    Padding="10"
+                                    BackgroundColor="White"
+                                    Orientation="Vertical">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                        <ImageButton
+                                            Command="{Binding Source={x:Reference ShareContentPage}, Path=BindingContext.RemoveShareCommand}"
+                                            CommandParameter="{Binding}"
+                                            HorizontalOptions="EndAndExpand"
+                                            Source="removeShare.png"
+                                            Style="{StaticResource IconListButton}" />
+                                    </StackLayout>
+
+                                    <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Email}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>
