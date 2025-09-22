@@ -116,9 +116,9 @@ namespace SongbookManagerMaui.ViewModels
         }
 
         [RelayCommand]
-        private void Data()
+        private async Task Data()
         {
-            //Navigation.PushAsync(new DataPage());
+            await Shell.Current.GoToAsync($"{nameof(DataPage)}");
         }
 
         [RelayCommand]

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SongbookManagerMaui.Views.DataPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    Shell.TabBarIsVisible="False"
+    Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10" Spacing="0">
+                <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Singer}" />
+                <Picker
+                    Title="{x:Static resource:AppResources.Singer}"
+                    ItemsSource="{Binding Singers}"
+                    SelectedItem="{Binding SelectedSinger}" />
+
+                <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Period}" />
+                <Picker
+                    Title="{x:Static resource:AppResources.Period}"
+                    ItemsSource="{Binding PeriodsList}"
+                    SelectedItem="{Binding SelectedPeriod}" />
+
+                <StackLayout IsVisible="{Binding IsCustomPeriod}" Orientation="Horizontal">
+                    <StackLayout>
+                        <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.StartDate}" />
+                        <DatePicker Date="{Binding StartDate}" Format="dd MMMM" />
+                    </StackLayout>
+
+                    <StackLayout>
+                        <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.EndDate}" />
+                        <DatePicker Date="{Binding EndDate}" Format="dd MMMM" />
+                    </StackLayout>
+                </StackLayout>
+
+                <Label
+                    Margin="0,10,0,10"
+                    Style="{StaticResource TitleLabel}"
+                    Text="{x:Static resource:AppResources.MostPlayedSongs}" />
+
+                <ListView
+                    x:Name="DataMusicsListView"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding MusicDataList, Mode=OneWay}"
+                    SelectionMode="None"
+                    SeparatorVisibility="Default">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0,5" Orientation="Horizontal">
+                                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                    <Label
+                                        HorizontalOptions="EndAndExpand"
+                                        Style="{StaticResource SecondaryLabel}"
+                                        Text="{Binding Count}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

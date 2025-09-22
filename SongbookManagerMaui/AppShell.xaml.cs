@@ -32,6 +32,8 @@ namespace SongbookManagerMaui
                 typeof(AdminPage));
             Routing.RegisterRoute(nameof(ChangePasswordPage),
                 typeof(ChangePasswordPage));
+            Routing.RegisterRoute(nameof(DataPage),
+                typeof(DataPage));
         }
     }
 }

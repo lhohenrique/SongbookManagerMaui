@@ -36,6 +36,7 @@ namespace SongbookManagerMaui
             builder.Services.AddTransient<SharePageViewModel>();
             builder.Services.AddTransient<AdminPageViewModel>();
             builder.Services.AddTransient<ChangePasswordPageViewModel>();
+            builder.Services.AddTransient<DataPageViewModel>();
 
             // Views
             builder.Services.AddTransient<LoginPage>();
@@ -54,6 +55,7 @@ namespace SongbookManagerMaui
             builder.Services.AddTransient<PrivacyPolicyPage>();
             builder.Services.AddTransient<AdminPage>();
             builder.Services.AddTransient<ChangePasswordPage>();
+            builder.Services.AddTransient<DataPage>();
 
             // Services
             builder.Services.AddSingleton<IUserService, UserService>();
