@@ -168,11 +168,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="Celebration" xml:space="preserve">
+    <value>Celebração</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Alterar senha</value>
   </data>
   <data name="Chords" xml:space="preserve">
     <value>Acordes</value>
+  </data>
+  <data name="Communion" xml:space="preserve">
+    <value>Comunhão</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirme a senha</value>
@@ -263,6 +269,9 @@
   </data>
   <data name="GiveAName" xml:space="preserve">
     <value>Informe um nome</value>
+  </data>
+  <data name="HolySupper" xml:space="preserve">
+    <value>Santa Ceia</value>
   </data>
   <data name="Invalid" xml:space="preserve">
     <value>Inválido</value>
@@ -560,6 +569,9 @@
   </data>
   <data name="WantToSendRepertoire" xml:space="preserve">
     <value>Deseja enviar o repertório?</value>
+  </data>
+  <data name="Worship" xml:space="preserve">
+    <value>Adoração</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sim</value>

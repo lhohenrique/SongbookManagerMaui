@@ -5,20 +5,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Style x:Key="BaseContentPage" TargetType="ContentPage">
-        <Setter Property="BackgroundColor" Value="#edeff1" />
-        <Setter Property="Shell.BackgroundColor" Value="#5B6677" />
-        <Setter Property="Shell.ForegroundColor" Value="#FFFFFF" />
-        <Setter Property="Shell.TitleColor" Value="#FFFFFF" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource White}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource White}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="TabbedPage">
         <Setter Property="BarBackgroundColor" Value="#A0ACBD" />
-        <Setter Property="BarTextColor" Value="White" />
+        <Setter Property="BarTextColor" Value="{StaticResource White}" />
     </Style>
 
     <Style x:Key="BaseLabel" TargetType="Label">
         <Setter Property="FontFamily" Value="Verdana" />
-        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
     </Style>
 
     <Style
@@ -33,14 +33,14 @@
         x:Key="PrimaryLabel"
         BasedOn="{StaticResource BaseLabel}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="Large" />
+        <Setter Property="FontSize" Value="Small" />
     </Style>
 
     <Style
         x:Key="SecondaryLabel"
         BasedOn="{StaticResource BaseLabel}"
         TargetType="Label">
-        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="FontSize" Value="Caption" />
         <Setter Property="Opacity" Value="0.6" />
     </Style>
 
@@ -53,42 +53,44 @@
 
     <Style TargetType="Entry">
         <Setter Property="FontFamily" Value="Verdana" />
-        <Setter Property="TextColor" Value="#131516" />
-        <Setter Property="PlaceholderColor" Value="LightGray" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource Primary}" />
     </Style>
 
     <Style TargetType="Editor">
         <Setter Property="FontFamily" Value="Verdana" />
-        <Setter Property="TextColor" Value="#131516" />
-        <Setter Property="PlaceholderColor" Value="LightGray" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource Primary}" />
     </Style>
 
     <Style TargetType="Picker">
         <Setter Property="FontFamily" Value="Verdana" />
-        <Setter Property="TextColor" Value="#131516" />
-        <Setter Property="TitleColor" Value="LightGray" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="TitleColor" Value="{StaticResource Primary}" />
     </Style>
 
     <Style TargetType="DatePicker">
         <Setter Property="FontFamily" Value="Verdana" />
-        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
     </Style>
 
     <Style TargetType="TimePicker">
         <Setter Property="FontFamily" Value="Verdana" />
-        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
     </Style>
 
     <Style x:Key="BaseButton" TargetType="Button">
-        <Setter Property="BackgroundColor" Value="#5B6677" />
-        <Setter Property="TextColor" Value="#FFFFFF" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+        <Setter Property="TextColor" Value="{StaticResource White}" />
     </Style>
 
     <Style
         x:Key="MainButton"
         BasedOn="{StaticResource BaseButton}"
         TargetType="Button">
-        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="CornerRadius" Value="40" />
+        <Setter Property="FontSize" Value="Body" />
+        <Setter Property="TextTransform" Value="Uppercase" />
     </Style>
 
     <Style
@@ -96,7 +98,7 @@
         BasedOn="{StaticResource BaseButton}"
         TargetType="Button">
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="TextColor" Value="#131516" />
+        <Setter Property="TextColor" Value="{StaticResource Black}" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="FontSize" Value="Body" />
         <Setter Property="TextTransform" Value="None" />

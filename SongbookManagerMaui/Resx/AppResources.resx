@@ -168,11 +168,17 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Celebration" xml:space="preserve">
+    <value>Celebration</value>
+  </data>
   <data name="ChangePassword" xml:space="preserve">
     <value>Change password</value>
   </data>
   <data name="Chords" xml:space="preserve">
     <value>Chords</value>
+  </data>
+  <data name="Communion" xml:space="preserve">
+    <value>Communion</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
@@ -264,6 +270,9 @@
   <data name="GiveAName" xml:space="preserve">
     <value>Give a name</value>
   </data>
+  <data name="HolySupper" xml:space="preserve">
+    <value>Holy Supper</value>
+  </data>
   <data name="Invalid" xml:space="preserve">
     <value>Invalid</value>
   </data>
@@ -307,10 +316,10 @@
     <value>Most played songs</value>
   </data>
   <data name="MusicList" xml:space="preserve">
-    <value>Song list</value>
+    <value>Music list</value>
   </data>
   <data name="Musics" xml:space="preserve">
-    <value>Songs</value>
+    <value>Musics</value>
   </data>
   <data name="MusicsAddMusicTutorial" xml:space="preserve">
     <value>To add a new song click on the add button in the lower right corner.</value>
@@ -560,6 +569,9 @@
   </data>
   <data name="WantToSendRepertoire" xml:space="preserve">
     <value>Do you want to send the repertoire?</value>
+  </data>
+  <data name="Worship" xml:space="preserve">
+    <value>Worship</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>

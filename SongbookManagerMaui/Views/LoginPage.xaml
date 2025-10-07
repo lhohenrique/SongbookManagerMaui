@@ -4,8 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
-    Title="LoginPage"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Shell.NavBarIsVisible="False"
     Style="{StaticResource BaseContentPage}">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Tertiary}" StatusBarStyle="DarkContent" />
+    </ContentPage.Behaviors>
 
     <VerticalStackLayout Padding="10" VerticalOptions="Center">
         <ScrollView>
@@ -46,7 +51,7 @@
                 <Button
                     Margin="0,20,0,0"
                     Command="{Binding LoginCommand}"
-                    HeightRequest="40"
+                    HeightRequest="45"
                     Style="{StaticResource MainButton}"
                     Text="{x:Static resource:AppResources.SignIn}" />
             </VerticalStackLayout>

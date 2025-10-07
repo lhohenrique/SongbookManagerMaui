@@ -4,11 +4,12 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
-    BackgroundImageSource="background3.jpg"
+    Shell.NavBarIsVisible="False"
     Style="{StaticResource BaseContentPage}">
 
     <ContentPage.Resources>
         <Color x:Key="DarkButtonBackground">#921813</Color>
+
         <Style x:Key="FABPrimary" TargetType="Button">
             <Setter Property="CornerRadius" Value="100" />
             <Setter Property="BackgroundColor" Value="{StaticResource DarkButtonBackground}" />
@@ -19,9 +20,46 @@
             <Setter Property="Padding" Value="15" />
             <Setter Property="Margin" Value="0,0,0,15" />
         </Style>
+
+        <ControlTemplate x:Key="RadioMenuTemplate">
+            <Grid RowDefinitions="30,4">
+                <Border
+                    x:Name="MenuBoder"
+                    Margin="0,0,5,0"
+                    Padding="10,0,10,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <Label
+                        x:Name="TextLabel"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource PrimaryLabel}"
+                        Text="{TemplateBinding Content}"
+                        VerticalTextAlignment="Center" />
+                </Border>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                    <Setter TargetName="MenuBoder" Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Black}" />
+                                    <Setter TargetName="MenuBoder" Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </ControlTemplate>
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding ShareAsyncCommand}"
             IconImageSource="share.png"
@@ -43,17 +81,28 @@
             Command="{Binding TutorialCommand}"
             Order="Secondary"
             Text="{x:Static resource:AppResources.Tutorial}" />
-    </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>-->
 
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ContentView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout Spacing="2">
-                    <SearchBar
-                        x:Name="MusicSearchBar"
-                        Placeholder="{x:Static resource:AppResources.Search}"
-                        Text="{Binding SearchText}"
-                        TextChanged="MusicSearchBar_TextChanged" />
+            <ContentView
+                Padding="15,0,10,0"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Spacing="15">
+
+                    <Label Style="{StaticResource TitleLabel}" Text="{x:Static resource:AppResources.Musics}" />
+
+                    <Border x:Name="MenuBoder" BackgroundColor="{StaticResource White}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <SearchBar
+                            x:Name="MusicSearchBar"
+                            Placeholder="{x:Static resource:AppResources.Search}"
+                            Text="{Binding SearchText}"
+                            TextChanged="MusicSearchBar_TextChanged" />
+                    </Border>
 
                     <StackLayout>
                         <!--<controls:MTAdView x:Name="MusicPageAds" IsVisible="true" AdsId="ca-app-pub-4649626975914217/2317560399">
@@ -66,6 +115,42 @@
                             </controls:MTAdView.HeightRequest>
                         </controls:MTAdView>-->
                     </StackLayout>
+
+                    <ScrollView Orientation="Horizontal">
+                        <Grid RadioButtonGroup.GroupName="MenuCategories">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <RadioButton
+                                Content="{x:Static resource:AppResources.All}"
+                                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                                IsChecked="{Binding IsAllChecked}" />
+                            <RadioButton
+                                Grid.Column="1"
+                                Content="{x:Static resource:AppResources.Celebration}"
+                                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                                IsChecked="{Binding IsCelebrationChecked}" />
+                            <RadioButton
+                                Grid.Column="2"
+                                Content="{x:Static resource:AppResources.Worship}"
+                                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                                IsChecked="{Binding IsWorshipChecked}" />
+                            <RadioButton
+                                Grid.Column="3"
+                                Content="{x:Static resource:AppResources.Communion}"
+                                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                                IsChecked="{Binding IsCommunionChecked}" />
+                            <RadioButton
+                                Grid.Column="4"
+                                Content="{x:Static resource:AppResources.HolySupper}"
+                                ControlTemplate="{StaticResource RadioMenuTemplate}"
+                                IsChecked="{Binding IsHolySupperChecked}" />
+                        </Grid>
+                    </ScrollView>
 
                     <RefreshView
                         Padding="0,0,0,2"
@@ -82,8 +167,8 @@
                                 <DataTemplate>
                                     <ContentView>
                                         <Label
-                                            Padding="5"
-                                            HorizontalOptions="CenterAndExpand"
+                                            Padding="0"
+                                            HorizontalOptions="Center"
                                             Style="{StaticResource SecondaryLabel}"
                                             Text="{Binding TotalMusics, StringFormat='Total: {0}'}" />
                                     </ContentView>
@@ -92,10 +177,19 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <VerticalStackLayout Padding="10,7">
-                                            <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
-                                            <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
-                                        </VerticalStackLayout>
+                                        <Border
+                                            Margin="0,5"
+                                            Padding="12"
+                                            BackgroundColor="{StaticResource White}"
+                                            Stroke="Transparent">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10" />
+                                            </Border.StrokeShape>
+                                            <VerticalStackLayout>
+                                                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                                            </VerticalStackLayout>
+                                        </Border>
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
