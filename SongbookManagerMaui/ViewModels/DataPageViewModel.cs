@@ -1,5 +1,4 @@
-﻿using Android.SE.Omapi;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using SongbookManagerMaui.Helpers;
 using SongbookManagerMaui.Models;
 using SongbookManagerMaui.Resx;
@@ -104,6 +103,11 @@ namespace SongbookManagerMaui.ViewModels
                         end = DateTime.Now;
                         start = end.Subtract(TimeSpan.FromDays(365));
                     }
+                    else if (SelectedPeriod.Equals(AppResources.All))
+                    {
+                        end = DateTime.Now;
+                        start = DateTime.MinValue;
+                    }
                     else // Custom period
                     {
                         start = StartDate;
@@ -114,8 +118,7 @@ namespace SongbookManagerMaui.ViewModels
                     {
                         await LoggedUserHelper.UpdateLoggedUserAsync();
 
-                        var owner = LoggedUserHelper.GetEmail();
-                        repertoireList = await _repertoireService.GetRepertoiresByPeriod(owner, start, end);
+                        var owner = LoggedUserHelper.GetEmail();   
                     }
                     else
                     {
@@ -185,6 +188,7 @@ namespace SongbookManagerMaui.ViewModels
             PeriodsList.Add(AppResources.LastMonth);
             PeriodsList.Add(AppResources.Last6Months);
             PeriodsList.Add(AppResources.LastYear);
+            PeriodsList.Add(AppResources.All);
             //PeriodsList.Add(AppResources.Custom);
         }
 
