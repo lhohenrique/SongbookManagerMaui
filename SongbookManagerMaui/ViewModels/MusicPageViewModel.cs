@@ -37,6 +37,21 @@ namespace SongbookManagerMaui.ViewModels
 
         [ObservableProperty]
         private Music selectedMusic;
+
+        [ObservableProperty]
+        private bool isAllChecked = true;
+
+        [ObservableProperty]
+        private bool isCelebrationChecked;
+
+        [ObservableProperty]
+        private bool isWorshipChecked;
+
+        [ObservableProperty]
+        private bool isCommunionChecked;
+
+        [ObservableProperty]
+        private bool isHolySupperChecked;
         #endregion
 
         public MusicPageViewModel(IMusicService musicService)

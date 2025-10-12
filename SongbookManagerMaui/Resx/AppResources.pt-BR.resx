@@ -168,6 +168,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
   <data name="Celebration" xml:space="preserve">
     <value>Celebração</value>
   </data>
@@ -533,6 +536,9 @@
   </data>
   <data name="Tutorial" xml:space="preserve">
     <value>Tutorial</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
   </data>
   <data name="UnablePerformSearch" xml:space="preserve">
     <value>Não foi possível realizar a busca</value>

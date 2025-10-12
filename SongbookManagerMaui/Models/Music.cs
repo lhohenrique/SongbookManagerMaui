@@ -15,9 +15,32 @@ namespace SongbookManagerMaui.Models
         public string Key { get; set; }
         public string Lyrics { get; set; }
         public string Chords { get; set; }
-        public string Tipo { get; set; }
+        public string Category { get; set; }
         public string Version { get; set; }
         public string Notes { get; set; }
         public DateTime CreationDate { get; set; }
+
+        public string CategoryFormated
+        {
+            get
+            {
+                string categoryFormated = string.Empty;
+                
+                if (Category is not null)
+                {
+                    string[] categories = Category.Split(";");
+                    foreach (string category in categories)
+                    {
+                        if (!string.IsNullOrEmpty(category))
+                        {
+                            categoryFormated += string.IsNullOrEmpty(categoryFormated) ? category : $", {category}" ;
+                        }
+                    }
+                    return categoryFormated;
+                }
+
+                return categoryFormated;
+            }
+        }
     }
 }

@@ -38,6 +38,7 @@ namespace SongbookManagerMaui.Services
                 {
                     Name = item.Object.Name,
                     Author = item.Object.Author,
+                    Category = item.Object.Category,
                     Key = item.Object.Key,
                     Lyrics = item.Object.Lyrics,
                     Chords = item.Object.Chords,
@@ -56,6 +57,7 @@ namespace SongbookManagerMaui.Services
             {
                 Name = item.Object.Name,
                 Author = item.Object.Author,
+                Category = item.Object.Category,
                 Key = item.Object.Key,
                 Lyrics = item.Object.Lyrics,
                 Chords = item.Object.Chords,
@@ -74,6 +76,7 @@ namespace SongbookManagerMaui.Services
             {
                 Name = item.Object.Name,
                 Author = item.Object.Author,
+                Category = item.Object.Category,
                 Key = item.Object.Key,
                 Lyrics = item.Object.Lyrics,
                 Chords = item.Object.Chords,
@@ -92,6 +95,7 @@ namespace SongbookManagerMaui.Services
             {
                 Name = item.Object.Name,
                 Author = item.Object.Author,
+                Category = item.Object.Category,
                 Key = item.Object.Key,
                 Lyrics = item.Object.Lyrics,
                 Chords = item.Object.Chords,
@@ -134,6 +138,7 @@ namespace SongbookManagerMaui.Services
             {
                 Name = item.Object.Name,
                 Author = item.Object.Author,
+                Category = item.Object.Category,
                 Key = item.Object.Key,
                 Lyrics = item.Object.Lyrics,
                 Chords = item.Object.Chords,

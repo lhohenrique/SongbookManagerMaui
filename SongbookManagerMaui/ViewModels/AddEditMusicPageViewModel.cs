@@ -22,6 +22,12 @@ namespace SongbookManagerMaui.ViewModels
         private IUserService _userService;
         private IKeyService _keyService;
         private string _oldName;
+
+        private const string CATEGORY_CELEBRATION = "Celebration";
+        private const string CATEGORY_WORSHIP = "Worship";
+        private const string CATEGORY_COMMUNION = "Communion";
+        private const string CATEGORY_HOLY_SUPPER = "HolySupper";
+        private const string CATEGORY_DIVISOR = ";";
         #endregion
 
         #region Properties
@@ -72,6 +78,18 @@ namespace SongbookManagerMaui.ViewModels
 
         [ObservableProperty]
         private bool hasSingers = false;
+
+        [ObservableProperty]
+        private bool isCelebrationChecked;
+
+        [ObservableProperty]
+        private bool isWorshipChecked;
+
+        [ObservableProperty]
+        private bool isCommunionChecked;
+
+        [ObservableProperty]
+        private bool isHolySupperChecked;
         #endregion
 
         public AddEditMusicPageViewModel(IMusicService musicService, IUserService userService, IKeyService keyService)
@@ -106,6 +124,7 @@ namespace SongbookManagerMaui.ViewModels
                         Music.Lyrics = Lyrics;
                         Music.Chords = Chords;
                         Music.Notes = Notes;
+                        Music.Category = GetCategory();
 
                         //await App.Database.UpdateMusic(music);
                         await _musicService.UpdateMusic(Music, _oldName);
@@ -138,6 +157,7 @@ namespace SongbookManagerMaui.ViewModels
                             Lyrics = Lyrics,
                             Chords = Chords,
                             Notes = Notes,
+                            Category = GetCategory(),
                             CreationDate = DateTime.Now
                         };
 
@@ -163,7 +183,7 @@ namespace SongbookManagerMaui.ViewModels
                 await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotSaveSong, AppResources.Ok);
             }
         }
-        
+
         [RelayCommand]
         private async Task Tutorial()
         {
@@ -205,6 +225,8 @@ namespace SongbookManagerMaui.ViewModels
                 Lyrics = Music.Lyrics;
                 Chords = Music.Chords;
                 Notes = Music.Notes;
+
+                LoadCategory();
 
                 var musicOwner = LoggedUserHelper.GetEmail();
                 var sharedUsers = await _userService.GetSingers(musicOwner);
@@ -257,6 +279,43 @@ namespace SongbookManagerMaui.ViewModels
             catch (Exception)
             {
                 await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotLoadSingers, AppResources.Ok);
+            }
+        }
+
+        private string GetCategory()
+        {
+            string category = string.Empty;
+
+            if (IsCelebrationChecked)
+            {
+                category += CATEGORY_CELEBRATION + CATEGORY_DIVISOR;
+            }
+            if (IsWorshipChecked)
+            {
+                category += CATEGORY_WORSHIP + CATEGORY_DIVISOR;
+            }
+            if (IsCommunionChecked)
+            {
+                category += CATEGORY_COMMUNION + CATEGORY_DIVISOR;
+            }
+            if (IsHolySupperChecked)
+            {
+                category += CATEGORY_HOLY_SUPPER + CATEGORY_DIVISOR;
+            }
+
+            return category;
+        }
+
+        private void LoadCategory()
+        {
+            if(Music.Category is not null)
+            {
+                string[] categories = Music.Category.Split(";");
+                
+                IsCelebrationChecked = categories.Contains(CATEGORY_CELEBRATION);
+                IsWorshipChecked = categories.Contains(CATEGORY_WORSHIP);
+                IsCommunionChecked = categories.Contains(CATEGORY_COMMUNION);
+                IsHolySupperChecked = categories.Contains(CATEGORY_HOLY_SUPPER);
             }
         }
         #endregion

@@ -6,9 +6,9 @@
 
     <Style x:Key="BaseContentPage" TargetType="ContentPage">
         <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
-        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource White}" />
-        <Setter Property="Shell.TitleColor" Value="{StaticResource White}" />
+        <Setter Property="Shell.BackgroundColor" Value="{StaticResource Tertiary}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource Black}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource Black}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="TabbedPage">

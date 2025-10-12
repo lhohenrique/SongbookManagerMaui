@@ -48,6 +48,9 @@ namespace SongbookManagerMaui.ViewModels
         private string author;
 
         [ObservableProperty]
+        private string categories;
+
+        [ObservableProperty]
         private string lyrics;
 
         [ObservableProperty]
@@ -98,6 +101,8 @@ namespace SongbookManagerMaui.ViewModels
                 SelectedKey = Music.Key;
                 Lyrics = Music.Lyrics;
                 Notes = Music.Notes;
+                Categories = Music.CategoryFormated;
+                
 
                 IsPlayMusicVisible = !string.IsNullOrEmpty(Music.Version);
 

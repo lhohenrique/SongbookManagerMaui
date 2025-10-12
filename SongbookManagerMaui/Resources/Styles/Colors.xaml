@@ -5,10 +5,10 @@
     <!--  Note: For Android please see also Platforms\Android\Resources\values\colors.xml  -->
 
     <Color x:Key="Primary">#646C77</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
+    <Color x:Key="PrimaryDark">#FFFFFF</Color>
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#E5E8EC</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
+    <Color x:Key="SecondaryDarkText">#242424</Color>
     <Color x:Key="Tertiary">#F4F6F9</Color>
 
     <Color x:Key="White">White</Color>
