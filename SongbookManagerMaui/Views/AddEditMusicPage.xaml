@@ -183,10 +183,11 @@
             <VerticalStackLayout IsVisible="{Binding IsChordsChecked, Mode=TwoWay}" Spacing="10">
                 <HorizontalStackLayout Padding="10,0">
                     <Label
-                        Padding="0,7,0,0"
                         Style="{StaticResource SecondaryLabel}"
-                        Text="{x:Static resource:AppResources.Key}" />
+                        Text="{x:Static resource:AppResources.Key}"
+                        VerticalOptions="Center" />
                     <Picker
+                        Title="{x:Static resource:AppResources.Key}"
                         Margin="5,0,0,0"
                         HorizontalTextAlignment="Center"
                         ItemsSource="{Binding KeyList}"
@@ -241,6 +242,7 @@
                                             Text="{Binding UserName}"
                                             VerticalOptions="Center" />
                                         <Picker
+                                            Title="{x:Static resource:AppResources.Key}"
                                             BackgroundColor="{StaticResource Tertiary}"
                                             HorizontalOptions="EndAndExpand"
                                             HorizontalTextAlignment="Center"

@@ -19,7 +19,8 @@ namespace SongbookManagerMaui.ViewModels
     {
         #region Fields
         private IMusicService _musicService { get; set; }
-        private bool pageLoaded = false;
+        private bool _pageLoaded = false;
+        private List<Music> _allMusics;
         #endregion
 
         #region Properties
@@ -69,6 +70,14 @@ namespace SongbookManagerMaui.ViewModels
             {
                 await SelectedMusicAsync();
             }
+            else if (e.PropertyName == nameof(IsAllChecked)
+                || e.PropertyName == nameof(IsCelebrationChecked)
+                || e.PropertyName == nameof(IsWorshipChecked)
+                || e.PropertyName == nameof(IsCommunionChecked)
+                || e.PropertyName == nameof(IsHolySupperChecked))
+            {
+                HandleMusicCategories();
+            }
         }
 
         [RelayCommand]
@@ -109,11 +118,9 @@ namespace SongbookManagerMaui.ViewModels
 
                 //List<Music> musicListUpdated = await App.Database.GetAllMusics();
                 var userEmail = LoggedUserHelper.GetEmail();
-                List<Music> musicListUpdated = await _musicService.GetMusicsByUserDescending(userEmail);
+                _allMusics = await _musicService.GetMusicsByUserDescending(userEmail);
 
-                MusicList.Clear();
-
-                musicListUpdated.ForEach(i => MusicList.Add(i));
+                HandleMusicCategories();
 
                 TotalMusics = MusicList.Count;
             }
@@ -127,12 +134,42 @@ namespace SongbookManagerMaui.ViewModels
             }
         }
 
+        private void HandleMusicCategories()
+        {
+            MusicList.Clear();
+
+            if (IsCelebrationChecked)
+            {
+                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("Celebration")).ToList();
+                musics.ForEach(i => MusicList.Add(i));
+            }
+            else if (IsWorshipChecked)
+            {
+                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("Worship")).ToList();
+                musics.ForEach(i => MusicList.Add(i));
+            }
+            else if (IsCommunionChecked)
+            {
+                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("Communion")).ToList();
+                musics.ForEach(i => MusicList.Add(i));
+            }
+            else if (IsHolySupperChecked)
+            {
+                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("HolySupper")).ToList();
+                musics.ForEach(i => MusicList.Add(i));
+            }
+            else
+            {
+                _allMusics.ForEach(i => MusicList.Add(i));
+            }
+        }
+
         [RelayCommand]
         private async Task Search()
         {
             try
             {
-                if (!pageLoaded)
+                if (!_pageLoaded)
                 {
                     return;
                 }
@@ -203,7 +240,7 @@ namespace SongbookManagerMaui.ViewModels
         public async Task LoadingPage()
         {
             await UpdateMusicList();
-            pageLoaded = true;
+            _pageLoaded = true;
 
         }
         #endregion

@@ -9,6 +9,7 @@
         <Setter Property="Shell.BackgroundColor" Value="{StaticResource Tertiary}" />
         <Setter Property="Shell.ForegroundColor" Value="{StaticResource Black}" />
         <Setter Property="Shell.TitleColor" Value="{StaticResource Black}" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Tertiary}" />
     </Style>
 
     <Style ApplyToDerivedTypes="True" TargetType="TabbedPage">

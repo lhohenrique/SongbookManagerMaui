@@ -51,12 +51,10 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding EditMusicCommand}"
-            IconImageSource="edit.png"
             Order="Primary"
             Text="{x:Static resource:AppResources.Edit}" />
         <ToolbarItem
             Command="{Binding RemoveMusicCommand}"
-            IconImageSource="delete.png"
             Order="Primary"
             Text="{x:Static resource:AppResources.Delete}" />
         <ToolbarItem
@@ -107,10 +105,10 @@
                     <ImageButton
                         Margin="10,5,0,0"
                         Command="{Binding PlayMusicCommand}"
-                        HeightRequest="20"
+                        HeightRequest="40"
                         IsVisible="{Binding IsPlayMusicVisible}"
                         Source="play.png"
-                        WidthRequest="20" />
+                        WidthRequest="40" />
                 </HorizontalStackLayout>
                 <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Author}" />
                 <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Categories}" />
@@ -122,19 +120,20 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout
-                Padding="10"
+                Padding="10,0"
                 IsVisible="{Binding IsChordsChecked, Mode=TwoWay}"
                 Spacing="20">
                 <HorizontalStackLayout Spacing="5">
                     <Label
-                        Padding="0,2,0,0"
                         Style="{StaticResource PrimaryLabel}"
-                        Text="{x:Static resource:AppResources.Key}" />
+                        Text="{x:Static resource:AppResources.Key}"
+                        VerticalOptions="Center" />
                     <Picker
-                        Margin="5,0,0,0"
+                        Title="{x:Static resource:AppResources.Key}"
                         HorizontalTextAlignment="Center"
                         ItemsSource="{Binding KeyList}"
-                        SelectedItem="{Binding SelectedKey}" />
+                        SelectedItem="{Binding SelectedKey}"
+                        VerticalOptions="Center" />
                 </HorizontalStackLayout>
 
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding Chords}" />
