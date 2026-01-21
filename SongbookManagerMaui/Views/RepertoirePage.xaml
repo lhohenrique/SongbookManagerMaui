@@ -3,8 +3,9 @@
     x:Class="SongbookManagerMaui.Views.RepertoirePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:SongbookManagerMaui.Controls"
+    xmlns:models="clr-namespace:SongbookManagerMaui.Models"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
-    BackgroundImageSource="background3.jpg"
     Style="{StaticResource BaseContentPage}">
 
     <ContentPage.ToolbarItems>
@@ -28,17 +29,22 @@
 
     <ContentPage.Content>
         <AbsoluteLayout>
-            <ContentView AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-                <StackLayout Spacing="2">
-                    <SearchBar
+            <ContentView
+                Padding="15,0,10,0"
+                AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Spacing="15">
+
+                    <Label Style="{StaticResource TitleLabel}" Text="{x:Static resource:AppResources.Repertoires}" />
+
+                    <!--<SearchBar
                         x:Name="RepertoireSearchBar"
                         HorizontalOptions="FillAndExpand"
                         Placeholder="{x:Static resource:AppResources.Search}"
                         Text="{Binding SearchText}"
-                        TextChanged="RepertoireSearchBar_TextChanged" />
+                        TextChanged="RepertoireSearchBar_TextChanged" />-->
 
-                    <StackLayout>
-                        <!--<controls:MTAdView x:Name="RepertoirePageAds" IsVisible="true" AdsId="ca-app-pub-4649626975914217/2317560399">
+                    <!--<controls:MTAdView x:Name="RepertoirePageAds" IsVisible="true" AdsId="ca-app-pub-4649626975914217/2317560399">
                             <controls:MTAdView.HeightRequest>
                                 <x:OnIdiom>
                                     <x:OnIdiom.Phone>50</x:OnIdiom.Phone>
@@ -47,39 +53,63 @@
                                 </x:OnIdiom>
                             </controls:MTAdView.HeightRequest>
                         </controls:MTAdView>-->
-                    </StackLayout>
 
-                    <RefreshView
-                        Padding="0,0,0,2"
-                        Command="{Binding UpdateRepertoireListCommand}"
-                        IsRefreshing="{Binding IsUpdating, Mode=OneWay}">
-                        <ListView
-                            x:Name="RepertoireListView"
-                            HasUnevenRows="True"
-                            ItemsSource="{Binding RepertoireList, Mode=OneWay}"
-                            SelectedItem="{Binding SelectedRepertoire}"
-                            SeparatorVisibility="Default">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <StackLayout
-                                            Padding="10,5"
-                                            BackgroundColor="White"
-                                            Orientation="Vertical">
+                    <controls:DateControl Date="{Binding CurrentDate, Mode=TwoWay}" />
+
+                    <ListView
+                        x:Name="RepertoireListView"
+                        HasUnevenRows="True"
+                        ItemsSource="{Binding RepertoireList, Mode=OneWay}"
+                        SelectedItem="{Binding SelectedRepertoire}"
+                        SeparatorVisibility="Default">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Border
+                                        Margin="0,5"
+                                        Padding="12"
+                                        BackgroundColor="{StaticResource White}"
+                                        Stroke="Transparent">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10" />
+                                        </Border.StrokeShape>
+                                        <VerticalStackLayout Spacing="10">
                                             <StackLayout Orientation="Horizontal">
-                                                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding DateFormated}" />
+                                                <Label Style="{StaticResource TitleLabel}" Text="{Binding SingerName}" />
                                                 <Label
                                                     HorizontalOptions="EndAndExpand"
-                                                    Style="{StaticResource SecondaryLabel}"
+                                                    Style="{StaticResource PrimaryLabel}"
                                                     Text="{Binding TimeFormated}" />
                                             </StackLayout>
-                                            <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SingerName}" />
-                                        </StackLayout>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </RefreshView>
+
+                                            <ListView
+                                                HasUnevenRows="True"
+                                                ItemsSource="{Binding Musics, Mode=OneWay}"
+                                                SelectionMode="None"
+                                                SeparatorVisibility="None">
+                                                <ListView.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <ViewCell>
+                                                            <StackLayout Padding="0,5" Orientation="Vertical">
+                                                                <StackLayout Orientation="Horizontal">
+                                                                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                                                    <Label
+                                                                        HorizontalOptions="EndAndExpand"
+                                                                        Style="{StaticResource SecondaryLabel}"
+                                                                        Text="{Binding SingerKey}" />
+                                                                </StackLayout>
+                                                                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                                                            </StackLayout>
+                                                        </ViewCell>
+                                                    </DataTemplate>
+                                                </ListView.ItemTemplate>
+                                            </ListView>
+                                        </VerticalStackLayout>
+                                    </Border>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackLayout>
             </ContentView>
 

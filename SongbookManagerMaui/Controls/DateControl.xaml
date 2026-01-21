@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="SongbookManagerMaui.Controls.DateControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:SongbookManagerMaui.Converters">
+
+    <ContentView.Resources>
+        <converters:DayConverter x:Key="dayConverter" />
+        <converters:DayOfWeekConverter x:Key="dayOfWeekConverter" />
+        <converters:MonthConverter x:Key="monthConverter" />
+
+        <ControlTemplate x:Key="RadioDateTemplate">
+            <Grid RowDefinitions="80">
+                <Border
+                    x:Name="MenuBoder"
+                    Padding="8,0,8,0"
+                    Stroke="{StaticResource Primary}"
+                    StrokeThickness="2">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="15" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout VerticalOptions="Center">
+                        <Label
+                            x:Name="MonthLabel"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource SecondaryLabel}"
+                            Text="{TemplateBinding Content,
+                                                   Converter={StaticResource monthConverter}}"
+                            VerticalTextAlignment="Center" />
+
+                        <Label
+                            x:Name="DayLabel"
+                            FontAttributes="Bold"
+                            FontSize="Medium"
+                            HorizontalTextAlignment="Center"
+                            Text="{TemplateBinding Content,
+                                                   Converter={StaticResource dayConverter}}"
+                            VerticalTextAlignment="Center" />
+
+                        <Label
+                            x:Name="DayOfWeekLabel"
+                            HorizontalTextAlignment="Center"
+                            Style="{StaticResource PrimaryLabel}"
+                            Text="{TemplateBinding Content,
+                                                   Converter={StaticResource dayOfWeekConverter}}"
+                            VerticalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Border>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CheckedStates">
+                            <VisualState x:Name="Checked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="MonthLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                    <Setter TargetName="DayLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                    <Setter TargetName="DayOfWeekLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                    <Setter TargetName="MenuBoder" Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Unchecked">
+                                <VisualState.Setters>
+                                    <Setter TargetName="MonthLabel" Property="Label.TextColor" Value="{StaticResource Black}" />
+                                    <Setter TargetName="DayLabel" Property="Label.TextColor" Value="{StaticResource Black}" />
+                                    <Setter TargetName="DayOfWeekLabel" Property="Label.TextColor" Value="{StaticResource Black}" />
+                                    <Setter TargetName="MenuBoder" Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Grid>
+        </ControlTemplate>
+    </ContentView.Resources>
+
+    <Grid RadioButtonGroup.GroupName="DateCalendar">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <RadioButton
+            x:Name="MondayRadio"
+            Margin="0,0,5,0"
+            CheckedChanged="MondayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+        <RadioButton
+            x:Name="TuesdayRadio"
+            Grid.Column="1"
+            Margin="0,0,5,0"
+            CheckedChanged="TuesdayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+        <RadioButton
+            x:Name="WednesdayRadio"
+            Grid.Column="2"
+            Margin="0,0,5,0"
+            CheckedChanged="WednesdayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+        <RadioButton
+            x:Name="ThursdayRadio"
+            Grid.Column="3"
+            Margin="0,0,5,0"
+            CheckedChanged="ThursdayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+        <RadioButton
+            x:Name="FridayRadio"
+            Grid.Column="4"
+            Margin="0,0,5,0"
+            CheckedChanged="FridayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+        <RadioButton
+            x:Name="SaturdayRadio"
+            Grid.Column="5"
+            Margin="0,0,5,0"
+            CheckedChanged="SaturdayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+        <RadioButton
+            x:Name="SundayRadio"
+            Grid.Column="6"
+            CheckedChanged="SundayRadio_CheckedChanged"
+            ControlTemplate="{StaticResource RadioDateTemplate}" />
+    </Grid>
+</ContentView>

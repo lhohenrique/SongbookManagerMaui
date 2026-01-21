@@ -95,6 +95,22 @@ namespace SongbookManagerMaui.Services
             return repertoires;
         }
 
+        public async Task<List<Repertoire>> GetRepertoiresByDate(string owner, DateTime date)
+        {
+            var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
+            {
+                Date = item.Object.Date,
+                Keys = item.Object.Keys,
+                Musics = item.Object.Musics,
+                Owner = item.Object.Owner,
+                SingerName = item.Object.SingerName,
+                SingerEmail = item.Object.SingerEmail,
+                Time = item.Object.Time
+            }).Where(r => r.Owner.Equals(owner) && (r.Date.Day == date.Day && r.Date.Month == date.Month && r.Date.Year == date.Year)).ToList();
+
+            return repertoires;
+        }
+
         public async Task<List<Repertoire>> GetRepertoiresBySingerAndPeriod(string singer, DateTime startDate, DateTime endDate)
         {
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire

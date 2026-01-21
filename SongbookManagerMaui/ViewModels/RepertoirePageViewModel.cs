@@ -19,7 +19,9 @@ namespace SongbookManagerMaui.ViewModels
     {
         #region Fields
         IRepertoireService _repertoireService;
+        IKeyService _keyService;
         private bool _pageLoaded = false;
+        private bool _isUpdating = false;
         #endregion
 
         #region Properties
@@ -36,15 +38,16 @@ namespace SongbookManagerMaui.ViewModels
         private ObservableCollection<Repertoire> repertoireList = new ObservableCollection<Repertoire>();
 
         [ObservableProperty]
-        private bool isUpdating = false;
+        private string searchText = string.Empty;
 
         [ObservableProperty]
-        private string searchText = string.Empty;
+        private DateTime currentDate = DateTime.Today;
         #endregion
 
-        public RepertoirePageViewModel(IRepertoireService repertoireService)
+        public RepertoirePageViewModel(IRepertoireService repertoireService, IKeyService keyService)
         {
             _repertoireService = repertoireService;
+            _keyService = keyService;
         }
 
         #region Methods
@@ -55,6 +58,60 @@ namespace SongbookManagerMaui.ViewModels
             {
                 await SelectedRepertoireAsync();
             }
+            else if (e.PropertyName == nameof(CurrentDate))
+            {
+                await LoadRepertoire();
+            }
+        }
+
+        private async Task LoadRepertoire()
+        {
+            try
+            {
+                if (_isUpdating)
+                {
+                    return;
+                }
+
+                _isUpdating = true;
+
+                var owner = LoggedUserHelper.GetEmail();
+                List<Repertoire> repertoireListUpdated = await _repertoireService.GetRepertoiresByDate(owner, CurrentDate);
+
+                if (repertoireListUpdated.Any())
+                {
+                    foreach (Repertoire repertoire in repertoireListUpdated)
+                    {
+                        if (repertoire.Musics != null)
+                        {
+                            foreach (MusicRep music in repertoire.Musics)
+                            {
+                                if (!string.IsNullOrEmpty(repertoire.SingerEmail))
+                                {
+                                    var key = await _keyService.GetKeyByUser(repertoire.SingerEmail, music.Name);
+                                    if (key != null)
+                                    {
+                                        music.SingerKey = key.Key;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                RepertoireList.Clear();
+
+                repertoireListUpdated.ForEach(i => RepertoireList.Add(i));
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotUpdateRepertoireList, AppResources.Ok);
+            }
+            finally
+            {
+                _isUpdating = false;
+            }
+            
         }
 
         [RelayCommand]
@@ -86,7 +143,7 @@ namespace SongbookManagerMaui.ViewModels
             if (SelectedRepertoire != null)
             {
                 _repertoireService.SetRepertoire(SelectedRepertoire);
-                await Shell.Current.GoToAsync($"{nameof(PreviewRepertoirePage)}");
+                await Shell.Current.GoToAsync($"{nameof(PlayRepertoirePage)}");
             }
         }
 
@@ -133,17 +190,16 @@ namespace SongbookManagerMaui.ViewModels
             await App.Current.MainPage.DisplayAlert(AppResources.Tutorial, message, AppResources.Ok);
         }
 
-        [RelayCommand]
         private async Task UpdateRepertoireList()
         {
             try
             {
-                if (IsUpdating)
+                if (_isUpdating)
                 {
                     return;
                 }
 
-                IsUpdating = true;
+                _isUpdating = true;
 
                 await LoggedUserHelper.UpdateLoggedUserAsync();
 
@@ -160,13 +216,13 @@ namespace SongbookManagerMaui.ViewModels
             }
             finally
             {
-                IsUpdating = false;
+                _isUpdating = false;
             }
         }
 
         public async Task LoadingPage()
         {
-            await UpdateRepertoireList();
+            await LoadRepertoire();
             _pageLoaded = true;
         }
         #endregion

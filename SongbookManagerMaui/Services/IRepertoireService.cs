@@ -34,5 +34,6 @@ namespace SongbookManagerMaui.Services
         Task DeleteAll();
 
         void SetRepertoire(Repertoire selectedRepertoire);
+        Task<List<Repertoire>> GetRepertoiresByDate(string owner, DateTime date);
     }
 }
