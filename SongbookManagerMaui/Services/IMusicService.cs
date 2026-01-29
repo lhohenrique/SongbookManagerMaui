@@ -11,11 +11,12 @@ namespace SongbookManagerMaui.Services
     {
         #region Properties
         Music Music { get; set; }
+        List<Music> Musics { get; set; }
         #endregion
 
         Task<List<Music>> GetMusics();
 
-        Task<List<Music>> GetMusicsByUser(string userEmail);
+        Task<List<Music>> GetMusicsByUser(string userEmail, bool forceUpdate = false);
 
         Task<List<Music>> GetMusicsByUserDescending(string userEmail);
 

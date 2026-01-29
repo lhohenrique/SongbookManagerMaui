@@ -460,7 +460,7 @@
     <value>Save</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search...</value>
+    <value>Search music</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>
@@ -500,6 +500,18 @@
   </data>
   <data name="Singer" xml:space="preserve">
     <value>Singer</value>
+  </data>
+  <data name="Singer1" xml:space="preserve">
+    <value>Singer 1</value>
+  </data>
+  <data name="Singer2" xml:space="preserve">
+    <value>Singer 2</value>
+  </data>
+  <data name="Singer3" xml:space="preserve">
+    <value>Singer 3</value>
+  </data>
+  <data name="Singer4" xml:space="preserve">
+    <value>Singer 4</value>
   </data>
   <data name="SongsFor" xml:space="preserve">
     <value>Songs for</value>

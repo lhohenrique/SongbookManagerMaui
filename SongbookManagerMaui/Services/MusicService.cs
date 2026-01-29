@@ -24,6 +24,13 @@ namespace SongbookManagerMaui.Services
             set { music = value; }
         }
 
+        private List<Music> musics = new();
+        public List<Music> Musics
+        {
+            get { return musics; }
+            set { musics = value;  }
+        }
+
         #endregion
 
         public MusicService()
@@ -51,42 +58,48 @@ namespace SongbookManagerMaui.Services
             return musics;
         }
 
-        public async Task<List<Music>> GetMusicsByUser(string userEmail)
+        public async Task<List<Music>> GetMusicsByUser(string userEmail, bool forceUpdate = false)
         {
-            var musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
+            if (!Musics.Any() || forceUpdate)
             {
-                Name = item.Object.Name,
-                Author = item.Object.Author,
-                Category = item.Object.Category,
-                Key = item.Object.Key,
-                Lyrics = item.Object.Lyrics,
-                Chords = item.Object.Chords,
-                Owner = item.Object.Owner,
-                Version = item.Object.Version,
-                Notes = item.Object.Notes,
-                CreationDate = item.Object.CreationDate
-            }).Where(m => m.Owner.Equals(userEmail)).ToList();
-
-            return musics;
+                Musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
+                {
+                    Name = item.Object.Name,
+                    Author = item.Object.Author,
+                    Category = item.Object.Category,
+                    Key = item.Object.Key,
+                    Lyrics = item.Object.Lyrics,
+                    Chords = item.Object.Chords,
+                    Owner = item.Object.Owner,
+                    Version = item.Object.Version,
+                    Notes = item.Object.Notes,
+                    CreationDate = item.Object.CreationDate
+                }).Where(m => m.Owner.Equals(userEmail)).ToList();
+            }
+            
+            return Musics;
         }
 
         public async Task<List<Music>> GetMusicsByUserDescending(string userEmail)
         {
-            var musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
+            if (!Musics.Any())
             {
-                Name = item.Object.Name,
-                Author = item.Object.Author,
-                Category = item.Object.Category,
-                Key = item.Object.Key,
-                Lyrics = item.Object.Lyrics,
-                Chords = item.Object.Chords,
-                Owner = item.Object.Owner,
-                Version = item.Object.Version,
-                Notes = item.Object.Notes,
-                CreationDate = item.Object.CreationDate
-            }).Where(m => m.Owner.Equals(userEmail)).OrderByDescending(m => m.CreationDate).ToList();
+                Musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
+                {
+                    Name = item.Object.Name,
+                    Author = item.Object.Author,
+                    Category = item.Object.Category,
+                    Key = item.Object.Key,
+                    Lyrics = item.Object.Lyrics,
+                    Chords = item.Object.Chords,
+                    Owner = item.Object.Owner,
+                    Version = item.Object.Version,
+                    Notes = item.Object.Notes,
+                    CreationDate = item.Object.CreationDate
+                }).Where(m => m.Owner.Equals(userEmail)).OrderByDescending(m => m.CreationDate).ToList();
+            }
 
-            return musics;
+            return Musics;
         }
 
         public async Task<Music> GetMusicByNameAndAuthor(string name, string author, string owner)
@@ -111,9 +124,9 @@ namespace SongbookManagerMaui.Services
         public async Task<bool> InsertMusic(Music music)
         {
             await client.Child("Musics").PostAsync(music);
+            Musics.Add(music);
 
             return true;
-
         }
 
         public async Task UpdateMusic(Music music, string oldName)
@@ -122,6 +135,8 @@ namespace SongbookManagerMaui.Services
                                                 .Where(m => m.Object.Name.Equals(oldName) && m.Object.Owner.Equals(music.Owner)).FirstOrDefault();
 
             await client.Child("Musics").Child(musicToUpdate.Key).PutAsync(music);
+
+            GetMusicsByUser(music.Owner, true);
         }
 
         public async Task DeleteMusic(Music music)
@@ -130,30 +145,19 @@ namespace SongbookManagerMaui.Services
                                                 .Where(m => m.Object.Name.Equals(music.Name) && m.Object.Owner.Equals(music.Owner)).FirstOrDefault();
 
             await client.Child("Musics").Child(musicToDelete.Key).DeleteAsync();
+
+            GetMusicsByUser(music.Owner, true);
         }
 
         public async Task<List<Music>> SearchMusic(string searchText, string userEmail)
         {
-            var musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
-            {
-                Name = item.Object.Name,
-                Author = item.Object.Author,
-                Category = item.Object.Category,
-                Key = item.Object.Key,
-                Lyrics = item.Object.Lyrics,
-                Chords = item.Object.Chords,
-                Owner = item.Object.Owner,
-                Version = item.Object.Version,
-                Notes = item.Object.Notes,
-                CreationDate = item.Object.CreationDate
-            }).Where(m => m.Owner.Equals(userEmail) && m.Name.ToUpper().Contains(searchText.ToUpper())).OrderByDescending(m => m.CreationDate).ToList();
-
-            return musics;
+            return Musics.Where(m => m.Owner.Equals(userEmail) && m.Name.ToUpper().Contains(searchText.ToUpper())).OrderByDescending(m => m.CreationDate).ToList();
         }
 
         public async Task DeleteAll()
         {
             await client.Child("Musics").DeleteAsync();
+            Musics.Clear();
         }
 
         public void SetMusic(Music selectedMusic)

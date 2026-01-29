@@ -31,10 +31,10 @@ namespace SongbookManagerMaui.ViewModels
 
         #region Properties
         [ObservableProperty]
-        private string selectedSinger;
+        private User selectedSinger;
 
         [ObservableProperty]
-        private ObservableCollection<string> singers = new ObservableCollection<string>();
+        private ObservableCollection<User> singers = new ObservableCollection<User>();
 
         [ObservableProperty]
         private DateTime date = DateTime.Now;
@@ -43,16 +43,19 @@ namespace SongbookManagerMaui.ViewModels
         private TimeSpan time = TimeSpan.Zero;
 
         [ObservableProperty]
-        private ObservableCollection<MusicRep> musicList = new ObservableCollection<MusicRep>();
+        private ObservableCollection<Music> filteredMusicList = new ObservableCollection<Music>();
 
         [ObservableProperty]
-        private List<MusicRep> selectedMusics = new List<MusicRep>();
+        private Music filteredSelectedMusic;
 
         [ObservableProperty]
-        private MusicRep selectedMusic;
+        private ObservableCollection<MusicRep> repertoireMusics = new ObservableCollection<MusicRep>();
 
         [ObservableProperty]
-        private string searchText = string.Empty;
+        private bool isSearchEnabled = false;
+
+        [ObservableProperty]
+        private bool isMusicsVisible = false;
         #endregion
 
         public AddEditRepertoirePageViewModel(IRepertoireService repertoireService, IMusicService musicService, IKeyService keyService, IUserService userService)
@@ -72,20 +75,53 @@ namespace SongbookManagerMaui.ViewModels
         }
 
         #region Methods
+        protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            base.OnPropertyChanged(e);
+            if (e.PropertyName == nameof(SelectedSinger))
+            {
+                IsSearchEnabled = SelectedSinger != null;
+            }
+            else if (e.PropertyName == nameof(FilteredSelectedMusic))
+            {
+                AddMusicToRepertoire();
+                FilteredMusicList.Clear();
+            }
+        }
+
+        private void AddMusicToRepertoire()
+        {
+            RepertoireMusics.Add(new MusicRep()
+            {
+                Name = FilteredSelectedMusic.Name,
+                Author = FilteredSelectedMusic.Author,
+                Owner = FilteredSelectedMusic.Owner,
+                SingerName = SelectedSinger.Name,
+                SingerEmail = SelectedSinger.Email
+            });
+
+            IsMusicsVisible = true;
+        }
+
         [RelayCommand]
         public async Task SaveRepertoire()
         {
             try
             {
-                string userEmail = GetSingerEmail();
+                foreach(MusicRep music in RepertoireMusics)
+                {
+                    var key = await _keyService.GetKeyByUser(music.SingerEmail, music.Name);
+                    if (key != null)
+                    {
+                        music.SingerKey = key.Key;
+                    }
+                }
 
                 if (_repertoire != null)
                 {
                     _repertoire.Date = Date;
                     _repertoire.Time = Time;
-                    _repertoire.Musics = SelectedMusics.ToList();
-                    _repertoire.SingerName = SelectedSinger;
-                    _repertoire.SingerEmail = userEmail;
+                    _repertoire.Musics = RepertoireMusics.ToList();
 
                     await _repertoireService.UpdateRepertoire(_repertoire, _oldDate, _oldTime);
                 }
@@ -95,10 +131,8 @@ namespace SongbookManagerMaui.ViewModels
                     {
                         Date = Date,
                         Time = Time,
-                        Musics = SelectedMusics.ToList(),
-                        Owner = LoggedUserHelper.GetEmail(),
-                        SingerName = SelectedSinger,
-                        SingerEmail = userEmail
+                        Musics = RepertoireMusics.ToList(),
+                        Owner = LoggedUserHelper.GetEmail()
                     };
 
                     await _repertoireService.InsertRepertoire(newRepertoire);
@@ -112,36 +146,8 @@ namespace SongbookManagerMaui.ViewModels
             }
         }
 
-        public void SelectionChanged(MusicRep musicTapped, int musicTappedIndex)
-        {
-            if (musicTapped.IsSelected)
-            {
-                musicTapped.IsSelected = false;
-                
-                for (int i = 0; i < SelectedMusics.Count; i++)
-                {
-                    if (SelectedMusics[i].Name.Equals(musicTapped.Name) && SelectedMusics[i].Author.Equals(musicTapped.Author))
-                    {
-                        SelectedMusics.RemoveAt(i);
-                    }
-                }
-                
-                MusicList.RemoveAt(musicTappedIndex);
-                MusicList.Insert(musicTappedIndex, musicTapped);
-            }
-            else
-            {
-                musicTapped.IsSelected = true;
-
-                SelectedMusics.Add(musicTapped);
-
-                MusicList.RemoveAt(musicTappedIndex);
-                MusicList.Insert(musicTappedIndex, musicTapped);
-            }
-        }
-
         [RelayCommand]
-        private async Task Search()
+        private async Task Search(string term)
         {
             try
             {
@@ -151,24 +157,9 @@ namespace SongbookManagerMaui.ViewModels
                 }
 
                 var userEmail = LoggedUserHelper.GetEmail();
-                List<Music> musicListUpdated = await _musicService.SearchMusic(SearchText, userEmail);
+                List<Music> musicListFiltered = await _musicService.SearchMusic(term, userEmail);
 
-                MusicList.Clear();
-
-                bool isSelected = false;
-                foreach (Music music in musicListUpdated)
-                {
-                    var selectedMusic = SelectedMusics.FirstOrDefault(m => m.Name.Equals(music.Name) && m.Author.Equals(music.Author));
-                    isSelected = selectedMusic != null;
-
-                    MusicList.Add(new MusicRep()
-                    {
-                        Name = music.Name,
-                        Author = music.Author,
-                        Owner = music.Owner,
-                        IsSelected = isSelected
-                    });
-                }
+                FilteredMusicList = new(musicListFiltered);
             }
             catch (Exception)
             {
@@ -185,10 +176,20 @@ namespace SongbookManagerMaui.ViewModels
             await App.Current.MainPage.DisplayAlert(AppResources.Tutorial, message, AppResources.Ok);
         }
 
+        [RelayCommand]
+        private void RemoveMusic(MusicRep music)
+        {
+            if(RepertoireMusics != null)
+            {
+                RepertoireMusics.Remove(music);
+
+                IsMusicsVisible = RepertoireMusics.Any();
+            }
+        }
+
         public async Task PopulateRepertoireFieldsAsync()
         {
             await LoadSingersAsync();
-            await LoadMusicsAsync();
 
             if (_repertoire != null)
             {
@@ -204,25 +205,14 @@ namespace SongbookManagerMaui.ViewModels
 
         private void LoadRepertoire()
         {
-            SelectedSinger = _repertoire.SingerName;
             Date = _repertoire.Date;
             Time = _repertoire.Time;
 
             if (_repertoire.Musics != null)
             {
-                SelectedMusics = _repertoire.Musics.ToList();
+                RepertoireMusics = new(_repertoire.Musics);
 
-                foreach (MusicRep musicSelected in _repertoire.Musics)
-                {
-                    MusicRep item = MusicList.FirstOrDefault(m => m.Name.Equals(musicSelected.Name) && m.Author.Equals(musicSelected.Author));
-                    int index = MusicList.IndexOf(item);
-
-                    if (index != -1)
-                    {
-                        MusicList.RemoveAt(index);
-                        MusicList.Insert(index, musicSelected);
-                    }
-                }
+                IsMusicsVisible = RepertoireMusics.Any();
             }
         }
 
@@ -235,7 +225,7 @@ namespace SongbookManagerMaui.ViewModels
 
                 Singers.Clear();
 
-                _singerUserList.ForEach(i => Singers.Add(i.Name));
+                _singerUserList.ForEach(i => Singers.Add(i));
             }
             catch (Exception)
             {
@@ -243,63 +233,12 @@ namespace SongbookManagerMaui.ViewModels
             }
         }
 
-        private async Task LoadMusicsAsync()
-        {
-            try
-            {
-                await LoggedUserHelper.UpdateLoggedUserAsync();
-
-                var userEmail = LoggedUserHelper.GetEmail();
-                List<Music> musicListUpdated = await _musicService.GetMusicsByUserDescending(userEmail);
-
-                MusicList.Clear();
-
-                foreach (Music music in musicListUpdated)
-                {
-                    MusicList.Add(new MusicRep()
-                    {
-                        Name = music.Name,
-                        Author = music.Author,
-                        Owner = music.Owner,
-                        IsSelected = false
-                    });
-                }
-            }
-            catch (Exception)
-            {
-                await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotUpdateSongList, AppResources.Ok);
-            }
-        }
-
         private void SetLoggedSinger()
         {
             if (LoggedUserHelper.LoggedUser.IsSinger)
             {
-                SelectedSinger = LoggedUserHelper.LoggedUser.Name;
+                SelectedSinger = LoggedUserHelper.LoggedUser;
             }
-        }
-
-        private string GetSingerEmail()
-        {
-            string singerEmail = string.Empty;
-
-            if (!string.IsNullOrEmpty(SelectedSinger))
-            {
-                if (SelectedSinger.Equals(LoggedUserHelper.LoggedUser.Name))
-                {
-                    singerEmail = LoggedUserHelper.LoggedUser.Email;
-                }
-                else
-                {
-                    var user = _singerUserList.FirstOrDefault(s => s.Name.Equals(SelectedSinger));
-                    if (user != null)
-                    {
-                        singerEmail = user.Email;
-                    }
-                }
-            }
-
-            return singerEmail;
         }
         #endregion
     }

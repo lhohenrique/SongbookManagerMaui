@@ -1087,7 +1087,7 @@ namespace SongbookManagerMaui.Resx {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search....
+        ///   Looks up a localized string similar to Search music.
         /// </summary>
         internal static string Search {
             get {
@@ -1209,6 +1209,42 @@ namespace SongbookManagerMaui.Resx {
         internal static string Singer {
             get {
                 return ResourceManager.GetString("Singer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Singer 1.
+        /// </summary>
+        internal static string Singer1 {
+            get {
+                return ResourceManager.GetString("Singer1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Singer 2.
+        /// </summary>
+        internal static string Singer2 {
+            get {
+                return ResourceManager.GetString("Singer2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Singer 3.
+        /// </summary>
+        internal static string Singer3 {
+            get {
+                return ResourceManager.GetString("Singer3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Singer 4.
+        /// </summary>
+        internal static string Singer4 {
+            get {
+                return ResourceManager.GetString("Singer4", resourceCulture);
             }
         }
         

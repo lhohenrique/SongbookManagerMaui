@@ -4,13 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodels="clr-namespace:SongbookManagerMaui.ViewModels"
     Shell.TabBarIsVisible="False"
     Style="{StaticResource BaseContentPage}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding SaveRepertoireCommand}"
-            IconImageSource="save.png"
             Order="Primary"
             Text="{x:Static resource:AppResources.Save}" />
         <ToolbarItem
@@ -18,6 +19,115 @@
             Order="Secondary"
             Text="{x:Static resource:AppResources.Tutorial}" />
     </ContentPage.ToolbarItems>
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="SingerMenuTemplate">
+            <Border
+                x:Name="MenuBoder"
+                Margin="0,0,5,0"
+                Padding="10,0,10,0"
+                HeightRequest="30">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20" />
+                </Border.StrokeShape>
+                <Label
+                    x:Name="TextLabel"
+                    HorizontalTextAlignment="Center"
+                    Style="{StaticResource PrimaryLabel}"
+                    Text="{Binding Name}"
+                    VerticalTextAlignment="Center" />
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="SelectedState">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="FilteredMusicListTemplate">
+            <Border
+                Margin="0,2"
+                Padding="8"
+                BackgroundColor="{StaticResource White}"
+                Stroke="Transparent">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                    <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                </VerticalStackLayout>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="SelectedState">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="SelectedMusicListTemplate">
+            <SwipeView>
+                <SwipeView.RightItems>
+                    <SwipeItem
+                        BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding x:DataType='viewmodels:AddEditRepertoirePageViewModel', Source={RelativeSource AncestorType={x:Type viewmodels:AddEditRepertoirePageViewModel}}, Path=RemoveMusicCommand}"
+                        CommandParameter="{Binding}"
+                        IconImageSource="delete.png" />
+                </SwipeView.RightItems>
+                <Border
+                    Margin="0,2"
+                    Padding="10,7"
+                    BackgroundColor="{StaticResource White}"
+                    Stroke="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout>
+                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                        <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SingerName}" />
+                    </VerticalStackLayout>
+                </Border>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="SelectedState">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </SwipeView>
+        </DataTemplate>
+    </ContentPage.Resources>
 
     <ContentPage.Content>
         <ScrollView>
@@ -30,82 +140,111 @@
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*" />
-                        <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Singer}" />
-                    <Picker
-                        Title="{x:Static resource:AppResources.Singer}"
+
+                    <HorizontalStackLayout Spacing="20">
+                        <StackLayout>
+                            <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Date}" />
+                            <DatePicker Date="{Binding Date}" Format="dd MMM" />
+                        </StackLayout>
+
+                        <StackLayout>
+                            <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Time}" />
+                            <TimePicker Time="{Binding Time}" />
+                        </StackLayout>
+                    </HorizontalStackLayout>
+
+                    <ScrollView
                         Grid.Row="1"
-                        ItemsSource="{Binding Singers}"
-                        SelectedItem="{Binding SelectedSinger}" />
+                        Margin="0,15"
+                        Orientation="Horizontal">
+                        <CollectionView
+                            ItemTemplate="{StaticResource SingerMenuTemplate}"
+                            ItemsSource="{Binding Singers, Mode=OneWay}"
+                            SelectedItem="{Binding SelectedSinger}"
+                            SelectionMode="Single">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout ItemSpacing="5" Orientation="Horizontal" />
+                            </CollectionView.ItemsLayout>
+                        </CollectionView>
+                    </ScrollView>
 
-                    <Label
-                        Grid.Column="1"
-                        Style="{StaticResource SecondaryLabel}"
-                        Text="{x:Static resource:AppResources.Date}" />
-                    <DatePicker
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Date="{Binding Date}"
-                        Format="dd MMM" />
-
-                    <Label
-                        Grid.Column="2"
-                        Style="{StaticResource SecondaryLabel}"
-                        Text="{x:Static resource:AppResources.Time}" />
-                    <TimePicker
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Time="{Binding Time}" />
-
-                    <Label
-                        Grid.Row="2"
-                        Margin="0,0,0,0"
-                        Style="{StaticResource SecondaryLabel}"
-                        Text="{x:Static resource:AppResources.Musics}" />
-
-                    <SearchBar
-                        x:Name="MusicSearchBar"
+                    <Border
+                        x:Name="MenuBoder"
                         Grid.Row="3"
-                        Grid.ColumnSpan="3"
-                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{StaticResource White}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <Entry
+                            Margin="7,0,7,0"
+                            IsEnabled="{Binding IsSearchEnabled}"
+                            Placeholder="{x:Static resource:AppResources.Search}">
+                            <Entry.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding SearchCommand}"
+                                    MinimumLengthThreshold="3"
+                                    ShouldDismissKeyboardAutomatically="True"
+                                    StoppedTypingTimeThreshold="1000" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!--<SearchBar
+                        x:Name="MusicSearchBar"
                         Placeholder="{x:Static resource:AppResources.Search}"
-                        PlaceholderColor="LightGray"
                         Text="{Binding SearchText}"
-                        TextChanged="MusicSearchBar_TextChanged" />
+                        TextChanged="MusicSearchBar_TextChanged" />-->
+                    </Border>
                 </Grid>
 
-                <ListView
-                    x:Name="MusicListListView"
-                    HasUnevenRows="True"
-                    ItemTapped="MusicListListView_ItemTapped"
-                    ItemsSource="{Binding MusicList, Mode=OneWay}"
-                    SelectedItem="{Binding SelectedMusic, Mode=TwoWay}"
-                    SelectionMode="Single">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <StackLayout
-                                    Padding="0,5"
-                                    BackgroundColor="Transparent"
-                                    Orientation="Vertical"
-                                    Spacing="0">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
-                                        <Image
-                                            HorizontalOptions="EndAndExpand"
-                                            IsVisible="{Binding IsSelected}"
-                                            Source="selected.png"
-                                            WidthRequest="30" />
-                                    </StackLayout>
-                                    <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                <CollectionView
+                    x:Name="FilteredMusicListCollectionView"
+                    ItemTemplate="{StaticResource FilteredMusicListTemplate}"
+                    ItemsSource="{Binding FilteredMusicList, Mode=OneWay}"
+                    SelectedItem="{Binding FilteredSelectedMusic, Mode=TwoWay}"
+                    SelectionMode="Single" />
+
+                <Label
+                    Margin="0,10"
+                    IsVisible="{Binding IsMusicsVisible}"
+                    Style="{StaticResource SecondaryLabel}"
+                    Text="{x:Static resource:AppResources.Musics}" />
+
+                <CollectionView
+                    x:Name="SelectedMusicListCollectionView"
+                    ItemTemplate="{StaticResource SelectedMusicListTemplate}"
+                    ItemsSource="{Binding RepertoireMusics, Mode=OneWay}"
+                    SelectionMode="Multiple" />
+
+                <!--<ListView
+                x:Name="MusicListListView"
+                HasUnevenRows="True"
+                ItemTapped="MusicListListView_ItemTapped"
+                ItemsSource="{Binding MusicList, Mode=OneWay}"
+                SelectedItem="{Binding SelectedMusic, Mode=TwoWay}"
+                SelectionMode="Single">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout
+                                Padding="0,5"
+                                BackgroundColor="Transparent"
+                                Orientation="Vertical"
+                                Spacing="0">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                                    <Image
+                                        HorizontalOptions="EndAndExpand"
+                                        IsVisible="{Binding IsSelected}"
+                                        Source="selected.png"
+                                        WidthRequest="30" />
                                 </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
