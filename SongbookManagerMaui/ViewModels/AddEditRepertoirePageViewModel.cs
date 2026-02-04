@@ -27,6 +27,7 @@ namespace SongbookManagerMaui.ViewModels
         private IUserService _userService;
         private bool _pageLoaded = false;
         private List<User> _singerUserList = new List<User>();
+        private MusicRep _draggedItem;
         #endregion
 
         #region Properties
@@ -87,20 +88,6 @@ namespace SongbookManagerMaui.ViewModels
                 AddMusicToRepertoire();
                 FilteredMusicList.Clear();
             }
-        }
-
-        private void AddMusicToRepertoire()
-        {
-            RepertoireMusics.Add(new MusicRep()
-            {
-                Name = FilteredSelectedMusic.Name,
-                Author = FilteredSelectedMusic.Author,
-                Owner = FilteredSelectedMusic.Owner,
-                SingerName = SelectedSinger.Name,
-                SingerEmail = SelectedSinger.Email
-            });
-
-            IsMusicsVisible = true;
         }
 
         [RelayCommand]
@@ -185,6 +172,41 @@ namespace SongbookManagerMaui.ViewModels
 
                 IsMusicsVisible = RepertoireMusics.Any();
             }
+        }
+
+        [RelayCommand]
+        private void StartDrag(MusicRep item)
+        {
+            _draggedItem = item;
+        }
+
+        [RelayCommand]
+        private void Drop(MusicRep targetItem)
+        {
+            if (_draggedItem == null || targetItem == null || _draggedItem == targetItem)
+                return;
+
+            var oldIndex = RepertoireMusics.IndexOf(_draggedItem);
+            var newIndex = RepertoireMusics.IndexOf(targetItem);
+
+            if (oldIndex == -1 || newIndex == -1)
+                return;
+
+            RepertoireMusics.Move(oldIndex, newIndex);
+        }
+
+        private void AddMusicToRepertoire()
+        {
+            RepertoireMusics.Add(new MusicRep()
+            {
+                Name = FilteredSelectedMusic.Name,
+                Author = FilteredSelectedMusic.Author,
+                Owner = FilteredSelectedMusic.Owner,
+                SingerName = SelectedSinger.Name,
+                SingerEmail = SelectedSinger.Email
+            });
+
+            IsMusicsVisible = true;
         }
 
         public async Task PopulateRepertoireFieldsAsync()

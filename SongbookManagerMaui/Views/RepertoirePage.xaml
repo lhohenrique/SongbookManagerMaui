@@ -6,8 +6,75 @@
     xmlns:controls="clr-namespace:SongbookManagerMaui.Controls"
     xmlns:models="clr-namespace:SongbookManagerMaui.Models"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    xmlns:viewmodels="clr-namespace:SongbookManagerMaui.ViewModels"
     Style="{StaticResource BaseContentPage}">
 
+    <ContentPage.Resources>
+        <DataTemplate x:Key="RepertoireTemplate">
+            <SwipeView>
+                <SwipeView.RightItems>
+                    <SwipeItem
+                        BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding x:DataType='viewmodels:RepertoirePageViewModel', Source={RelativeSource AncestorType={x:Type viewmodels:RepertoirePageViewModel}}, Path=RemoveRepertoireCommand}"
+                        CommandParameter="{Binding}"
+                        IconImageSource="delete.png" />
+                    <SwipeItem
+                        BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding x:DataType='viewmodels:RepertoirePageViewModel', Source={RelativeSource AncestorType={x:Type viewmodels:RepertoirePageViewModel}}, Path=EditRepertoireCommand}"
+                        CommandParameter="{Binding}"
+                        IconImageSource="edit.png" />
+                </SwipeView.RightItems>
+                <Border
+                    Margin="0,5"
+                    Padding="12"
+                    BackgroundColor="{StaticResource White}"
+                    Stroke="Transparent">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="10" />
+                    </Border.StrokeShape>
+
+                    <VerticalStackLayout Spacing="10">
+                        <StackLayout Orientation="Horizontal">
+                            <Label Style="{StaticResource TitleLabel}" Text="{Binding TimeFormated}" />
+                        </StackLayout>
+
+                        <CollectionView
+                            ItemTemplate="{StaticResource RepertoireMusicsTemplate}"
+                            ItemsSource="{Binding Musics, Mode=OneWay}"
+                            SelectionMode="None" />
+                    </VerticalStackLayout>
+                </Border>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="SelectedState">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </SwipeView>
+        </DataTemplate>
+        <DataTemplate x:Key="RepertoireMusicsTemplate">
+            <StackLayout Padding="0,5" Orientation="Vertical">
+                <StackLayout Orientation="Horizontal">
+                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                    <Label
+                        HorizontalOptions="EndAndExpand"
+                        Style="{StaticResource SecondaryLabel}"
+                        Text="{Binding SingerKey}" />
+                </StackLayout>
+                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SingerName}" />
+            </StackLayout>
+        </DataTemplate>
+    </ContentPage.Resources>
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding MostRecentOrderCommand}"
@@ -56,60 +123,12 @@
 
                     <controls:DateControl Date="{Binding CurrentDate, Mode=TwoWay}" />
 
-                    <ListView
+                    <CollectionView
                         x:Name="RepertoireListView"
-                        HasUnevenRows="True"
+                        ItemTemplate="{StaticResource RepertoireTemplate}"
                         ItemsSource="{Binding RepertoireList, Mode=OneWay}"
                         SelectedItem="{Binding SelectedRepertoire}"
-                        SeparatorVisibility="Default">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Border
-                                        Margin="0,5"
-                                        Padding="12"
-                                        BackgroundColor="{StaticResource White}"
-                                        Stroke="Transparent">
-                                        <Border.StrokeShape>
-                                            <RoundRectangle CornerRadius="10" />
-                                        </Border.StrokeShape>
-                                        <VerticalStackLayout Spacing="10">
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Style="{StaticResource TitleLabel}" Text="{Binding SingerName}" />
-                                                <Label
-                                                    HorizontalOptions="EndAndExpand"
-                                                    Style="{StaticResource PrimaryLabel}"
-                                                    Text="{Binding TimeFormated}" />
-                                            </StackLayout>
-
-                                            <ListView
-                                                HasUnevenRows="True"
-                                                ItemsSource="{Binding Musics, Mode=OneWay}"
-                                                SelectionMode="None"
-                                                SeparatorVisibility="None">
-                                                <ListView.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <ViewCell>
-                                                            <StackLayout Padding="0,5" Orientation="Vertical">
-                                                                <StackLayout Orientation="Horizontal">
-                                                                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
-                                                                    <Label
-                                                                        HorizontalOptions="EndAndExpand"
-                                                                        Style="{StaticResource SecondaryLabel}"
-                                                                        Text="{Binding SingerKey}" />
-                                                                </StackLayout>
-                                                                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
-                                                            </StackLayout>
-                                                        </ViewCell>
-                                                    </DataTemplate>
-                                                </ListView.ItemTemplate>
-                                            </ListView>
-                                        </VerticalStackLayout>
-                                    </Border>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        SelectionMode="Single" />
                 </StackLayout>
             </ContentView>
 

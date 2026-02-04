@@ -6,6 +6,7 @@
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:viewmodels="clr-namespace:SongbookManagerMaui.ViewModels"
+    x:Name="AddRepertoireContainer"
     Shell.TabBarIsVisible="False"
     Style="{StaticResource BaseContentPage}">
 
@@ -104,10 +105,24 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10" />
                     </Border.StrokeShape>
-                    <VerticalStackLayout>
-                        <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
-                        <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SingerName}" />
-                    </VerticalStackLayout>
+                    <Border.GestureRecognizers>
+                        <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.StartDragCommand, Source={x:Reference AddRepertoireContainer}}" DragStartingCommandParameter="{Binding .}" />
+                        <DropGestureRecognizer
+                            AllowDrop="True"
+                            DropCommand="{Binding BindingContext.DropCommand, Source={x:Reference AddRepertoireContainer}}"
+                            DropCommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
+                    <HorizontalStackLayout Spacing="5">
+                        <Image
+                            HeightRequest="24"
+                            Source="drag_vertical.png"
+                            VerticalOptions="Center"
+                            WidthRequest="24" />
+                        <VerticalStackLayout>
+                            <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                            <Label Style="{StaticResource SecondaryLabel}" Text="{Binding SingerName}" />
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
                 </Border>
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
@@ -212,9 +227,10 @@
 
                 <CollectionView
                     x:Name="SelectedMusicListCollectionView"
+                    CanReorderItems="True"
                     ItemTemplate="{StaticResource SelectedMusicListTemplate}"
-                    ItemsSource="{Binding RepertoireMusics, Mode=OneWay}"
-                    SelectionMode="Multiple" />
+                    ItemsSource="{Binding RepertoireMusics}"
+                    SelectionMode="None" />
 
                 <!--<ListView
                 x:Name="MusicListListView"

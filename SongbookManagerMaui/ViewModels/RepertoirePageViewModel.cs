@@ -78,27 +78,6 @@ namespace SongbookManagerMaui.ViewModels
                 var owner = LoggedUserHelper.GetEmail();
                 List<Repertoire> repertoireListUpdated = await _repertoireService.GetRepertoiresByDate(owner, CurrentDate);
 
-                if (repertoireListUpdated.Any())
-                {
-                    foreach (Repertoire repertoire in repertoireListUpdated)
-                    {
-                        if (repertoire.Musics != null)
-                        {
-                            foreach (MusicRep music in repertoire.Musics)
-                            {
-                                if (!string.IsNullOrEmpty(repertoire.SingerEmail))
-                                {
-                                    var key = await _keyService.GetKeyByUser(repertoire.SingerEmail, music.Name);
-                                    if (key != null)
-                                    {
-                                        music.SingerKey = key.Key;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
                 RepertoireList.Clear();
 
                 repertoireListUpdated.ForEach(i => RepertoireList.Add(i));
@@ -152,6 +131,35 @@ namespace SongbookManagerMaui.ViewModels
         {
             _repertoireService.SetRepertoire(null);
             await Shell.Current.GoToAsync($"{nameof(AddEditRepertoirePage)}");
+        }
+
+        [RelayCommand]
+        public async Task EditRepertoire(Repertoire repertoire)
+        {
+            if (repertoire != null)
+            {
+                _repertoireService.SetRepertoire(repertoire);
+                await Shell.Current.GoToAsync($"{nameof(AddEditRepertoirePage)}");
+            }
+        }
+
+        [RelayCommand]
+        public async Task RemoveRepertoire(Repertoire repertoire)
+        {
+            try
+            {
+                var result = await App.Current.MainPage.DisplayAlert(AppResources.AreYouShure, AppResources.AreYouShureRepertoireRemoved, AppResources.Yes, AppResources.No);
+
+                if (result)
+                {
+                    await _repertoireService.DeleteRepertoire(repertoire);
+                    RepertoireList.Remove(repertoire);
+                }
+            }
+            catch (Exception)
+            {
+                await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.CouldNotRemoveRepertoire, AppResources.Ok);
+            }
         }
 
         [RelayCommand]
