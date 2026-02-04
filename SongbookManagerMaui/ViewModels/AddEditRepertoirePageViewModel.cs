@@ -144,9 +144,7 @@ namespace SongbookManagerMaui.ViewModels
                 }
 
                 var userEmail = LoggedUserHelper.GetEmail();
-                List<Music> musicListFiltered = await _musicService.SearchMusic(term, userEmail);
-
-                FilteredMusicList = new(musicListFiltered);
+                FilteredMusicList = await _musicService.SearchMusic(term, userEmail);
             }
             catch (Exception)
             {

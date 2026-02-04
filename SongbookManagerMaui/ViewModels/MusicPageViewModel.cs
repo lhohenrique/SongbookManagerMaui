@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SongbookManagerMaui.Helpers;
 using SongbookManagerMaui.Models;
@@ -20,7 +21,7 @@ namespace SongbookManagerMaui.ViewModels
         #region Fields
         private IMusicService _musicService { get; set; }
         private bool _pageLoaded = false;
-        private List<Music> _allMusics;
+        private ObservableCollection<Music> _allMusics;
         #endregion
 
         #region Properties
@@ -57,9 +58,15 @@ namespace SongbookManagerMaui.ViewModels
             _musicService = musicService;
 
             MusicList = new ObservableCollection<Music>();
+            _musicService.Musics.CollectionChanged += OnMusicsCollectionChanged;
         }
 
         #region Methods
+        private void OnMusicsCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            MusicList = _musicService.Musics;
+        }
+
         protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
@@ -134,31 +141,32 @@ namespace SongbookManagerMaui.ViewModels
         private void HandleMusicCategories()
         {
             MusicList.Clear();
+            string category = "all";
 
+            if (IsAllChecked)
+            {
+                MusicList = _allMusics.ToObservableCollection();
+                return;
+            }
+            
             if (IsCelebrationChecked)
             {
-                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("Celebration")).ToList();
-                musics.ForEach(i => MusicList.Add(i));
+                category = "Celebration";
             }
             else if (IsWorshipChecked)
             {
-                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("Worship")).ToList();
-                musics.ForEach(i => MusicList.Add(i));
+                category = "Worship";
             }
             else if (IsCommunionChecked)
             {
-                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("Communion")).ToList();
-                musics.ForEach(i => MusicList.Add(i));
+                category = "Communion";
             }
             else if (IsHolySupperChecked)
             {
-                List<Music> musics = _allMusics.Where(m => m.Category is not null && m.Category.Contains("HolySupper")).ToList();
-                musics.ForEach(i => MusicList.Add(i));
+                category = "HolySupper";
             }
-            else
-            {
-                _allMusics.ForEach(i => MusicList.Add(i));
-            }
+
+            MusicList = _allMusics.Where(m => m.Category is not null && m.Category.Contains(category)).ToObservableCollection();
         }
 
         [RelayCommand]
@@ -172,20 +180,12 @@ namespace SongbookManagerMaui.ViewModels
                 }
 
                 var userEmail = LoggedUserHelper.GetEmail();
-                List<Music> musicListFiltered = await _musicService.SearchMusic(term, userEmail);
-
-                MusicList = new(musicListFiltered);
+                MusicList = await _musicService.SearchMusic(term, userEmail);
             }
             catch (Exception)
             {
                 await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.UnablePerformSearch, AppResources.Ok);
             }
-        }
-
-        [RelayCommand]
-        private async void ShareAsync()
-        {
-            await Shell.Current.GoToAsync($"{nameof(SharePage)}");
         }
 
         [RelayCommand]
@@ -233,9 +233,9 @@ namespace SongbookManagerMaui.ViewModels
         #region Public Methods
         public async Task LoadingPage()
         {
+            SelectedMusic = null;
             await UpdateMusicList();
             _pageLoaded = true;
-
         }
         #endregion
     }

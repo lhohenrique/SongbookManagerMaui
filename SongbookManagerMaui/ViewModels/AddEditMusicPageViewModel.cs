@@ -217,7 +217,6 @@ namespace SongbookManagerMaui.ViewModels
         {
             try
             {
-                Id = Music.Id;
                 Name = Music.Name;
                 Author = Music.Author;
                 Version = Music.Version;

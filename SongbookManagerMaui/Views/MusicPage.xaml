@@ -58,6 +58,37 @@
                 </VisualStateManager.VisualStateGroups>
             </Grid>
         </ControlTemplate>
+        <DataTemplate x:Key="MusicListTemplate">
+            <Border
+                Margin="0,5"
+                Padding="12"
+                BackgroundColor="{StaticResource White}"
+                Stroke="Transparent">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout>
+                    <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+                    <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                </VerticalStackLayout>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="SelectedState">
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+        </DataTemplate>
     </ContentPage.Resources>
 
     <!--<ContentPage.ToolbarItems>
@@ -164,14 +195,14 @@
                         Padding="0,0,0,2"
                         Command="{Binding UpdateMusicListCommand}"
                         IsRefreshing="{Binding IsUpdating, Mode=OneWay}">
-                        <ListView
-                            x:Name="MusicPageMusicListListView"
-                            HasUnevenRows="True"
+                        <CollectionView
+                            x:Name="MusicPageMusicListCollectionView"
                             Header="{Binding}"
+                            ItemTemplate="{StaticResource MusicListTemplate}"
                             ItemsSource="{Binding MusicList, Mode=OneWay}"
                             SelectedItem="{Binding SelectedMusic}"
-                            SeparatorVisibility="None">
-                            <ListView.HeaderTemplate>
+                            SelectionMode="Single">
+                            <CollectionView.HeaderTemplate>
                                 <DataTemplate>
                                     <ContentView>
                                         <Label
@@ -181,27 +212,8 @@
                                             Text="{Binding TotalMusics, StringFormat='Total: {0}'}" />
                                     </ContentView>
                                 </DataTemplate>
-                            </ListView.HeaderTemplate>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <Border
-                                            Margin="0,5"
-                                            Padding="12"
-                                            BackgroundColor="{StaticResource White}"
-                                            Stroke="Transparent">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="10" />
-                                            </Border.StrokeShape>
-                                            <VerticalStackLayout>
-                                                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
-                                                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
-                                            </VerticalStackLayout>
-                                        </Border>
-                                    </ViewCell>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
+                            </CollectionView.HeaderTemplate>
+                        </CollectionView>
                     </RefreshView>
                 </StackLayout>
             </ContentView>

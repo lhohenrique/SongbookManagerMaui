@@ -8,7 +8,7 @@ namespace SongbookManagerMaui.Models
 {
     public class Music
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Owner { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }

@@ -1,8 +1,10 @@
-﻿using Firebase.Database;
+﻿using CommunityToolkit.Maui.Core.Extensions;
+using Firebase.Database;
 using Firebase.Database.Query;
 using SongbookManagerMaui.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,8 +26,8 @@ namespace SongbookManagerMaui.Services
             set { music = value; }
         }
 
-        private List<Music> musics = new();
-        public List<Music> Musics
+        private ObservableCollection<Music> musics = new();
+        public ObservableCollection<Music> Musics
         {
             get { return musics; }
             set { musics = value;  }
@@ -38,11 +40,16 @@ namespace SongbookManagerMaui.Services
             client = new FirebaseClient("https://songbookmanagerlite-default-rtdb.firebaseio.com/");
         }
 
+        /// <summary>
+        /// Get all musics. Should be used just for Admin methods
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<Music>> GetMusics()
         {
             var musics = (await client.Child("Musics").OnceAsync<Music>())
                 .Select(item => new Music
                 {
+                    Id = item.Key,
                     Name = item.Object.Name,
                     Author = item.Object.Author,
                     Category = item.Object.Category,
@@ -58,34 +65,13 @@ namespace SongbookManagerMaui.Services
             return musics;
         }
 
-        public async Task<List<Music>> GetMusicsByUser(string userEmail, bool forceUpdate = false)
-        {
-            if (!Musics.Any() || forceUpdate)
-            {
-                Musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
-                {
-                    Name = item.Object.Name,
-                    Author = item.Object.Author,
-                    Category = item.Object.Category,
-                    Key = item.Object.Key,
-                    Lyrics = item.Object.Lyrics,
-                    Chords = item.Object.Chords,
-                    Owner = item.Object.Owner,
-                    Version = item.Object.Version,
-                    Notes = item.Object.Notes,
-                    CreationDate = item.Object.CreationDate
-                }).Where(m => m.Owner.Equals(userEmail)).ToList();
-            }
-            
-            return Musics;
-        }
-
-        public async Task<List<Music>> GetMusicsByUserDescending(string userEmail)
+        public async Task<ObservableCollection<Music>> GetMusicsByUser(string userEmail)
         {
             if (!Musics.Any())
             {
                 Musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
                 {
+                    Id = item.Key,
                     Name = item.Object.Name,
                     Author = item.Object.Author,
                     Category = item.Object.Category,
@@ -96,7 +82,30 @@ namespace SongbookManagerMaui.Services
                     Version = item.Object.Version,
                     Notes = item.Object.Notes,
                     CreationDate = item.Object.CreationDate
-                }).Where(m => m.Owner.Equals(userEmail)).OrderByDescending(m => m.CreationDate).ToList();
+                }).Where(m => m.Owner.Equals(userEmail)).ToObservableCollection();
+            }
+            
+            return Musics;
+        }
+
+        public async Task<ObservableCollection<Music>> GetMusicsByUserDescending(string userEmail)
+        {
+            if (!Musics.Any())
+            {
+                Musics = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
+                {
+                    Id = item.Key,
+                    Name = item.Object.Name,
+                    Author = item.Object.Author,
+                    Category = item.Object.Category,
+                    Key = item.Object.Key,
+                    Lyrics = item.Object.Lyrics,
+                    Chords = item.Object.Chords,
+                    Owner = item.Object.Owner,
+                    Version = item.Object.Version,
+                    Notes = item.Object.Notes,
+                    CreationDate = item.Object.CreationDate
+                }).Where(m => m.Owner.Equals(userEmail)).OrderByDescending(m => m.CreationDate).ToObservableCollection();
             }
 
             return Musics;
@@ -106,6 +115,7 @@ namespace SongbookManagerMaui.Services
         {
             var music = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
             {
+                Id = item.Key,
                 Name = item.Object.Name,
                 Author = item.Object.Author,
                 Category = item.Object.Category,
@@ -121,37 +131,41 @@ namespace SongbookManagerMaui.Services
             return music;
         }
 
-        public async Task<bool> InsertMusic(Music music)
+        public async Task InsertMusic(Music music)
         {
-            await client.Child("Musics").PostAsync(music);
-            Musics.Add(music);
-
-            return true;
+            var musicAdded = await client.Child("Musics").PostAsync(music);
+            
+            if(musicAdded != null)
+            {
+                music.Id = musicAdded.Key;
+                Musics.Insert(0, music);
+            }
         }
 
         public async Task UpdateMusic(Music music, string oldName)
         {
-            var musicToUpdate = (await client.Child("Musics").OnceAsync<Music>())
-                                                .Where(m => m.Object.Name.Equals(oldName) && m.Object.Owner.Equals(music.Owner)).FirstOrDefault();
+            await client.Child($"Musics/{music.Id}").PutAsync(music);
 
-            await client.Child("Musics").Child(musicToUpdate.Key).PutAsync(music);
-
-            GetMusicsByUser(music.Owner, true);
+            // Update service list
+            int index = Musics.IndexOf(music);
+            if(index != -1)
+            {
+                Musics.RemoveAt(index);
+                Musics.Insert(index, music);
+            }
         }
 
         public async Task DeleteMusic(Music music)
         {
-            var musicToDelete = (await client.Child("Musics").OnceAsync<Music>())
-                                                .Where(m => m.Object.Name.Equals(music.Name) && m.Object.Owner.Equals(music.Owner)).FirstOrDefault();
+            await client.Child($"Musics/{music.Id}").DeleteAsync();
 
-            await client.Child("Musics").Child(musicToDelete.Key).DeleteAsync();
-
-            GetMusicsByUser(music.Owner, true);
+            // Delete from service list
+            Musics.Remove(music);
         }
 
-        public async Task<List<Music>> SearchMusic(string searchText, string userEmail)
+        public async Task<ObservableCollection<Music>> SearchMusic(string searchText, string userEmail)
         {
-            return Musics.Where(m => m.Owner.Equals(userEmail) && m.Name.ToUpper().Contains(searchText.ToUpper())).OrderByDescending(m => m.CreationDate).ToList();
+            return Musics.Where(m => m.Owner.Equals(userEmail) && m.Name.ToUpper().Contains(searchText.ToUpper())).OrderByDescending(m => m.CreationDate).ToObservableCollection();
         }
 
         public async Task DeleteAll()
