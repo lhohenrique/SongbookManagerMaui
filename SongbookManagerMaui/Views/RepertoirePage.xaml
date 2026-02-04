@@ -75,7 +75,8 @@
             </StackLayout>
         </DataTemplate>
     </ContentPage.Resources>
-    <ContentPage.ToolbarItems>
+
+    <!--<ContentPage.ToolbarItems>
         <ToolbarItem
             Command="{Binding MostRecentOrderCommand}"
             Order="Secondary"
@@ -92,7 +93,7 @@
             Command="{Binding TutorialCommand}"
             Order="Secondary"
             Text="{x:Static resource:AppResources.Tutorial}" />
-    </ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>-->
 
     <ContentPage.Content>
         <AbsoluteLayout>

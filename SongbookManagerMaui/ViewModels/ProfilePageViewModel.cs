@@ -36,6 +36,8 @@ namespace SongbookManagerMaui.ViewModels
         [ObservableProperty]
         private ObservableCollection<string> menuList = new ObservableCollection<string>()
         {
+            AppResources.Share,
+            AppResources.Data,
             AppResources.ChangePassword,
             AppResources.Feedback,
             //AppResources.RateUs,
@@ -93,7 +95,19 @@ namespace SongbookManagerMaui.ViewModels
         }
 
         [RelayCommand]
-        public async Task ChangePassword()
+        private async void Share()
+        {
+            await Shell.Current.GoToAsync($"{nameof(SharePage)}");
+        }
+
+        [RelayCommand]
+        private async void Data()
+        {
+            await Shell.Current.GoToAsync($"{nameof(DataPage)}");
+        }
+
+        [RelayCommand]
+        public async void ChangePassword()
         {
             await Shell.Current.GoToAsync($"{nameof(ChangePasswordPage)}");
         }
@@ -173,7 +187,15 @@ namespace SongbookManagerMaui.ViewModels
         {
             if (!string.IsNullOrEmpty(SelectedMenu))
             {
-                if (SelectedMenu.Equals(AppResources.ChangePassword))
+                if (SelectedMenu.Equals(AppResources.Share))
+                {
+                    Share();
+                }
+                else if (SelectedMenu.Equals(AppResources.Data))
+                {
+                    Data();
+                }
+                else if (SelectedMenu.Equals(AppResources.ChangePassword))
                 {
                     ChangePassword();
                 }

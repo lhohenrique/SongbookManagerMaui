@@ -34,9 +34,6 @@ namespace SongbookManagerMaui.ViewModels
         private int totalMusics;
 
         [ObservableProperty]
-        private string searchText;
-
-        [ObservableProperty]
         private Music selectedMusic;
 
         [ObservableProperty]
@@ -165,7 +162,7 @@ namespace SongbookManagerMaui.ViewModels
         }
 
         [RelayCommand]
-        private async Task Search()
+        private async Task Search(string term)
         {
             try
             {
@@ -174,13 +171,10 @@ namespace SongbookManagerMaui.ViewModels
                     return;
                 }
 
-                //List<Music> musicListUpdated = await App.Database.SearchMusic(SearchText);
                 var userEmail = LoggedUserHelper.GetEmail();
-                List<Music> musicListUpdated = await _musicService.SearchMusic(SearchText, userEmail);
+                List<Music> musicListFiltered = await _musicService.SearchMusic(term, userEmail);
 
-                MusicList.Clear();
-
-                musicListUpdated.ForEach(i => MusicList.Add(i));
+                MusicList = new(musicListFiltered);
             }
             catch (Exception)
             {

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Shell.NavBarIsVisible="False"
     Style="{StaticResource BaseContentPage}">
 
@@ -61,11 +62,6 @@
 
     <!--<ContentPage.ToolbarItems>
         <ToolbarItem
-            Command="{Binding ShareAsyncCommand}"
-            IconImageSource="share.png"
-            Order="Primary"
-            Text="{x:Static resource:AppResources.Share}" />
-        <ToolbarItem
             Command="{Binding AlphabeticalOrderCommand}"
             Order="Secondary"
             Text="{x:Static resource:AppResources.SortByAlphabet}" />
@@ -97,11 +93,23 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="10" />
                         </Border.StrokeShape>
-                        <SearchBar
+                        <Entry
+                            Margin="7,0,7,0"
+                            IsEnabled="{Binding IsSearchEnabled}"
+                            Placeholder="{x:Static resource:AppResources.Search}">
+                            <Entry.Behaviors>
+                                <toolkit:UserStoppedTypingBehavior
+                                    Command="{Binding SearchCommand}"
+                                    MinimumLengthThreshold="3"
+                                    ShouldDismissKeyboardAutomatically="True"
+                                    StoppedTypingTimeThreshold="1000" />
+                            </Entry.Behaviors>
+                        </Entry>
+                        <!--<SearchBar
                             x:Name="MusicSearchBar"
                             Placeholder="{x:Static resource:AppResources.Search}"
                             Text="{Binding SearchText}"
-                            TextChanged="MusicSearchBar_TextChanged" />
+                            TextChanged="MusicSearchBar_TextChanged" />-->
                     </Border>
 
                     <StackLayout>
