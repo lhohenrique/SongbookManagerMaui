@@ -57,6 +57,9 @@ namespace SongbookManagerMaui.ViewModels
 
         [ObservableProperty]
         private bool isMusicsVisible = false;
+
+        [ObservableProperty]
+        private string serviceName = string.Empty;
         #endregion
 
         public AddEditRepertoirePageViewModel(IRepertoireService repertoireService, IMusicService musicService, IKeyService keyService, IUserService userService)
@@ -106,16 +109,18 @@ namespace SongbookManagerMaui.ViewModels
 
                 if (_repertoire != null)
                 {
+                    _repertoire.ServiceName = ServiceName;
                     _repertoire.Date = Date;
                     _repertoire.Time = Time;
                     _repertoire.Musics = RepertoireMusics.ToList();
 
-                    await _repertoireService.UpdateRepertoire(_repertoire, _oldDate, _oldTime);
+                    await _repertoireService.UpdateRepertoire(_repertoire);
                 }
                 else
                 {
                     Repertoire newRepertoire = new Repertoire()
                     {
+                        ServiceName = ServiceName,
                         Date = Date,
                         Time = Time,
                         Musics = RepertoireMusics.ToList(),
@@ -225,6 +230,7 @@ namespace SongbookManagerMaui.ViewModels
 
         private void LoadRepertoire()
         {
+            ServiceName = _repertoire.ServiceName;
             Date = _repertoire.Date;
             Time = _repertoire.Time;
 

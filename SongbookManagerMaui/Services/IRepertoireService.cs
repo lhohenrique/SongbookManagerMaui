@@ -25,9 +25,7 @@ namespace SongbookManagerMaui.Services
 
         Task<bool> InsertRepertoire(Repertoire repertoire);
 
-        Task UpdateRepertoire(Repertoire repertoire, DateTime oldDate, TimeSpan oldTime);
-
-        Task<List<Repertoire>> SearchRepertoire(string searchText, string owner);
+        Task UpdateRepertoire(Repertoire repertoire);
 
         Task DeleteRepertoire(Repertoire repertoire);
 

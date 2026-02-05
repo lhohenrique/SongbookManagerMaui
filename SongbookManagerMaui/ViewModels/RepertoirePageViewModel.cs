@@ -54,11 +54,7 @@ namespace SongbookManagerMaui.ViewModels
         protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-            if (e.PropertyName == nameof(SelectedRepertoire))
-            {
-                await SelectedRepertoireAsync();
-            }
-            else if (e.PropertyName == nameof(CurrentDate))
+            if (e.PropertyName == nameof(CurrentDate))
             {
                 await LoadRepertoire();
             }
@@ -93,35 +89,35 @@ namespace SongbookManagerMaui.ViewModels
             
         }
 
+        //[RelayCommand]
+        //private async Task Search()
+        //{
+        //    try
+        //    {
+        //        if (!_pageLoaded)
+        //        {
+        //            return;
+        //        }
+
+        //        var userEmail = LoggedUserHelper.GetEmail();
+        //        List<Repertoire> repertoireListUpdated = await _repertoireService.SearchRepertoire(SearchText, userEmail);
+
+        //        RepertoireList.Clear();
+
+        //        repertoireListUpdated.ForEach(i => RepertoireList.Add(i));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.UnablePerformSearch, AppResources.Ok);
+        //    }
+        //}
+
         [RelayCommand]
-        private async Task Search()
+        private async Task RepertoireTapped(Repertoire tappedItem)
         {
-            try
+            if (tappedItem != null)
             {
-                if (!_pageLoaded)
-                {
-                    return;
-                }
-
-                var userEmail = LoggedUserHelper.GetEmail();
-                List<Repertoire> repertoireListUpdated = await _repertoireService.SearchRepertoire(SearchText, userEmail);
-
-                RepertoireList.Clear();
-
-                repertoireListUpdated.ForEach(i => RepertoireList.Add(i));
-            }
-            catch (Exception)
-            {
-                await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.UnablePerformSearch, AppResources.Ok);
-            }
-        }
-
-        [RelayCommand]
-        private async Task SelectedRepertoireAsync()
-        {
-            if (SelectedRepertoire != null)
-            {
-                _repertoireService.SetRepertoire(SelectedRepertoire);
+                _repertoireService.SetRepertoire(tappedItem);
                 await Shell.Current.GoToAsync($"{nameof(PlayRepertoirePage)}");
             }
         }

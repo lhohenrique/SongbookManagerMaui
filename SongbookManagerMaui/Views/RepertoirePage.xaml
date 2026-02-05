@@ -7,6 +7,7 @@
     xmlns:models="clr-namespace:SongbookManagerMaui.Models"
     xmlns:resource="clr-namespace:SongbookManagerMaui.Resx"
     xmlns:viewmodels="clr-namespace:SongbookManagerMaui.ViewModels"
+    x:Name="RepertoireContainer"
     Style="{StaticResource BaseContentPage}">
 
     <ContentPage.Resources>
@@ -32,10 +33,17 @@
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10" />
                     </Border.StrokeShape>
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding BindingContext.RepertoireTappedCommand, Source={x:Reference RepertoireContainer}}" CommandParameter="{Binding .}" />
+                    </Border.GestureRecognizers>
 
                     <VerticalStackLayout Spacing="10">
                         <StackLayout Orientation="Horizontal">
-                            <Label Style="{StaticResource TitleLabel}" Text="{Binding TimeFormated}" />
+                            <Label Style="{StaticResource TitleLabel}" Text="{Binding ServiceName}" />
+                            <Label
+                                HorizontalOptions="EndAndExpand"
+                                Style="{StaticResource PrimaryLabel}"
+                                Text="{Binding TimeFormated}" />
                         </StackLayout>
 
                         <CollectionView
@@ -76,25 +84,6 @@
         </DataTemplate>
     </ContentPage.Resources>
 
-    <!--<ContentPage.ToolbarItems>
-        <ToolbarItem
-            Command="{Binding MostRecentOrderCommand}"
-            Order="Secondary"
-            Text="{x:Static resource:AppResources.SortByMostRecent}" />
-        <ToolbarItem
-            Command="{Binding OldestOrderCommand}"
-            Order="Secondary"
-            Text="{x:Static resource:AppResources.SortByOldest}" />
-        <ToolbarItem
-            Command="{Binding DataCommand}"
-            Order="Secondary"
-            Text="{x:Static resource:AppResources.Data}" />
-        <ToolbarItem
-            Command="{Binding TutorialCommand}"
-            Order="Secondary"
-            Text="{x:Static resource:AppResources.Tutorial}" />
-    </ContentPage.ToolbarItems>-->
-
     <ContentPage.Content>
         <AbsoluteLayout>
             <ContentView
@@ -127,9 +116,7 @@
                     <CollectionView
                         x:Name="RepertoireListView"
                         ItemTemplate="{StaticResource RepertoireTemplate}"
-                        ItemsSource="{Binding RepertoireList, Mode=OneWay}"
-                        SelectedItem="{Binding SelectedRepertoire}"
-                        SelectionMode="Single" />
+                        ItemsSource="{Binding RepertoireList, Mode=OneWay}" />
                 </StackLayout>
             </ContentView>
 

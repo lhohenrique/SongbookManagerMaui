@@ -1114,6 +1114,15 @@ namespace SongbookManagerMaui.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Service name.
+        /// </summary>
+        internal static string ServiceName {
+            get {
+                return ResourceManager.GetString("ServiceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         internal static string Settings {

@@ -123,7 +123,6 @@ namespace SongbookManagerMaui.ViewModels
             {
                 if (Repertoire != null)
                 {
-                    Name = Repertoire.SingerName;
                     Date = Repertoire.DateFormated;
                     Time = Repertoire.TimeFormated;
 
@@ -133,14 +132,14 @@ namespace SongbookManagerMaui.ViewModels
                     {
                         foreach (MusicRep music in Repertoire.Musics)
                         {
-                            if (!string.IsNullOrEmpty(Repertoire.SingerEmail))
-                            {
-                                var key = await _keyService.GetKeyByUser(Repertoire.SingerEmail, music.Name);
-                                if (key != null)
-                                {
-                                    music.SingerKey = key.Key;
-                                }
-                            }
+                            //if (!string.IsNullOrEmpty(Repertoire.SingerEmail))
+                            //{
+                            //    var key = await _keyService.GetKeyByUser(Repertoire.SingerEmail, music.Name);
+                            //    if (key != null)
+                            //    {
+                            //        music.SingerKey = key.Key;
+                            //    }
+                            //}
 
                             Musics.Add(music);
                         }
@@ -190,7 +189,7 @@ namespace SongbookManagerMaui.ViewModels
 
                     // Update Repertoire
                     Repertoire.Musics = Musics.ToList();
-                    await _repertoireService.UpdateRepertoire(Repertoire, Repertoire.Date, Repertoire.Time);
+                    await _repertoireService.UpdateRepertoire(Repertoire);
                 }
                 else
                 {

@@ -34,12 +34,12 @@ namespace SongbookManagerMaui.Services
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>())
                 .Select(item => new Repertoire
                 {
+                    Id = item.Key,
+                    ServiceName = item.Object.ServiceName,
                     Date = item.Object.Date,
                     Keys = item.Object.Keys,
                     Musics = item.Object.Musics,
                     Owner = item.Object.Owner,
-                    SingerName = item.Object.SingerName,
-                    SingerEmail = item.Object.SingerEmail,
                     Time = item.Object.Time
                 }).ToList();
 
@@ -50,12 +50,12 @@ namespace SongbookManagerMaui.Services
         {
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
             {
+                Id = item.Key,
+                ServiceName = item.Object.ServiceName,
                 Date = item.Object.Date,
                 Keys = item.Object.Keys,
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
-                SingerName = item.Object.SingerName,
-                SingerEmail = item.Object.SingerEmail,
                 Time = item.Object.Time
             }).Where(r => r.Owner.Equals(owner)).OrderByDescending(r => r.Date).ToList();
 
@@ -66,14 +66,14 @@ namespace SongbookManagerMaui.Services
         {
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
             {
+                Id = item.Key,
+                ServiceName = item.Object.ServiceName,
                 Date = item.Object.Date,
                 Keys = item.Object.Keys,
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
-                SingerName = item.Object.SingerName,
-                SingerEmail = item.Object.SingerEmail,
                 Time = item.Object.Time
-            }).Where(r => r.SingerEmail.Equals(singer)).ToList();
+            }).Where(r => r.Musics.FirstOrDefault(m => m.SingerName.Equals(singer)) != null).ToList();
 
             return repertoires;
         }
@@ -82,12 +82,12 @@ namespace SongbookManagerMaui.Services
         {
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
             {
+                Id = item.Key,
+                ServiceName = item.Object.ServiceName,
                 Date = item.Object.Date,
                 Keys = item.Object.Keys,
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
-                SingerName = item.Object.SingerName,
-                SingerEmail = item.Object.SingerEmail,
                 Time = item.Object.Time
             }).Where(r => r.Owner.Equals(owner) &&
                     r.Date >= startDate && r.Date <= endDate).ToList();
@@ -99,12 +99,12 @@ namespace SongbookManagerMaui.Services
         {
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
             {
+                Id = item.Key,
+                ServiceName = item.Object.ServiceName,
                 Date = item.Object.Date,
                 Keys = item.Object.Keys,
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
-                SingerName = item.Object.SingerName,
-                SingerEmail = item.Object.SingerEmail,
                 Time = item.Object.Time
             }).Where(r => r.Owner.Equals(owner) && (r.Date.Day == date.Day && r.Date.Month == date.Month && r.Date.Year == date.Year)).ToList();
 
@@ -115,14 +115,14 @@ namespace SongbookManagerMaui.Services
         {
             var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
             {
+                Id = item.Key,
+                ServiceName = item.Object.ServiceName,
                 Date = item.Object.Date,
                 Keys = item.Object.Keys,
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
-                SingerName = item.Object.SingerName,
-                SingerEmail = item.Object.SingerEmail,
                 Time = item.Object.Time
-            }).Where(r => r.SingerEmail.Equals(singer) &&
+            }).Where(r => r.Musics.FirstOrDefault(m => m.SingerName.Equals(singer)) != null &&
                     r.Date >= startDate && r.Date <= endDate).ToList();
 
             return repertoires;
@@ -133,41 +133,33 @@ namespace SongbookManagerMaui.Services
             await client.Child("Repertoires").PostAsync(repertoire);
 
             return true;
-
         }
 
-        public async Task UpdateRepertoire(Repertoire repertoire, DateTime oldDate, TimeSpan oldTime)
+        public async Task UpdateRepertoire(Repertoire repertoire)
         {
-            var repertoireToUpdate = (await client.Child("Repertoires").OnceAsync<Repertoire>())
-                                                .Where(r => r.Object.Date.Equals(oldDate) && r.Object.Time.Equals(oldTime) && r.Object.Owner.Equals(repertoire.Owner)).FirstOrDefault();
-
-            await client.Child("Repertoires").Child(repertoireToUpdate.Key).PutAsync(repertoire);
+            await client.Child($"Repertoires/{repertoire.Id}").PutAsync(repertoire);
         }
 
-        public async Task<List<Repertoire>> SearchRepertoire(string searchText, string owner)
-        {
-            var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
-            {
-                Date = item.Object.Date,
-                Keys = item.Object.Keys,
-                Musics = item.Object.Musics,
-                Owner = item.Object.Owner,
-                SingerName = item.Object.SingerName,
-                SingerEmail = item.Object.SingerEmail,
-                Time = item.Object.Time
-            }).Where(r => r.Owner.Equals(owner) &&
-                          (r.Date.ToString("dd MMMM").ToUpper().Contains(searchText.ToUpper()) ||
-                          r.SingerName.ToString().ToUpper().Contains(searchText.ToUpper()))).ToList();
+        //public async Task<List<Repertoire>> SearchRepertoire(string searchText, string owner)
+        //{
+        //    var repertoires = (await client.Child("Repertoires").OnceAsync<Repertoire>()).Select(item => new Repertoire
+        //    {
+        //        ServiceName = item.Object.ServiceName,
+        //        Date = item.Object.Date,
+        //        Keys = item.Object.Keys,
+        //        Musics = item.Object.Musics,
+        //        Owner = item.Object.Owner,
+        //        Time = item.Object.Time
+        //    }).Where(r => r.Owner.Equals(owner) &&
+        //                  (r.Date.ToString("dd MMMM").ToUpper().Contains(searchText.ToUpper()) ||
+        //                  r.SingerName.ToString().ToUpper().Contains(searchText.ToUpper()))).ToList();
 
-            return repertoires;
-        }
+        //    return repertoires;
+        //}
 
         public async Task DeleteRepertoire(Repertoire repertoire)
         {
-            var repertoireToDelete = (await client.Child("Repertoires").OnceAsync<Repertoire>())
-                                                .Where(r => r.Object.Date.Equals(repertoire.Date) && r.Object.Time.Equals(repertoire.Time) && r.Object.Owner.Equals(repertoire.Owner)).FirstOrDefault();
-
-            await client.Child("Repertoires").Child(repertoireToDelete.Key).DeleteAsync();
+            await client.Child($"Repertoires/{repertoire.Id}").DeleteAsync();
         }
 
         public async Task DeleteAll()

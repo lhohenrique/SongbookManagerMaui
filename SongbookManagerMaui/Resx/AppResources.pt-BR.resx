@@ -468,6 +468,9 @@
   <data name="SendRepertoire" xml:space="preserve">
     <value>Enviar repertório</value>
   </data>
+  <data name="ServiceName" xml:space="preserve">
+    <value>Nome do culto</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Configurações</value>
   </data>

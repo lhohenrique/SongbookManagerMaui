@@ -158,7 +158,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <HorizontalStackLayout Spacing="20">
+                    <Border Padding="5" BackgroundColor="{StaticResource White}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <Entry Placeholder="{x:Static resource:AppResources.ServiceName}" Text="{Binding ServiceName}" />
+                    </Border>
+
+                    <HorizontalStackLayout Grid.Row="1" Spacing="20">
                         <StackLayout>
                             <Label Style="{StaticResource SecondaryLabel}" Text="{x:Static resource:AppResources.Date}" />
                             <DatePicker Date="{Binding Date}" Format="dd MMM" />
@@ -171,7 +178,7 @@
                     </HorizontalStackLayout>
 
                     <ScrollView
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Margin="0,15"
                         Orientation="Horizontal">
                         <CollectionView

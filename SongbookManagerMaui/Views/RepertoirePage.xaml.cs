@@ -17,10 +17,9 @@ public partial class RepertoirePage : ContentPage
         await viewModel.LoadingPage();
     }
 
-    private void RepertoireSearchBar_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        var viewModel = (RepertoirePageViewModel)BindingContext;
-        viewModel.SearchCommand.Execute(null);
-    }
-
+    //private void RepertoireSearchBar_TextChanged(object sender, TextChangedEventArgs e)
+    //{
+    //    var viewModel = (RepertoirePageViewModel)BindingContext;
+    //    viewModel.SearchCommand.Execute(null);
+    //}
 }
