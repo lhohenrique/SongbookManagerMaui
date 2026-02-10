@@ -13,14 +13,18 @@ namespace SongbookManagerMaui.Services
 
         Task InsertKey(UserKey key);
 
-        Task<UserKey> GetKeyByUser(string userEmail, string musicName);
+        Task<UserKey> GetKeyByUser(string userEmail, string musicId);
 
-        Task<List<UserKey>> GetKeysByOwner(string musicOwner, string musicName);
+        Task<List<UserKey>> GetKeysByOwner(string musicOwner, string musicId);
 
         Task UpdateKey(UserKey key);
 
-        Task RemoveUserKeyByMusic(string musicOwner, string musicName);
+        Task RemoveUserKey(UserKey key);
+        
+        Task ClearMusicUserKey(string musicId);
 
         Task ClearUserKeys(string userEmail);
+
+        Task<List<UserKey>> GetAllKeys();
     }
 }

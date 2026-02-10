@@ -10,27 +10,33 @@
     <ContentPage.Resources>
         <ControlTemplate x:Key="RadioMenuTemplate">
             <Grid RowDefinitions="30,4">
-                <Label
-                    x:Name="TextLabel"
-                    HorizontalTextAlignment="Center"
-                    Text="{TemplateBinding Content}" />
-                <BoxView
-                    x:Name="Indicator"
-                    Grid.Row="1"
-                    Color="Transparent" />
+                <Border
+                    x:Name="MenuBoder"
+                    Margin="0,0,5,0"
+                    Padding="10,0,10,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <Label
+                        x:Name="TextLabel"
+                        HorizontalTextAlignment="Center"
+                        Style="{StaticResource PrimaryLabel}"
+                        Text="{TemplateBinding Content}"
+                        VerticalTextAlignment="Center" />
+                </Border>
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CheckedStates">
                             <VisualState x:Name="Checked">
                                 <VisualState.Setters>
-                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
-                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="{StaticResource White}" />
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource White}" />
+                                    <Setter TargetName="MenuBoder" Property="BackgroundColor" Value="{StaticResource Primary}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Unchecked">
                                 <VisualState.Setters>
-                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="Black" />
-                                    <Setter TargetName="Indicator" Property="BoxView.Color" Value="Transparent" />
+                                    <Setter TargetName="TextLabel" Property="Label.TextColor" Value="{StaticResource Black}" />
+                                    <Setter TargetName="MenuBoder" Property="BackgroundColor" Value="Transparent" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -51,40 +57,48 @@
             Order="Primary" />
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout>
-        <Grid Padding="10,10" RadioButtonGroup.GroupName="MenuCategories">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <RadioButton
-                Content="{x:Static resource:AppResources.Lyric}"
-                ControlTemplate="{StaticResource RadioMenuTemplate}"
-                IsChecked="{Binding IsLyricsChecked}" />
-            <RadioButton
-                Grid.Column="1"
-                Content="{x:Static resource:AppResources.Chords}"
-                ControlTemplate="{StaticResource RadioMenuTemplate}"
-                IsChecked="{Binding IsChordsChecked}" />
-        </Grid>
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid Padding="10,10" RadioButtonGroup.GroupName="MenuCategories">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <RadioButton
+                    Content="{x:Static resource:AppResources.Lyric}"
+                    ControlTemplate="{StaticResource RadioMenuTemplate}"
+                    IsChecked="{Binding IsLyricsChecked}" />
+                <RadioButton
+                    Grid.Column="1"
+                    Content="{x:Static resource:AppResources.Chords}"
+                    ControlTemplate="{StaticResource RadioMenuTemplate}"
+                    IsChecked="{Binding IsChordsChecked}" />
+            </Grid>
 
-        <ScrollView x:Name="LyricsScrollView" IsVisible="{Binding IsLyricsChecked, Mode=TwoWay}">
-            <StackLayout Padding="10" Spacing="10">
-                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
 
-                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
-
-                <Label Style="{StaticResource MediumLabel}" Text="{Binding Lyrics}" />
-            </StackLayout>
-        </ScrollView>
-
-        <ScrollView x:Name="ChordsScrollView" IsVisible="{Binding IsChordsChecked, Mode=TwoWay}">
-            <StackLayout Padding="10" Spacing="10">
-                <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
+            <VerticalStackLayout
+                Padding="10,0,10,10"
+                IsVisible="{Binding IsLyricsChecked, Mode=TwoWay}"
+                Spacing="0">
+                <Label Style="{StaticResource TitleLabel}" Text="{Binding Name}" />
 
                 <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
 
-                <StackLayout Orientation="Horizontal" Spacing="5">
+                <Label
+                    Margin="0,10,0,0"
+                    Style="{StaticResource MediumLabel}"
+                    Text="{Binding Lyrics}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Padding="10,0,10,10"
+                IsVisible="{Binding IsChordsChecked, Mode=TwoWay}"
+                Spacing="0">
+                <Label Style="{StaticResource TitleLabel}" Text="{Binding Name}" />
+
+                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+
+                <HorizontalStackLayout Spacing="5">
                     <Label
                         Padding="0,9,0,0"
                         Style="{StaticResource MediumLabel}"
@@ -95,10 +109,11 @@
                         HorizontalTextAlignment="Center"
                         ItemsSource="{Binding KeyList}"
                         SelectedItem="{Binding SelectedKey}" />
-                </StackLayout>
+                </HorizontalStackLayout>
 
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding Chords}" />
-            </StackLayout>
-        </ScrollView>
-    </VerticalStackLayout>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
 </ContentPage>

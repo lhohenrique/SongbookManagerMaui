@@ -25,7 +25,7 @@ namespace SongbookManagerMaui.Services
 
         Task InsertMusic(Music music);
 
-        Task UpdateMusic(Music music, string oldName);
+        Task UpdateMusic(Music music);
 
         Task DeleteMusic(Music music);
 

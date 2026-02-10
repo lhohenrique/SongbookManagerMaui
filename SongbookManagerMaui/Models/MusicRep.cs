@@ -12,7 +12,6 @@ namespace SongbookManagerMaui.Models
         public string Name { get; set; }
         public string Author { get; set; }
         public string SingerKey { get; set; }
-        public bool IsSelected { get; set; }
         public bool IsReordering { get; set; }
         public string SingerName { get; set; }
         public string SingerEmail { get; set; }

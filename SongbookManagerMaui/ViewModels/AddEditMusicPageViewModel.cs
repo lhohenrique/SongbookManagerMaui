@@ -21,7 +21,6 @@ namespace SongbookManagerMaui.ViewModels
         private IMusicService _musicService;
         private IUserService _userService;
         private IKeyService _keyService;
-        private string _oldName;
 
         private const string CATEGORY_CELEBRATION = "Celebration";
         private const string CATEGORY_WORSHIP = "Worship";
@@ -99,7 +98,6 @@ namespace SongbookManagerMaui.ViewModels
             _keyService = keyService;
 
             Music = _musicService.Music;
-            _oldName = Music?.Name;
         }
 
         #region Methods
@@ -127,7 +125,7 @@ namespace SongbookManagerMaui.ViewModels
                         Music.Category = GetCategory();
 
                         //await App.Database.UpdateMusic(music);
-                        await _musicService.UpdateMusic(Music, _oldName);
+                        await _musicService.UpdateMusic(Music);
 
                         foreach (UserKey userKey in UserList)
                         {
@@ -168,7 +166,7 @@ namespace SongbookManagerMaui.ViewModels
                         {
                             if (!string.IsNullOrEmpty(userKey.Key))
                             {
-                                userKey.MusicName = newMusic.Name;
+                                userKey.MusicId = newMusic.Id;
                                 await _keyService.InsertKey(userKey);
                             }
                         }
@@ -229,7 +227,7 @@ namespace SongbookManagerMaui.ViewModels
 
                 var musicOwner = LoggedUserHelper.GetEmail();
                 var sharedUsers = await _userService.GetSingers(musicOwner);
-                var usersKeys = await _keyService.GetKeysByOwner(musicOwner, Name);
+                var usersKeys = await _keyService.GetKeysByOwner(musicOwner, Music.Id);
 
                 foreach (User user in sharedUsers)
                 {
@@ -237,7 +235,7 @@ namespace SongbookManagerMaui.ViewModels
                     {
                         usersKeys.Add(new UserKey()
                         {
-                            MusicName = Name,
+                            MusicId = Music.Id,
                             UserName = user.Name,
                             UserEmail = user.Email,
                             MusicOwner = musicOwner
@@ -257,7 +255,6 @@ namespace SongbookManagerMaui.ViewModels
         {
             try
             {
-                Id = 0;
                 Name = string.Empty;
                 Author = string.Empty;
                 Version = string.Empty;

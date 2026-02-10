@@ -142,7 +142,7 @@ namespace SongbookManagerMaui.Services
             }
         }
 
-        public async Task UpdateMusic(Music music, string oldName)
+        public async Task UpdateMusic(Music music)
         {
             await client.Child($"Musics/{music.Id}").PutAsync(music);
 

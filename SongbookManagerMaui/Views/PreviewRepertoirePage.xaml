@@ -61,7 +61,6 @@
                 <ListView
                     x:Name="RepertoireMusicsListView"
                     HasUnevenRows="True"
-                    ItemTapped="RepertoireMusicsListView_ItemTapped"
                     ItemsSource="{Binding Musics, Mode=OneWay}"
                     SelectionMode="None"
                     SeparatorVisibility="Default">

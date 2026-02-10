@@ -170,12 +170,12 @@ namespace SongbookManagerMaui.ViewModels
         {
             try
             {
-                var usersToAdd = await _keyService.GetKeysByOwner(LoggedUserHelper.GetEmail(), Name);
+                var usersToAdd = await _keyService.GetKeysByOwner(LoggedUserHelper.GetEmail(), Music.Id);
 
                 UserList.Clear();
                 usersToAdd.ForEach(i => UserList.Add(i));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 await App.Current.MainPage.DisplayAlert(AppResources.Error, AppResources.UnableToLoadKeys, AppResources.Ok);
             }

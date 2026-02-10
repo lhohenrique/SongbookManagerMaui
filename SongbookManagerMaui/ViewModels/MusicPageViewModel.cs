@@ -58,15 +58,9 @@ namespace SongbookManagerMaui.ViewModels
             _musicService = musicService;
 
             MusicList = new ObservableCollection<Music>();
-            _musicService.Musics.CollectionChanged += OnMusicsCollectionChanged;
         }
 
         #region Methods
-        private void OnMusicsCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            MusicList = _musicService.Musics;
-        }
-
         protected override async void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
@@ -107,6 +101,7 @@ namespace SongbookManagerMaui.ViewModels
             await Shell.Current.GoToAsync($"{nameof(AddEditMusicPage)}");
         }
 
+        [RelayCommand]
         private async Task UpdateMusicList()
         {
             try

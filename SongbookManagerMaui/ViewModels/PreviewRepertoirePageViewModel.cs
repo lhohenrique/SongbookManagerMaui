@@ -160,54 +160,6 @@ namespace SongbookManagerMaui.ViewModels
 
             }
         }
-
-        public async Task SelectionChangedAction(MusicRep musicTapped, int musicTappedIndex)
-        {
-            try
-            {
-                if (musicTapped.IsReordering)
-                {
-                    musicTapped.IsReordering = false;
-
-                    Musics.RemoveAt(musicTappedIndex);
-                    Musics.Insert(musicTappedIndex, musicTapped);
-
-                    _isReordering = false;
-                    _musicToReorder = null;
-                    _musicIndexToReorder = -1;
-                }
-                else if (_isReordering)
-                {
-                    _musicToReorder.IsReordering = false;
-
-                    Musics.RemoveAt(_musicIndexToReorder);
-                    Musics.Insert(musicTappedIndex, _musicToReorder);
-
-                    _isReordering = false;
-                    _musicToReorder = null;
-                    _musicIndexToReorder = -1;
-
-                    // Update Repertoire
-                    Repertoire.Musics = Musics.ToList();
-                    await _repertoireService.UpdateRepertoire(Repertoire);
-                }
-                else
-                {
-                    musicTapped.IsReordering = true;
-
-                    Musics.RemoveAt(musicTappedIndex);
-                    Musics.Insert(musicTappedIndex, musicTapped);
-
-                    _isReordering = true;
-                    _musicToReorder = musicTapped;
-                    _musicIndexToReorder = musicTappedIndex;
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-        }
         #endregion
     }
 }

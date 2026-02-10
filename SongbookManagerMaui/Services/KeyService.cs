@@ -32,46 +32,52 @@ namespace SongbookManagerMaui.Services
             await client.Child("Keys").PostAsync(key);
         }
 
-        public async Task<UserKey> GetKeyByUser(string userEmail, string musicName)
+        public async Task<UserKey> GetKeyByUser(string userEmail, string musicId)
         {
             var key = (await client.Child("Keys").OnceAsync<UserKey>()).Select(item => new UserKey
             {
+                Id = item.Key,
                 Key = item.Object.Key,
                 UserEmail = item.Object.UserEmail,
                 UserName = item.Object.UserName,
                 MusicName = item.Object.MusicName,
-                MusicOwner = item.Object.MusicOwner
-            }).Where(k => k.UserEmail.Equals(userEmail) && k.MusicName.Equals(musicName)).FirstOrDefault();
+                MusicOwner = item.Object.MusicOwner,
+                MusicId = item.Object.MusicId
+            }).Where(k => k.UserEmail.Equals(userEmail) && k.MusicId.Equals(musicId)).FirstOrDefault();
 
             return key;
         }
 
-        public async Task<List<UserKey>> GetKeysByOwner(string musicOwner, string musicName)
+        public async Task<List<UserKey>> GetKeysByOwner(string musicOwner, string musicId)
         {
             var keys = (await client.Child("Keys").OnceAsync<UserKey>()).Select(item => new UserKey
             {
+                Id = item.Key,
                 Key = item.Object.Key,
                 UserEmail = item.Object.UserEmail,
                 UserName = item.Object.UserName,
                 MusicName = item.Object.MusicName,
-                MusicOwner = item.Object.MusicOwner
-            }).Where(k => k.MusicOwner.Equals(musicOwner) && k.MusicName.Equals(musicName)).ToList();
+                MusicOwner = item.Object.MusicOwner,
+                MusicId = item.Object.MusicId
+            }).Where(k => k.MusicOwner.Equals(musicOwner) && k.MusicId.Equals(musicId)).ToList();
 
             return keys;
         }
 
         public async Task UpdateKey(UserKey key)
         {
-            var keyToUpdate = (await client.Child("Keys").OnceAsync<UserKey>())
-                                                .Where(k => k.Object.UserEmail.Equals(key.UserEmail) && k.Object.MusicName.Equals(key.MusicName)).FirstOrDefault();
-
-            await client.Child("Keys").Child(keyToUpdate.Key).PutAsync(key);
+            await client.Child($"Keys/{key.Id}").PutAsync(key);
         }
 
-        public async Task RemoveUserKeyByMusic(string musicOwner, string musicName)
+        public async Task RemoveUserKey(UserKey key)
+        {
+            await client.Child($"Keys/{key.Id}").DeleteAsync();
+        }
+
+        public async Task ClearMusicUserKey(string musicId)
         {
             var keysToRemove = (await client.Child("Keys").OnceAsync<UserKey>())
-                                                .Where(k => k.Object.MusicOwner.Equals(musicOwner) && k.Object.MusicName.Equals(musicName)).ToList();
+                                                .Where(k => k.Object.MusicId.Equals(musicId)).ToList();
 
             foreach (var key in keysToRemove)
             {
@@ -88,6 +94,22 @@ namespace SongbookManagerMaui.Services
             {
                 await client.Child("Keys").Child(key.Key).DeleteAsync();
             }
+        }
+
+        public async Task<List<UserKey>> GetAllKeys()
+        {
+            var keys = (await client.Child("Keys").OnceAsync<UserKey>()).Select(item => new UserKey
+            {
+                Id = item.Key,
+                Key = item.Object.Key,
+                UserEmail = item.Object.UserEmail,
+                MusicId = item.Object.MusicId,
+                UserName = item.Object.UserName,
+                MusicName = item.Object.MusicName,
+                MusicOwner = item.Object.MusicOwner
+            }).ToList();
+
+            return keys;
         }
     }
 }
