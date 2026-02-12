@@ -89,7 +89,7 @@ namespace SongbookManagerMaui.Services
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
                 Time = item.Object.Time
-            }).Where(r => r.Owner.Equals(owner) &&
+            }).Where(r => r.Owner == owner &&
                     r.Date >= startDate && r.Date <= endDate).ToList();
 
             return repertoires;
@@ -122,7 +122,7 @@ namespace SongbookManagerMaui.Services
                 Musics = item.Object.Musics,
                 Owner = item.Object.Owner,
                 Time = item.Object.Time
-            }).Where(r => r.Musics.FirstOrDefault(m => m.SingerName.Equals(singer)) != null &&
+            }).Where(r => r.Musics.FirstOrDefault(m => m.SingerEmail == singer) != null &&
                     r.Date >= startDate && r.Date <= endDate).ToList();
 
             return repertoires;

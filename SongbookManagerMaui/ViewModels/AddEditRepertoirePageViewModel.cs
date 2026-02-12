@@ -100,7 +100,7 @@ namespace SongbookManagerMaui.ViewModels
             {
                 foreach(MusicRep music in RepertoireMusics)
                 {
-                    var key = await _keyService.GetKeyByUser(music.SingerEmail, music.Name);
+                    var key = await _keyService.GetKeyByUser(music.SingerEmail, music.MusicId);
                     if (key != null)
                     {
                         music.SingerKey = key.Key;
@@ -204,7 +204,7 @@ namespace SongbookManagerMaui.ViewModels
             {
                 Name = FilteredSelectedMusic.Name,
                 Author = FilteredSelectedMusic.Author,
-                Owner = FilteredSelectedMusic.Owner,
+                MusicId = FilteredSelectedMusic.Id,
                 SingerName = SelectedSinger.Name,
                 SingerEmail = SelectedSinger.Email
             });

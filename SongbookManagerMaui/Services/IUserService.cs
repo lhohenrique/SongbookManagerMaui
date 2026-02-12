@@ -9,7 +9,7 @@ namespace SongbookManagerMaui.Services
 {
     public interface IUserService
     {
-        Task<bool> LoginUser(string email, string password);
+        Task<User> LoginUser(string email, string password);
 
         Task<bool> RegisterUSer(string name, string email, string password);
 

@@ -39,15 +39,13 @@
                     Style="{StaticResource TitleLabel}"
                     Text="{x:Static resource:AppResources.MostPlayedSongs}" />
 
-                <ListView
+                <CollectionView
                     x:Name="DataMusicsListView"
-                    HasUnevenRows="True"
                     ItemsSource="{Binding MusicDataList, Mode=OneWay}"
-                    SelectionMode="None"
-                    SeparatorVisibility="Default">
-                    <ListView.ItemTemplate>
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <VerticalStackLayout Padding="0,5">
                                 <StackLayout Padding="0,5" Orientation="Horizontal">
                                     <Label Style="{StaticResource PrimaryLabel}" Text="{Binding Name}" />
                                     <Label
@@ -55,10 +53,11 @@
                                         Style="{StaticResource SecondaryLabel}"
                                         Text="{Binding Count}" />
                                 </StackLayout>
-                            </ViewCell>
+                                <Label Style="{StaticResource SecondaryLabel}" Text="{Binding Author}" />
+                            </VerticalStackLayout>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

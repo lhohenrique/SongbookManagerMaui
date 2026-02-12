@@ -14,5 +14,6 @@ namespace SongbookManagerMaui.Models
         public string Password { get; set; }
         public string SharedList { get; set; }
         public bool IsSinger { get; set; }
+        public DateTime LastLoggedIn { get; set; }
     }
 }

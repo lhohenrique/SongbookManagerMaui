@@ -45,11 +45,19 @@ namespace SongbookManagerMaui.Services
             }
         }
 
-        public async Task<bool> LoginUser(string email, string password)
+        public async Task<User> LoginUser(string email, string password)
         {
-            var user = (await client.Child("Users").OnceAsync<User>()).Where(u => u.Object.Email == email && u.Object.Password == password).FirstOrDefault();
+            var user = (await client.Child("Users").OnceAsync<User>()).Select(item => new User
+            {
+                Name = item.Object.Name,
+                Email = item.Object.Email,
+                Password = item.Object.Password,
+                SharedList = item.Object.SharedList,
+                IsSinger = item.Object.IsSinger,
+                LastLoggedIn = item.Object.LastLoggedIn
+            }).Where(u => u.Email == email && u.Password == password).FirstOrDefault();
 
-            return user != null;
+            return user;
         }
 
         public async Task<User> GetUser(string email)
@@ -60,7 +68,8 @@ namespace SongbookManagerMaui.Services
                 Email = item.Object.Email,
                 Password = item.Object.Password,
                 SharedList = item.Object.SharedList,
-                IsSinger = item.Object.IsSinger
+                IsSinger = item.Object.IsSinger,
+                LastLoggedIn = item.Object.LastLoggedIn
             }).Where(u => u.Email.Equals(email)).FirstOrDefault();
 
             return user;
@@ -74,7 +83,8 @@ namespace SongbookManagerMaui.Services
                 Email = item.Object.Email,
                 Password = item.Object.Password,
                 SharedList = item.Object.SharedList,
-                IsSinger = item.Object.IsSinger
+                IsSinger = item.Object.IsSinger,
+                LastLoggedIn = item.Object.LastLoggedIn
             }).Where(u => !string.IsNullOrEmpty(u.SharedList) && u.SharedList.Equals(email)).ToList();
 
             return users;
@@ -88,7 +98,8 @@ namespace SongbookManagerMaui.Services
                 Email = item.Object.Email,
                 Password = item.Object.Password,
                 SharedList = item.Object.SharedList,
-                IsSinger = item.Object.IsSinger
+                IsSinger = item.Object.IsSinger,
+                LastLoggedIn = item.Object.LastLoggedIn
             }).Where(u => u.IsSinger && (u.Email.Equals(email) || !string.IsNullOrEmpty(u.SharedList) && u.SharedList.Equals(email))).ToList();
 
             return users;
@@ -110,7 +121,8 @@ namespace SongbookManagerMaui.Services
                 Email = item.Object.Email,
                 Password = item.Object.Password,
                 SharedList = item.Object.SharedList,
-                IsSinger = item.Object.IsSinger
+                IsSinger = item.Object.IsSinger,
+                LastLoggedIn = item.Object.LastLoggedIn
             }).ToList();
 
             return users;

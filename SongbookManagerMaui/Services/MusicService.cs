@@ -111,7 +111,7 @@ namespace SongbookManagerMaui.Services
             return Musics;
         }
 
-        public async Task<Music> GetMusicByNameAndAuthor(string name, string author, string owner)
+        public async Task<Music> GetMusicById(string musicId)
         {
             var music = (await client.Child("Musics").OnceAsync<Music>()).Select(item => new Music
             {
@@ -126,7 +126,7 @@ namespace SongbookManagerMaui.Services
                 Version = item.Object.Version,
                 Notes = item.Object.Notes,
                 CreationDate = item.Object.CreationDate
-            }).Where(m => m.Owner.Equals(owner) && m.Name.Equals(name) && m.Author.Equals(author)).FirstOrDefault();
+            }).Where(m => m.Id == musicId).FirstOrDefault();
 
             return music;
         }

@@ -118,7 +118,8 @@ namespace SongbookManagerMaui.ViewModels
                     {
                         await LoggedUserHelper.UpdateLoggedUserAsync();
 
-                        var owner = LoggedUserHelper.GetEmail();   
+                        var owner = LoggedUserHelper.GetEmail();
+                        repertoireList = await _repertoireService.GetRepertoiresByPeriod(owner, start, end);
                     }
                     else
                     {
@@ -149,14 +150,17 @@ namespace SongbookManagerMaui.ViewModels
 
             foreach (MusicRep music in musics)
             {
-                int index = musicDataList.FindIndex(m => m.Name.Equals(music.Name));
-                if (index == -1)
+                if (SelectedSinger.Equals(AppResources.All) || music.SingerName == SelectedSinger)
                 {
-                    musicDataList.Add(new MusicData { Name = music.Name, Count = 1 });
-                }
-                else
-                {
-                    musicDataList[index].Count++;
+                    int index = musicDataList.FindIndex(m => m.MusicId != null && m.MusicId == music.MusicId);
+                    if (index == -1)
+                    {
+                        musicDataList.Add(new MusicData { Name = music.Name, Author = music.Author, Count = 1, MusicId = music.MusicId });
+                    }
+                    else
+                    {
+                        musicDataList[index].Count++;
+                    }
                 }
             }
 
@@ -188,7 +192,7 @@ namespace SongbookManagerMaui.ViewModels
             PeriodsList.Add(AppResources.LastMonth);
             PeriodsList.Add(AppResources.Last6Months);
             PeriodsList.Add(AppResources.LastYear);
-            PeriodsList.Add(AppResources.All);
+            //PeriodsList.Add(AppResources.All);
             //PeriodsList.Add(AppResources.Custom);
         }
 

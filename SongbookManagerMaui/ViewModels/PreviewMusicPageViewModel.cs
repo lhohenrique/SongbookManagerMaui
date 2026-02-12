@@ -133,6 +133,9 @@ namespace SongbookManagerMaui.ViewModels
                     if (result)
                     {
                         await _musicService.DeleteMusic(Music);
+
+                        // Remove all keys from this music
+                        await _keyService.ClearMusicUserKey(Music.Id);
                     }
                 }
                 catch (Exception)

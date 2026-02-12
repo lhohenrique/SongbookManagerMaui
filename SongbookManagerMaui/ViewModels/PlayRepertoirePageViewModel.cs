@@ -123,7 +123,7 @@ namespace SongbookManagerMaui.ViewModels
                     _musicList = new List<Music>();
                     foreach (MusicRep item in _repertoire.Musics)
                     {
-                        Music musicLoaded = await _musicService.GetMusicByNameAndAuthor(item.Name, item.Author, item.Owner);
+                        Music musicLoaded = await _musicService.GetMusicById(item.MusicId);
                         _musicList.Add(musicLoaded);
                     }
 

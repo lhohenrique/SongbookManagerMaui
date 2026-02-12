@@ -59,9 +59,9 @@ namespace SongbookManagerMaui.Helpers
                 foreach (MusicRep music in repertoire.Musics)
                 {
                     musicList += "\n- " + music.Name;
-                    if (!string.IsNullOrEmpty(music.Author))
+                    if (!string.IsNullOrEmpty(music.SingerName))
                     {
-                        musicList += " - " + music.Author;
+                        musicList += " - " + music.SingerName;
                     }
                     if (!string.IsNullOrEmpty(music.SingerKey))
                     {

@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SongbookManagerMaui.Models;
 using SongbookManagerMaui.Resx;
 using SongbookManagerMaui.Services;
 using SongbookManagerMaui.Views;
@@ -89,10 +90,13 @@ namespace SongbookManagerMaui.ViewModels
                 // Old DataBase structure
                 //User userLogged = await App.Database.LoginUser(Email, Password);
 
-                Result = await _userService.LoginUser(Email, Password);
+                User userLogged = await _userService.LoginUser(Email, Password);
 
-                if (Result)
+                if (userLogged != null)
                 {
+                    userLogged.LastLoggedIn = DateTime.Now;
+                    await _userService.UpdateUser(userLogged);
+
                     Preferences.Set("Email", Email);
                     await Shell.Current.GoToAsync($"//{nameof(MusicPage)}");
 
@@ -131,6 +135,13 @@ namespace SongbookManagerMaui.ViewModels
             }
             else
             {
+                User userLogged = await _userService.GetUser(loggedUserEmail);
+                if(userLogged != null)
+                {
+                    userLogged.LastLoggedIn = DateTime.Now;
+                    await _userService.UpdateUser(userLogged);
+                }
+
                 await Shell.Current.GoToAsync($"//{nameof(MusicPage)}");
             }
         }

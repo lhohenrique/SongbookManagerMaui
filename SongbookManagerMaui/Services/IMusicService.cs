@@ -21,7 +21,7 @@ namespace SongbookManagerMaui.Services
 
         Task<ObservableCollection<Music>> GetMusicsByUserDescending(string userEmail);
 
-        Task<Music> GetMusicByNameAndAuthor(string name, string author, string owner);
+        Task<Music> GetMusicById(string musicId);
 
         Task InsertMusic(Music music);
 
