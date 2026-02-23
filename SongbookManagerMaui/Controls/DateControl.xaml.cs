@@ -19,12 +19,15 @@ public partial class DateControl : ContentView
     public DateControl()
 	{
 		InitializeComponent();
-
-        LoadDates();
     }
     #endregion
 
     #region Methods
+    private void DateControlLoaded(object sender, EventArgs e)
+    {
+        LoadDates();
+    }
+
     private void LoadDates()
     {
         DateTime today = DateTime.Now;
@@ -117,7 +120,7 @@ public partial class DateControl : ContentView
 
     private void MondayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (MondayRadio is not null && MondayRadio.IsChecked)
+        if (MondayRadio is not null && MondayRadio.IsChecked && MondayRadio.Content != null)
         {
             Date = (DateTime)MondayRadio.Content;
         }
@@ -125,7 +128,7 @@ public partial class DateControl : ContentView
 
     private void TuesdayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (TuesdayRadio is not null && TuesdayRadio.IsChecked)
+        if (TuesdayRadio is not null && TuesdayRadio.IsChecked && TuesdayRadio.Content != null)
         {
             Date = (DateTime)TuesdayRadio.Content;
         }
@@ -133,7 +136,7 @@ public partial class DateControl : ContentView
 
     private void WednesdayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (WednesdayRadio is not null && WednesdayRadio.IsChecked)
+        if (WednesdayRadio is not null && WednesdayRadio.IsChecked && WednesdayRadio.Content != null)
         {
             Date = (DateTime)WednesdayRadio.Content;
         }
@@ -141,7 +144,7 @@ public partial class DateControl : ContentView
 
     private void ThursdayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (ThursdayRadio is not null && ThursdayRadio.IsChecked)
+        if (ThursdayRadio is not null && ThursdayRadio.IsChecked && ThursdayRadio.Content != null)
         {
             Date = (DateTime)ThursdayRadio.Content;
         }
@@ -149,7 +152,7 @@ public partial class DateControl : ContentView
 
     private void FridayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (FridayRadio is not null && FridayRadio.IsChecked)
+        if (FridayRadio is not null && FridayRadio.IsChecked && FridayRadio.Content != null)
         {
             Date = (DateTime)FridayRadio.Content;
         }
@@ -157,7 +160,7 @@ public partial class DateControl : ContentView
 
     private void SaturdayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (SaturdayRadio is not null && SaturdayRadio.IsChecked)
+        if (SaturdayRadio is not null && SaturdayRadio.IsChecked && SaturdayRadio.Content != null)
         {
             Date = (DateTime)SaturdayRadio.Content;
         }
@@ -165,7 +168,7 @@ public partial class DateControl : ContentView
 
     private void SundayRadio_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (SundayRadio is not null && SundayRadio.IsChecked)
+        if (SundayRadio is not null && SundayRadio.IsChecked && SundayRadio.Content != null)
         {
             Date = (DateTime)SundayRadio.Content;
         }

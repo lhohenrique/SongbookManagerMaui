@@ -167,6 +167,7 @@ namespace SongbookManagerMaui.ViewModels
                             if (!string.IsNullOrEmpty(userKey.Key))
                             {
                                 userKey.MusicId = newMusic.Id;
+                                userKey.MusicName = newMusic.Name;
                                 await _keyService.InsertKey(userKey);
                             }
                         }
@@ -236,6 +237,7 @@ namespace SongbookManagerMaui.ViewModels
                         usersKeys.Add(new UserKey()
                         {
                             MusicId = Music.Id,
+                            MusicName = Music.Name,
                             UserName = user.Name,
                             UserEmail = user.Email,
                             MusicOwner = musicOwner

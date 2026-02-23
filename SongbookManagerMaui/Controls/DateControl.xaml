@@ -3,7 +3,8 @@
     x:Class="SongbookManagerMaui.Controls.DateControl"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:SongbookManagerMaui.Converters">
+    xmlns:converters="clr-namespace:SongbookManagerMaui.Converters"
+    Loaded="DateControlLoaded">
 
     <ContentView.Resources>
         <converters:DayConverter x:Key="dayConverter" />

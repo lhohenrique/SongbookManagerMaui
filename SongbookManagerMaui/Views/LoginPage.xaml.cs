@@ -12,7 +12,7 @@ public partial class LoginPage : ContentPage
         BindingContext = new LoginPageViewModel(userService);
     }
 
-    protected override void OnAppearing()
+    private void LoginPageAppearing(object sender, EventArgs e)
     {
         var viewModel = (LoginPageViewModel)BindingContext;
         viewModel.OnAppearingAsync();

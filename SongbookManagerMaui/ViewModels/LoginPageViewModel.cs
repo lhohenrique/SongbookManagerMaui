@@ -126,8 +126,9 @@ namespace SongbookManagerMaui.ViewModels
 
         #region [Public Methods]
         public async void OnAppearingAsync()
-        {
-            var loggedUserEmail = Preferences.Get("Email", string.Empty);
+        {           
+            string loggedUserEmail = Preferences.Get("Email", string.Empty);
+            
             if (string.IsNullOrEmpty(loggedUserEmail))
             {
                 Email = string.Empty;
@@ -135,14 +136,14 @@ namespace SongbookManagerMaui.ViewModels
             }
             else
             {
+                await Shell.Current.GoToAsync($"//{nameof(MusicPage)}");
+
                 User userLogged = await _userService.GetUser(loggedUserEmail);
-                if(userLogged != null)
+                if (userLogged != null)
                 {
                     userLogged.LastLoggedIn = DateTime.Now;
                     await _userService.UpdateUser(userLogged);
                 }
-
-                await Shell.Current.GoToAsync($"//{nameof(MusicPage)}");
             }
         }
         #endregion

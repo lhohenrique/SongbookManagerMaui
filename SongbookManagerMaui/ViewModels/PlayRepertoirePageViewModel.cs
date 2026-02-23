@@ -158,6 +158,8 @@ namespace SongbookManagerMaui.ViewModels
             {
                 SelectedKey = music.Key;
             }
+
+            SetChords();
         }
 
         private void SetChords()

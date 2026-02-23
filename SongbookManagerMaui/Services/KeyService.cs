@@ -22,7 +22,7 @@ namespace SongbookManagerMaui.Services
 
         public async Task<bool> IsUserKeyExists(UserKey userKey)
         {
-            var key = (await client.Child("Keys").OnceAsync<UserKey>()).Where(u => u.Object.UserEmail.Equals(userKey.UserEmail) && u.Object.MusicName.Equals(userKey.MusicName)).FirstOrDefault();
+            var key = (await client.Child("Keys").OnceAsync<UserKey>()).Where(u => u.Object.UserEmail == userKey.UserEmail && u.Object.MusicId == userKey.MusicId).FirstOrDefault();
 
             return key != null;
         }
@@ -43,7 +43,7 @@ namespace SongbookManagerMaui.Services
                 MusicName = item.Object.MusicName,
                 MusicOwner = item.Object.MusicOwner,
                 MusicId = item.Object.MusicId
-            }).Where(k => k.UserEmail.Equals(userEmail) && k.MusicId.Equals(musicId)).FirstOrDefault();
+            }).Where(k => k.UserEmail.Equals(userEmail) && k.MusicId == musicId).FirstOrDefault();
 
             return key;
         }
@@ -59,7 +59,7 @@ namespace SongbookManagerMaui.Services
                 MusicName = item.Object.MusicName,
                 MusicOwner = item.Object.MusicOwner,
                 MusicId = item.Object.MusicId
-            }).Where(k => k.MusicOwner.Equals(musicOwner) && k.MusicId.Equals(musicId)).ToList();
+            }).Where(k => k.MusicOwner == musicOwner && k.MusicId == musicId).ToList();
 
             return keys;
         }
@@ -77,7 +77,7 @@ namespace SongbookManagerMaui.Services
         public async Task ClearMusicUserKey(string musicId)
         {
             var keysToRemove = (await client.Child("Keys").OnceAsync<UserKey>())
-                                                .Where(k => k.Object.MusicId.Equals(musicId)).ToList();
+                                                .Where(k => k.Object.MusicId == musicId).ToList();
 
             foreach (var key in keysToRemove)
             {
@@ -88,7 +88,7 @@ namespace SongbookManagerMaui.Services
         public async Task ClearUserKeys(string userEmail)
         {
             var keysToRemove = (await client.Child("Keys").OnceAsync<UserKey>())
-                                                .Where(k => k.Object.UserEmail.Equals(userEmail)).ToList();
+                                                .Where(k => k.Object.UserEmail == userEmail).ToList();
 
             foreach (var key in keysToRemove)
             {
